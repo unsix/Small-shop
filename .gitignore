@@ -10,10 +10,6 @@
 
 # production
 /build
-/.idea
-/.gradle
-/local.properties
-.gitignore
 
 # misc
 .DS_Store
@@ -25,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
