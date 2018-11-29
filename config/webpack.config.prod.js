@@ -50,10 +50,12 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
-// style files regexes
 const cssRegex = /\.css$/;
+// const cssRegex = /\.css$/;
+const cssRegexless = /\.(css|less)$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
+const lessModuleRegex = /\.module\.(css|less)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
@@ -260,7 +262,7 @@ module.exports = {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -373,6 +375,25 @@ module.exports = {
           // to compile SASS files into CSS.
           // By default we support SASS Modules with the
           // extensions .module.scss or .module.sass
+          {
+            test: cssRegexless,
+            exclude: cssModuleRegex,
+            use: getStyleLoaders({
+                importLoaders: 1,
+              },
+              'less-loader'),
+          },
+          {
+            test: lessModuleRegex,
+            use: getStyleLoaders(
+              {
+                importLoaders: 2,
+                modules: true,
+                getLocalIdent: getCSSModuleLocalIdent,
+              },
+              'less-loader'
+            ),
+          },
           {
             test: sassRegex,
             exclude: sassModuleRegex,
