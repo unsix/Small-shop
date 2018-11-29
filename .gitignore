@@ -10,6 +10,10 @@
 
 # production
 /build
+/.idea
+/.gradle
+/local.properties
+.gitignore
 
 # misc
 .DS_Store
