@@ -1,4 +1,5 @@
 import  React from 'react';
+import  axios from 'axios'
 import { Tabs } from 'antd';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 // import LogReg from '../../component/background/log_reg';
@@ -14,7 +15,21 @@ class LoginForm extends React.Component {
       }
     });
   }
+  componentDidMount(){
 
+    axios.get("/api/test/profile")
+      .then(res=>{
+        // if (res.status==200&&res.data.code===0) {
+        // 	dispatch(authSuccess(res.data.data))
+        // }else{
+        // 	dispatch(errorMsg(res.data.msg))
+        // }
+        console.log(res);
+
+      })
+
+
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const TabPane = Tabs.TabPane;
@@ -26,7 +41,7 @@ class LoginForm extends React.Component {
           <h1>邦邦商城</h1>
         </div>
         <Tabs defaultActiveKey="1" >
-          <TabPane tab="登录" key="1" >
+          <TabPane tab="账号密码登录" key="1" >
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
                 {getFieldDecorator('userName', {
@@ -60,7 +75,7 @@ class LoginForm extends React.Component {
               </FormItem>
             </Form>
           </TabPane>
-          <TabPane tab="注册" key="2">
+          <TabPane tab="短信验证码登录" key="2">
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
                 {getFieldDecorator('userName', {
