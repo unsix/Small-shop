@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LogReg from './component/background/log_reg'
-import './App.css';
+import './App.less';
 
 class App extends Component {
   render() {

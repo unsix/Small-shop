@@ -1,12 +1,16 @@
 import  React from 'react';
 import  axios from 'axios'
 import { Tabs } from 'antd';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 // import LogReg from '../../component/background/log_reg';
 import './login.less'
 
 
 class LoginForm extends React.Component {
+
+  state = {
+      count:0
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -14,6 +18,25 @@ class LoginForm extends React.Component {
         console.log('Received values of form: ', values);
       }
     });
+  }
+
+  //验证码移除还原
+  componentWillUnmount(){
+    clearInterval(this.interval)
+  }
+  //验证码读秒
+  onGetCapcha = () => {
+    let count = 59
+    this.setState({
+      count
+    })
+    this.interval = setInterval(()=>{
+      count -= 1
+      this.setState({count})
+      if(count===0){
+        clearInterval(this.interval)
+      }
+    },1000)
   }
   componentDidMount(){
 
@@ -32,6 +55,7 @@ class LoginForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {count} = this.state
     const TabPane = Tabs.TabPane;
     const FormItem = Form.Item;
     return (
@@ -62,50 +86,57 @@ class LoginForm extends React.Component {
                   valuePropName: 'checked',
                   initialValue: true,
                 })(
-                  <Checkbox>Remember me</Checkbox>
+                  <Checkbox>记住密码</Checkbox>
                 )}
                 <span className="login-form-forgot">
-               <a  href="">Forgot password</a>
+               <a  href="">忘记密码</a>
             </span>
-                <br/>
-                <Button  type="primary" htmlType="submit" className="login-form-button btn_280">
-                  Log in
-                </Button>
+
+                {/*<Button  type="primary" htmlType="submit" className="login-form-button btn_280">*/}
+                  {/*Log in*/}
+                {/*</Button>*/}
                 {/*Or <a href="">register now!</a>*/}
+              </FormItem>
+              <FormItem >
+                <Button type="primary" htmlType="submit" className="login-form-button btn_280">Register</Button>
               </FormItem>
             </Form>
           </TabPane>
           <TabPane tab="短信验证码登录" key="2">
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('phone', {
                   rules: [{ required: true, message: 'Please input your username!' }],
                 })(
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="phone" />
                 )}
               </FormItem>
-              <FormItem>
-                {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'Please input your Password!' }],
-                })(
-                  <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-                )}
+              <FormItem
+
+              >
+                <Row gutter={10}>
+                  <Col span={14}>
+                    {getFieldDecorator('captcha', {
+                      rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                    })(
+                      <Input placeholder="验证码"/>
+                    )}
+                  </Col>
+                  <Col  className="ml_9"  span={6}>
+                    <Button
+                      className="width_100"
+                      dissbled={count}
+                      onClick={this.onGetCapcha}
+                    >{count
+                      ?`${count}s`
+                      :'获取验证码'
+                    }
+                    </Button>
+                  </Col>
+                </Row>
               </FormItem>
-              <FormItem>
-                {getFieldDecorator('remember', {
-                  valuePropName: 'checked',
-                  initialValue: true,
-                })(
-                  <Checkbox>Remember me</Checkbox>
-                )}
-                <span className="login-form-forgot">
-               <a  href="">Forgot password</a>
-            </span>
-                <br/>
-                <Button  type="primary" htmlType="submit" className="login-form-button btn_280">
-                  regi ster
-                </Button>
-                {/*Or <a href="">register now!</a>*/}
+              <FormItem >
+                <Button type="primary" htmlType="submit" className="login-form-button btn_280">Register</Button>
               </FormItem>
             </Form>
           </TabPane>
