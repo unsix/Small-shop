@@ -4,11 +4,10 @@ import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 // import LogReg from '../../component/background/log_reg';
 import './login.less'
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
 
   state = {
-      type:'account',
-      count:0
+    count:0
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -71,40 +70,39 @@ class LoginForm extends React.Component {
           onTabChange={this.handleSubmit}
           onSubmit={this.handleSubmit}
         >
-          <TabPane tab="登录" key="account" >
+          <TabPane tab="短信验证码登录" key="phone">
             <Form  className="login-form">
               <FormItem>
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('phone', {
                   rules: [{ required: true, message: 'Please input your username!' }],
                 })(
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="phone" />
                 )}
               </FormItem>
-              <FormItem>
-                {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'Please input your Password!' }],
-                })(
-                  <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-                )}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator('remember', {
-                  valuePropName: 'checked',
-                  initialValue: true,
-                })(
-                  <Checkbox>记住密码</Checkbox>
-                )}
-                  <span className="login-form-forgot">
-                  <a  href="">忘记密码</a>
-                  </span>
-              </FormItem>
-              <FormItem >
-                <Button type="primary" htmlType="submit" className="login-form-button btn_280">登录</Button>
+              <FormItem
+              >
+                <Row gutter={10}>
+                  <Col span={14}>
+                    {getFieldDecorator('captcha', {
+                      rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                    })(
+                      <Input placeholder="验证码"/>
+                    )}
+                  </Col>
+                  <Col  className="ml_9"  span={6}>
+                    <Button
+                      className="width_100"
+                      dissbled={count}
+                      onClick={this.onGetCapcha}
+                    >{count
+                      ?`${count}s`
+                      :'获取验证码'
+                    }
+                    </Button>
+                  </Col>
+                </Row>
               </FormItem>
             </Form>
-          </TabPane>
-          <TabPane tab="注册" key="2"  >
-
           </TabPane>
         </Tabs>
       </div>
@@ -113,5 +111,5 @@ class LoginForm extends React.Component {
   }
 }
 
-const Login = Form.create()(LoginForm)
-export  default  Login
+const Register = Form.create()(RegisterForm)
+export  default  Register
