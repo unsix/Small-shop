@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
-import LogReg from './component/background/log_reg'
+import Header from './component/header'
 import NavLeft from './component/navleftlist'
-import './App.less';
+import './style/common.less'
+import { Row,Col } from 'antd';
 
 class App extends Component {
   render() {
     return (
       <div >
-       <NavLeft/>
+        <Row className="container">
+          <Col span="4" className="nav-left">
+            <NavLeft/>
+          </Col>
+          <Col span="20" className="main">
+            <Header/>
+            <Row className="content">
+              {/* <Home/> */}
+
+            </Row>
+          </Col>
+        </Row>
       </div>
     );
   }

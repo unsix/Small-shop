@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Icon } from 'antd';
 import Menulist from './../../config/menuConfig'
-
+import './index.less'
 class NavLeft extends React.Component {
   // state = {
   //   currentKey: ''
@@ -19,7 +19,7 @@ class NavLeft extends React.Component {
     return data.map((item)=>{
       if(item.children){
         return (
-          
+
           <SubMenu title={<span><Icon type={item.icon} />{item.title}</span> }  key={item.key}>
             { this.renderMenu(item.children)}
           </SubMenu>
@@ -34,17 +34,18 @@ class NavLeft extends React.Component {
   render() {
     // const SubMenu = Menu.SubMenu;
     return (
-      <div>
+      <div className="navmenu">
         {/*<NavLink to="/home" onClick={this.homeHandleClick}>*/}
           {/*<div className="logo">*/}
             {/*<img src="/assets/logo-ant.svg" alt=""/>*/}
             {/*<h1>Imooc MS</h1>*/}
           {/*</div>*/}
         {/*</NavLink>*/}
-        <div className="logo">
+        <div className="logo_img">
           <img src={require('../img/logo.jpg')} alt="" />
+         <span>邦邦商城</span>
         </div>
-        <div className="navmenu">
+        <div >
           <Menu
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub2']}
