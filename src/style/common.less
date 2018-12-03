@@ -13,16 +13,19 @@ ul,li{
   }
 }
 .container{
+  display: flex;
   .nav-left{
+    min-width: 180px;
     background-color:#001529;
     color: #ffffff;
     height: calc(100vh);
-    min-width: 250px;
   }
   .main{
+    flex: 1 1;
     height: calc(100vh);
     background-color: @colorL;
     overflow: auto;
+    display: inline-block;
   }
   .content{
     position: relative;

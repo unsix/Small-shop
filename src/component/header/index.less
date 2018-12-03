@@ -1,32 +1,25 @@
 @import './../../style/default.less';
 .header{
   background-color: @colorM;
+  box-shadow: 0 1px 4px rgba(0,21,41,.08);
   .header-top{
     height: 60px;
     line-height: 60px;
     padding: 0 20px;
-    text-align: right;
-    .logo{
-      line-height: 60px;
-      text-align: left;
-      font-size: 18px;
-      img{
-        height: 40px;
-        vertical-align: middle;
+    .header-top-nav{
+      text-align: right;
+      cursor: pointer;
+      .header-avatar{
+        margin: 0 10px 0 0;
       }
-      span{
-        margin-left: 5px;
-      }
-    }
-    a{
-      margin-left: 40px;
+
     }
   }
   .breadcrumb{
     height: 40px;
     line-height: 40px;
     padding: 0 20px;
-    border-top: 1px solid #f9c700;
+    //border-top: 1px solid @colorS;
     .breadcrumb-title{
       text-align: center;
       font-size: @fontC;
@@ -63,5 +56,15 @@
   .header-top{
     background:#1890ff;
     color:@colorM;
+  }
+}
+//下拉菜单
+.ant-dropdown-menu{
+  top: 21px;
+  width: 139px;
+  li{
+    span{
+      margin-left: 6px;
+    }
   }
 }

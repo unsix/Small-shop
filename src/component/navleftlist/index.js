@@ -19,31 +19,33 @@ class NavLeft extends React.Component {
     return data.map((item)=>{
       if(item.children){
         return (
-
           <SubMenu title={<span><Icon type={item.icon} />{item.title}</span> }  key={item.key}>
             { this.renderMenu(item.children)}
           </SubMenu>
         )
+        // if(item.children){
+        //   return (
+        //     <SubMenu title={item.title}  key={item.key}>
+        //       { this.renderMenu(item.children)}
+        //     </SubMenu>
+        //   )
+        // }
+        // return <SubMenu title={item.title}  key={item.key}>
+        //   {item.title}
+        // </SubMenu>
       }
       return <Menu.Item title={item.title} key={item.key}>
-
-       {item.title}
-      </Menu.Item>
+                {item.title}
+            </Menu.Item>
     })
   }
   render() {
     // const SubMenu = Menu.SubMenu;
     return (
-      <div className="navmenu">
-        {/*<NavLink to="/home" onClick={this.homeHandleClick}>*/}
-          {/*<div className="logo">*/}
-            {/*<img src="/assets/logo-ant.svg" alt=""/>*/}
-            {/*<h1>Imooc MS</h1>*/}
-          {/*</div>*/}
-        {/*</NavLink>*/}
-        <div className="logo_img">
+      <div>
+        <div className="logo">
           <img src={require('../img/logo.jpg')} alt="" />
-         <span>邦邦商城</span>
+         <h1>邦邦商城</h1>
         </div>
         <div >
           <Menu
@@ -56,7 +58,7 @@ class NavLeft extends React.Component {
           </Menu>
         </div>
       </div>
-    );
+    )
   }
 }
 export  default NavLeft
