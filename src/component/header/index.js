@@ -28,11 +28,14 @@ class Header extends React.Component{
     return(
       <div className="header">
         <Row className="header-top">
-          <Col span="24" className="header-top-nav">
-            <Avatar className="header-avatar">U</Avatar>
-            <Dropdown overlay={menu} trigger={['click']}>
-              <span>欢迎 jack Ma <Icon type="caret-down" /></span>
-            </Dropdown>
+          <Col span="3">
+            <h3 >邦邦商城管理系统</h3>
+          </Col>
+          <Col span="21" className="header-top-nav">
+              <Avatar style={{ backgroundColor: '#87d068' }} className="header-avatar">U</Avatar>
+              <Dropdown overlay={menu}>
+                  <span>欢迎 jack Ma <Icon type="caret-down" /></span>
+              </Dropdown>
           </Col>
         </Row>
         {/*<Row className="breadcrumb" span={4}>*/}
