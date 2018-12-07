@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom"
 import LogReg from '../../component/background/log_reg';
 import './login.less'
 
+
 @withRouter
 class LoginForm extends React.Component {
 

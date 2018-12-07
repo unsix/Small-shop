@@ -2,6 +2,7 @@ import React from 'react'
 import Apps from './Apps'
 import Admin from './admin'
 import App from './App'
+import Home from './container/home'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import LogReg  from './component/background/log_reg'
@@ -23,6 +24,7 @@ class ERouter extends React.Component{
             <Route path="/" render={()=>
               <App>
                 <Switch>
+                  <Route path="/home" component={Home} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route component={NoMatch} />
                 </Switch>
