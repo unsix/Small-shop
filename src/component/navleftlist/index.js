@@ -47,7 +47,7 @@ class NavLeft extends React.Component {
       <div>
         <div className="logo">
           <img src={require('../img/logo.jpg')} alt="" />
-         <h1>邦邦商城</h1>
+         <h1>五金商城</h1>
         </div>
         <div >
           <Menu

@@ -35,7 +35,7 @@ class Header extends React.Component{
       <div className="header">
         <Row className="header-top">
           <Col span="3">
-            <h3 >邦邦商城管理系统</h3>
+            <h3 >五金商城</h3>
           </Col>
           <Col span="21" className="header-top-nav">
               <Avatar style={{ backgroundColor: '#87d068' }} className="header-avatar">U</Avatar>

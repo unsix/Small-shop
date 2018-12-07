@@ -62,7 +62,7 @@ class Navlist extends React.Component {
           <Col span="8">
             <div className="logo">
               <img src={require('../img/logo.jpg')} alt="" />
-              <h1>邦邦商城</h1>
+              <h1>五金商城</h1>
             </div>
           </Col>
           <Col span="16">

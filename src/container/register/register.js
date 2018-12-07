@@ -71,62 +71,64 @@ class RegisterForm extends React.Component {
     return (
       <LogReg>
         <div className="container_login">
-          <div className="logo-top">
-            <img src={require('../../component/img/logo.jpg')} alt="" />
-            <h1>邦邦商城</h1>
+          <div className="content">
+            <div className="logo-top">
+              <img src={require('../../component/img/logo.jpg')} alt="" />
+              <h1>五金商城</h1>
+            </div>
+            <Tabs
+              defaultActiveKey={'phone'}
+            >
+              <TabPane tab="注册" key="phone">
+                <Form onSubmit={this.handleSubmit} className="login-form">
+                  <FormItem>
+                    {getFieldDecorator('phone', {
+                      rules: [{ required: true, message: '请输入手机号码!' }],
+                    })(
+                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="phone" />
+                    )}
+                  </FormItem>
+                  <FormItem
+                    clasName="code"
+                  >
+                    <Row  gutter={10}>
+                      <Col  span={14} >
+                        {getFieldDecorator('captcha', {
+                          rules: [{ required: true, message: '请输入验证码!' }],
+                        })(
+                          <Input  prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)',}} />}  placeholder="验证码"/>
+                          // <Input prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="验证码"/>
+                        )}
+                      </Col>
+                      <Col  className="ml_9"  span={6}>
+                        <Button
+                          className="width_100 height_36"
+                          dissbled={count}
+                          onClick={this.onGetCapcha}
+                        >{count
+                          ?`${count}s`
+                          :'获取验证码'
+                        }
+                        </Button>
+                      </Col>
+                    </Row>
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator('password', {
+                      rules: [{ required: true, message: '请输入密码!' }],
+                    })(
+                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                    )}
+                  </FormItem>
+                  <FormItem >
+                    <Button type="primary" htmlType="submit" className="login-form-button btn_280">注册</Button>
+                  </FormItem>
+                </Form>
+              </TabPane>
+            </Tabs>
+            <a>第三方登录</a>
+            <a onClick={this.Login} className="register">登录</a>
           </div>
-          <Tabs
-            defaultActiveKey={'phone'}
-          >
-            <TabPane tab="注册" key="phone">
-              <Form onSubmit={this.handleSubmit} className="login-form">
-                <FormItem>
-                  {getFieldDecorator('phone', {
-                    rules: [{ required: true, message: '请输入手机号码!' }],
-                  })(
-                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="phone" />
-                  )}
-                </FormItem>
-                <FormItem
-                  clasName="code"
-                >
-                  <Row  gutter={10}>
-                    <Col  span={14} >
-                      {getFieldDecorator('captcha', {
-                        rules: [{ required: true, message: '请输入验证码!' }],
-                      })(
-                        <Input  prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)',}} />}  placeholder="验证码"/>
-                        // <Input prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="验证码"/>
-                      )}
-                    </Col>
-                    <Col  className="ml_9"  span={6}>
-                      <Button
-                        className="width_100 height_36"
-                        dissbled={count}
-                        onClick={this.onGetCapcha}
-                      >{count
-                        ?`${count}s`
-                        :'获取验证码'
-                      }
-                      </Button>
-                    </Col>
-                  </Row>
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('password', {
-                    rules: [{ required: true, message: '请输入密码!' }],
-                  })(
-                    <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-                  )}
-                </FormItem>
-                <FormItem >
-                  <Button type="primary" htmlType="submit" className="login-form-button btn_280">注册</Button>
-                </FormItem>
-              </Form>
-            </TabPane>
-          </Tabs>
-          <a>第三方登录</a>
-          <a onClick={this.Login} className="register">登录</a>
         </div>
       </LogReg>
     );

@@ -62,49 +62,50 @@ class LoginForm extends React.Component {
     return (
       <LogReg>
         <div className="container_login">
-          <div className="logo-top">
-            <img src={require('../../component/img/logo.jpg')} alt="" />
-            <h1>五金商城</h1>
-          </div>
-          <Tabs
-            defaultActiveKey={'account'}
-
-          >
-            <TabPane tab="登录" key="account" >
-              <Form onSubmit={this.handleSubmit} className="login-form">
-                <FormItem>
-                  {getFieldDecorator('userName', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
-                  })(
-                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username/phone" />
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('password', {
-                    rules: [{ required: true, message: 'Please input your Password!' }],
-                  })(
-                    <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('remember', {
-                    valuePropName: 'checked',
-                    initialValue: true,
-                  })(
-                    <Checkbox >记住密码</Checkbox>
-                  )}
-                  <span className="login-form-forgot">
+          <div className="content">
+            <div className="logo-top">
+              <img src={require('../../component/img/logo.jpg')} alt="" />
+              <h1>五金商城</h1>
+            </div>
+            <Tabs
+              defaultActiveKey={'account'}
+            >
+              <TabPane tab="登录" key="account" >
+                <Form onSubmit={this.handleSubmit} className="login-form">
+                  <FormItem>
+                    {getFieldDecorator('userName', {
+                      rules: [{ required: true, message: '请输入账号!' }],
+                    })(
+                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username/phone" />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator('password', {
+                      rules: [{ required: true, message: '请输入密码!' }],
+                    })(
+                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator('remember', {
+                      valuePropName: 'checked',
+                      initialValue: true,
+                    })(
+                      <Checkbox >记住密码</Checkbox>
+                    )}
+                    <span className="login-form-forgot">
                   <a onClick={this.ForgotPwd}>忘记密码</a>
                   </span>
-                </FormItem>
-                <FormItem >
-                  <Button type="primary" htmlType="submit" className="login-form-button btn_280">登录</Button>
-                </FormItem>
-              </Form>
-            </TabPane>
-          </Tabs>
-          <a>第三方登录</a>
-          <a onClick={this.register} className="register">注册</a>
+                  </FormItem>
+                  <FormItem >
+                    <Button type="primary" htmlType="submit" className="login-form-button btn_280">登录</Button>
+                  </FormItem>
+                </Form>
+              </TabPane>
+            </Tabs>
+            <a>第三方登录</a>
+            <a onClick={this.register} className="register">注册</a>
+          </div>
         </div>
       </LogReg>
 
