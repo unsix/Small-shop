@@ -1,9 +1,11 @@
 import  React from 'react';
 import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
+import { withRouter } from "react-router-dom"
 // import LogReg from '../../component/background/log_reg';
 import './login.less'
 
+@withRouter
 class LoginForm extends React.Component {
 
   state = {
@@ -11,11 +13,11 @@ class LoginForm extends React.Component {
       count:0
   }
   handleSubmit = (e) => {
+    console.log(this.props)
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-
       }
     });
   }
@@ -64,15 +66,14 @@ class LoginForm extends React.Component {
       <div className="container_login">
         <div className="logo-top">
           <img src={require('../../component/img/logo.jpg')} alt="" />
-          <h1>邦邦商城</h1>
+          <h1>五金商城</h1>
         </div>
         <Tabs
           defaultActiveKey={type}
-          onTabChange={this.handleSubmit}
-          onSubmit={this.handleSubmit}
+
         >
           <TabPane tab="登录" key="account" >
-            <Form  className="login-form">
+            <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
                 {getFieldDecorator('userName', {
                   rules: [{ required: true, message: 'Please input your username!' }],
@@ -103,9 +104,9 @@ class LoginForm extends React.Component {
               </FormItem>
             </Form>
           </TabPane>
-          <TabPane tab="注册" key="2"  >
+          {/*<TabPane tab="注册" key="2"  >*/}
 
-          </TabPane>
+          {/*</TabPane>*/}
         </Tabs>
       </div>
 

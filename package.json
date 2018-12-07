@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.2.0",
     "@svgr/webpack": "2.4.1",
     "antd": "^3.10.9",
     "axios": "^0.18.0",
@@ -129,6 +130,18 @@
     ],
     "plugins": [
       [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      [
         "import",
         {
           "libraryName": "antd",
@@ -141,6 +154,7 @@
   "proxy": "http://localhost:9093",
   "devDependencies": {
     "@babel/plugin-transform-react-jsx-source": "^7.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "http-proxy-middleware": "^0.19.1",
     "mockjs": "^1.0.1-beta3"
   }

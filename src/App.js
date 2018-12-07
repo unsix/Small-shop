@@ -16,6 +16,7 @@ class App extends Component {
             <Header/>
             <Row className="content">
               {/* <Home/> */}
+              {this.props.children}
 
             </Row>
           </Col>
