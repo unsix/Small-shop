@@ -1,8 +1,10 @@
 import React from 'react'
 import Apps from './Apps'
 import Login from './container/login/login'
+import Register from './container/register/register'
 import NoMatch from './component/nomatch'
 import LogReg  from './component/background/log_reg'
+
 import Admin from './admin'
 import App from './App'
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
@@ -14,7 +16,8 @@ class ERouter extends React.Component{
       <HashRouter>
         <Apps>
           <Switch>
-            <Route path="/login" component={LogReg} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route path="/" render={()=>
               <App>
                 <Switch>

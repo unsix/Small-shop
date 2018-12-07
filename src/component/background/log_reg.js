@@ -7,7 +7,7 @@ class LogReg extends React.Component {
     return(
       <div className="container">
         <div className="ground-container">
-          <Login />
+          {this.props.children}
         </div>
       </div>
     )

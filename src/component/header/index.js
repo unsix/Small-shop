@@ -1,11 +1,15 @@
 import React from 'react'
 import { Menu, Dropdown, Icon,Row,Col,Avatar } from 'antd';
 import './index.less'
+import { withRouter } from "react-router-dom"
 
-
-
+@withRouter
 class Header extends React.Component{
 
+
+  logout = () => {
+    this.props.history.push('/login')
+  }
   render(){
     //下单menu
     const menu = (
@@ -20,8 +24,10 @@ class Header extends React.Component{
           <a href="http://www.tmall.com/"><span>设置</span></a>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item>
-          <a href="http://www.tmall.com/"><Icon type="logout" /><span>退出登录</span></a>
+        <Menu.Item
+
+        >
+          <a onClick={this.logout}><Icon type="logout" /><span>退出登录</span></a>
         </Menu.Item>
       </Menu>
     );
