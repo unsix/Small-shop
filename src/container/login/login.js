@@ -12,6 +12,10 @@ class LoginForm extends React.Component {
       count:0,
       autoLogin:true,
   }
+  //忘记密码
+  ForgotPwd = () => {
+    this.props.history.push('/forgotpwd')
+  }
   //注册跳转
   register = () => {
     this.props.history.push('/register')
@@ -35,24 +39,7 @@ class LoginForm extends React.Component {
   onTabChange = type => {
     this.setState({type})
   }
-  //验证码移除还原
-  componentWillUnmount(){
-    clearInterval(this.interval)
-  }
-  //验证码读秒
-  onGetCapcha = () => {
-    let count = 59
-    this.setState({
-      count
-    })
-    this.interval = setInterval(()=>{
-      count -= 1
-      this.setState({count})
-      if(count===0){
-        clearInterval(this.interval)
-      }
-    },1000)
-  }
+
   componentDidMount(){
 
     axios.get("/api/test/profile")
@@ -70,7 +57,6 @@ class LoginForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const {autoLogin} = this.state
     const TabPane = Tabs.TabPane;
     const FormItem = Form.Item;
     return (
@@ -108,7 +94,7 @@ class LoginForm extends React.Component {
                     <Checkbox >记住密码</Checkbox>
                   )}
                   <span className="login-form-forgot">
-                  <a>忘记密码</a>
+                  <a onClick={this.ForgotPwd}>忘记密码</a>
                   </span>
                 </FormItem>
                 <FormItem >
@@ -117,7 +103,7 @@ class LoginForm extends React.Component {
               </Form>
             </TabPane>
           </Tabs>
-          <a>第三方登入</a>
+          <a>第三方登录</a>
           <a onClick={this.register} className="register">注册</a>
         </div>
       </LogReg>

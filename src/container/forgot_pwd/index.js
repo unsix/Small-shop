@@ -6,17 +6,11 @@ import './index.less'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
-class RegisterForm extends React.Component {
+class ForgotPwdForm extends React.Component {
 
   state = {
     count:0
   }
-
-  //跳转登录
-  Login = () => {
-    this.props.history.push('/login')
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -120,18 +114,16 @@ class RegisterForm extends React.Component {
                   )}
                 </FormItem>
                 <FormItem >
-                  <Button type="primary" htmlType="submit" className="login-form-button btn_280">注册</Button>
+                  <Button type="primary" htmlType="submit" className="login-form-button btn_280">完成</Button>
                 </FormItem>
               </Form>
             </TabPane>
           </Tabs>
-          <a>第三方登录</a>
-          <a onClick={this.Login} className="register">登录</a>
         </div>
       </LogReg>
     );
   }
 }
 
-const Register = Form.create()(RegisterForm)
-export  default  Register
+const ForgotPwd = Form.create()(ForgotPwdForm)
+export  default  ForgotPwd
