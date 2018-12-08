@@ -34,6 +34,10 @@ const menuList = [
     key: '/home',
   },
   {
+    title: '搜索',
+    key: '/search',
+  },
+  {
     title: 'UI',
     key: '/ui',
     children: [
