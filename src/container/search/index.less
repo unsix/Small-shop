@@ -4,17 +4,21 @@
   position: relative;
   background: #f0f2f5;
   .ground-container {
-
     .ant-select{
       width: 100%;
      margin-bottom: 10px;
     }
+    .ant-select-selection--multiple{
+      border-radius: 20px;
+    }
+
     .ant-select-selection--multiple .ant-select-selection__rendered{
       height: 35px;
     }
     .ant-card-grid{
       width: 23%;
       margin: 1%;
+      cursor: pointer;
     }
     .select_choice{
       width: 100px !important;
@@ -23,8 +27,133 @@
 
        }
     }
+    .ant-select-open{
 
+    }
   }
-
-
+  //商品排序
+  .sort_shop{
+    margin-top: 50px;
+    text-align: center;
+    h3{
+      width: 150px;
+      display: inline-block;
+      font-weight: normal;
+    }
+    h3:hover{
+      color: #f36720;
+      cursor: pointer;
+    }
+  }
+  // 购物车全
+  .shop_selected_bands{
+    margin-top: 20px;
+    text-align: left;
+    border-bottom: 2px #eee solid;
+    h2{
+      text-align: center;
+    }
+    .ant-card-bordered{
+      display: inline-block;
+      margin: 20px 10px;
+      height: 360px;
+    }
+    .ant-card-cover img {
+      height: 200px;
+      border-bottom: 3px #eee solid;
+    }
+    .shop_des{
+      .ant-card-meta{
+        margin-top: -10px 0  0 0 ;
+      }
+      .ant-card-meta-title{
+        color: rgba(255,0,0,.7);
+        letter-spacing: -1px ;
+        span{
+          font-size: 15px;
+          s{
+            color: rgba(0,0,0,0.22);
+            font-size: 9px;
+            margin-left: 5px;
+          }
+        }
+      }
+      .ant-card-meta-description{
+        color: rgba(0,0,0,.7);
+      }
+      text-align: left;
+    }
+    .shop_cart{
+      margin-top: 15px;
+      display: inline-block;
+      img{
+        width: 32px;
+      }
+    }
+  }
+  .relevant{
+    display: inline-block;
+    .ant-card-bordered{
+      width: 100px;
+      display: inline-block;
+      margin: 20px 10px;
+      height: 90px;
+      img{
+       width: 100px;
+        height: 90px;
+      }
+    }
+  }
+}
+//模态框
+.ant-modal-content{
+  text-align: c;
+  width: 570px;
+}
+.ant-modal-body{
+  .shop_selected_bands{
+    margin-top: 20px;
+    text-align: left;
+    border-bottom: 2px #eee solid;
+    h2{
+      text-align: center;
+    }
+    .ant-card-bordered{
+      display: inline-block;
+      margin: 20px 9px;
+      height: 360px;
+    }
+    .ant-card-cover img {
+      height: 200px;
+      border-bottom: 3px #eee solid;
+    }
+    .shop_des{
+      .ant-card-meta{
+        margin-top: -10px 0  0 0 ;
+      }
+      .ant-card-meta-title{
+        color: rgba(255,0,0,.7);
+        letter-spacing: -1px ;
+        span{
+          font-size: 15px;
+          s{
+            color: rgba(0,0,0,0.22);
+            font-size: 9px;
+            margin-left: 5px;
+          }
+        }
+      }
+      .ant-card-meta-description{
+        color: rgba(0,0,0,.7);
+      }
+      text-align: left;
+    }
+    .shop_cart{
+      margin-top: 15px;
+      display: inline-block;
+      img{
+        width: 32px;
+      }
+    }
+  }
 }

@@ -8,8 +8,9 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import LogReg  from './component/background/log_reg'
 import ForgotPwd  from './container/forgot_pwd'
-
 import NoMatch from './component/nomatch'
+
+import ShopCart from './container/shop_cart'
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class ERouter extends React.Component{
@@ -28,6 +29,7 @@ class ERouter extends React.Component{
                   <Route path="/home" component={Home} />
                   <Route path="/search" component={Seahch} />
                   <Route path="/ui/buttons" component={Login} />
+                  <Route path="/shopcart" component={ShopCart} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

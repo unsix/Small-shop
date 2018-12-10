@@ -38,6 +38,10 @@ const menuList = [
     key: '/search',
   },
   {
+    title: '购物车',
+    key: '/shopcart',
+  },
+  {
     title: 'UI',
     key: '/ui',
     children: [
