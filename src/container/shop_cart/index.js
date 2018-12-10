@@ -16,24 +16,28 @@ class ShopCart extends React.Component {
         name: 'John Brown',
         brand: 32,
         unit:'mm',
+        number:0,
         Specifications: 'New York No. 1 Lake Park',
       }, {
         key: '2',
         name: 'Jim Green',
         brand: 42,
         unit:'m',
+        number:0,
         Specifications: 'London No. 1 Lake Park',
       }, {
         key: '3',
         name: 'Joe Black',
         brand: 32,
         unit:'cm',
+        number:0,
         Specifications: 'Sidney No. 1 Lake Park',
       }, {
         key: '4',
         name: 'Disabled User',
         brand: 99,
         unit:'mm',
+        number:0,
         Specifications: 'Sidney No. 1 Lake Park',
       }]
 
@@ -58,20 +62,24 @@ class ShopCart extends React.Component {
     this.setState({ selectedRowKeys });
   }
   //购物车+
-  addSum = (record) => {
-    const nextSum = this.state.sum + 1
+  addSum = (value,record) => {
+    console.log(record)
+    record.number = value + 1
+    // record.forEach((i)=>{
+    //   i.number = this.state.sum + 1
+    // })
     this.setState({
-      sum:nextSum
+      value:record.number
     })
   }
   //购物车-
-  reduceSum = () => {
-    const nextSum = this.state.sum - 1
-    if (nextSum>0){
+  reduceSum = (value,record) => {
+    record.number = value - 1
+    if (record.number>0){
       this.setState({
-        sum:nextSum
+        value:record.number
       })
-      console.log(nextSum)
+      console.log(record.number,record)
     }
   }
   //删除
@@ -105,9 +113,9 @@ class ShopCart extends React.Component {
         render:(value,record) => {
          return(
            <div>
-             <Button onClick={this.addSum}>+</Button>
-             <Button>{this.state.sum}</Button>
-             <Button onClick={this.reduceSum}>-</Button>
+             <Button onClick={()=>this.addSum(value,record)}>+</Button>
+             <Button>{value}</Button>
+             <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
            </div>
          )
         }
