@@ -11,33 +11,38 @@ class ShopCart extends React.Component {
       selectedRowKeys: [], // Check here to configure the default column
       loading: false,
       sum:0,
+      allprice:0,
       data:[{
         key: '1',
         name: 'John Brown',
         brand: 32,
-        unit:'mm',
-        number:0,
+        unit:10,
+        number:1,
+        price:10,
         Specifications: 'New York No. 1 Lake Park',
       }, {
         key: '2',
         name: 'Jim Green',
         brand: 42,
-        unit:'m',
-        number:0,
+        unit:20,
+        number:1,
+        price:20,
         Specifications: 'London No. 1 Lake Park',
       }, {
         key: '3',
         name: 'Joe Black',
         brand: 32,
-        unit:'cm',
-        number:0,
+        unit:30,
+        number:1,
+        price:30,
         Specifications: 'Sidney No. 1 Lake Park',
       }, {
         key: '4',
         name: 'Disabled User',
         brand: 99,
-        unit:'mm',
-        number:0,
+        unit:40,
+        number:1,
+        price:40,
         Specifications: 'Sidney No. 1 Lake Park',
       }]
 
@@ -57,27 +62,37 @@ class ShopCart extends React.Component {
     }, 1000);
   }
 
-  onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({ selectedRowKeys });
+  onSelectChange = (selectedRowKeys,selectedRows) => {
+    console.log('selectedRowKeys changed: ', selectedRowKeys,'selectedRows',selectedRows);
+    let allprice = this.state.allprice
+    // selectedRows.forEach(i=>{
+    //   console.log(i)
+    //   allprice += i.price
+    // })
+    allprice= selectedRows.reduce((total, item) => total + item.price, 0)
+    this.setState({
+      selectedRowKeys,
+      allprice
+    });
   }
   //购物车+
   addSum = (value,record) => {
-    console.log(record)
     record.number = value + 1
-    // record.forEach((i)=>{
-    //   i.number = this.state.sum + 1
-    // })
+    record.price = record.number*record.unit
+    let allprice = this.state.allprice
     this.setState({
-      value:record.number
+      value:record.number,
+      allprice
     })
   }
   //购物车-
   reduceSum = (value,record) => {
     record.number = value - 1
+    record.price = record.number*record.unit
     if (record.number>0){
       this.setState({
         value:record.number
+
       })
       console.log(record.number,record)
     }
@@ -104,7 +119,7 @@ class ShopCart extends React.Component {
         dataIndex: 'Specifications',
       },
       {
-        title: '单位',
+        title: '单价',
         dataIndex: 'unit',
       },
       {
@@ -119,6 +134,10 @@ class ShopCart extends React.Component {
            </div>
          )
         }
+      },
+      {
+        title: '价格',
+        dataIndex: 'price',
       },
       {
         title: '操作',
@@ -145,19 +164,26 @@ class ShopCart extends React.Component {
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
-          {/*<Button*/}
-            {/*type="primary"*/}
-            {/*onClick={this.start}*/}
-            {/*disabled={!hasSelected}*/}
-            {/*loading={loading}*/}
-          {/*>*/}
-            {/*Reload*/}
-          {/*</Button>*/}
+          <Button
+            type="primary"
+            onClick={this.start}
+            disabled={!hasSelected}
+            loading={loading}
+
+          >
+            结算
+          </Button>
+          <span>合计金额:{this.state.allprice}</span>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
           </span>
         </div>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data} onDelete={this.onDelete}/>
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={this.state.data}
+          onDelete={this.onDelete}
+        />
       </div>
     );
   }
