@@ -4,6 +4,7 @@ import Admin from './admin'
 import App from './App'
 import Home from './container/home'
 import Seahch from './container/search'
+import MangerAdress from './container/manager_adress'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import LogReg  from './component/background/log_reg'
@@ -28,6 +29,7 @@ class ERouter extends React.Component{
                 <Switch>
                   <Route path="/home" component={Home} />
                   <Route path="/search" component={Seahch} />
+                  <Route path="/user/adress" component={MangerAdress} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route component={NoMatch} />

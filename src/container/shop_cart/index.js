@@ -1,9 +1,6 @@
 import React from 'react'
-
 import { Table, Button,Popconfirm} from 'antd';
-
-
-
+import './index.less'
 class ShopCart extends React.Component {
   constructor (props){
     super(props)
@@ -14,36 +11,36 @@ class ShopCart extends React.Component {
       allprice:0,
       data:[{
         key: '1',
-        name: 'John Brown',
+        name: '中财PPR热水管(绿色)',
         brand: 32,
         unit:10,
         number:1,
         price:10,
-        Specifications: 'New York No. 1 Lake Park',
+        Specifications: '大',
       }, {
         key: '2',
-        name: 'Jim Green',
+        name: '霍尼韦尔PPR热水管(绿色)',
         brand: 42,
         unit:20,
         number:1,
         price:20,
-        Specifications: 'London No. 1 Lake Park',
+        Specifications: '中',
       }, {
         key: '3',
-        name: 'Joe Black',
+        name: '宜家不锈钢液压铰链',
         brand: 32,
         unit:30,
         number:1,
         price:30,
-        Specifications: 'Sidney No. 1 Lake Park',
+        Specifications: '小',
       }, {
         key: '4',
-        name: 'Disabled User',
+        name: '高渗透基膜',
         brand: 99,
         unit:40,
         number:1,
         price:40,
-        Specifications: 'Sidney No. 1 Lake Park',
+        Specifications: '大',
       }]
 
     }
@@ -69,38 +66,51 @@ class ShopCart extends React.Component {
     //   console.log(i)
     //   allprice += i.price
     // })
+    // this.addSum(selectedRows.forEach(i=>{
+    //   allprice += i.price
+    // }))
     allprice= selectedRows.reduce((total, item) => total + item.price, 0)
     this.setState({
       selectedRowKeys,
-      allprice
+      allprice,
     });
+    // console.log(selectedRows)
   }
   //购物车+
   addSum = (value,record) => {
     record.number = value + 1
     record.price = record.number*record.unit
+    let data = this.state.data
     let allprice = this.state.allprice
+    allprice= data.reduce((total, item) => total + item.price, 0)
     this.setState({
       value:record.number,
+      data,
       allprice
     })
+
+    // console.log(data)
   }
   //购物车-
   reduceSum = (value,record) => {
-    record.number = value - 1
-    record.price = record.number*record.unit
-    if (record.number>0){
-      this.setState({
-        value:record.number
-
-      })
-      console.log(record.number,record)
+    if(record.number>0){
+      record.number = value - 1
     }
+    record.price = record.number*record.unit
+    let allprice = this.state.allprice
+    let data = this.state.data
+    allprice= data.reduce((total, item) => total + item.price, 0)
+      this.setState({
+        value:record.number,
+        allprice,
+        data
+      })
+      // console.log(record.number,record)
   }
   //删除
-  onDelete = (record) => {
+  onDelete = (record,index) => {
    const dataChange = this.state.data
-         dataChange.splice(record,1)
+         dataChange.splice(index,1)
          this.setState({
            data:dataChange
          })
@@ -142,11 +152,11 @@ class ShopCart extends React.Component {
       {
         title: '操作',
         dataIndex: 'delete',
-        render:(value,record) => {
+        render:(value,record,index) => {
           return (
             <Popconfirm
               title="确认要删除这行码"
-              onConfirm = {()=>this.onDelete(record)}
+              onConfirm = {()=>this.onDelete(record,index)}
             >
               <a>删除</a>
             </Popconfirm>
@@ -173,7 +183,7 @@ class ShopCart extends React.Component {
           >
             结算
           </Button>
-          <span>合计金额:{this.state.allprice}</span>
+          <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
           </span>

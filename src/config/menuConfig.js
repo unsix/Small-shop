@@ -1,33 +1,4 @@
-// const MenuList = [
-//   {
-//     title: '首页',
-//     key: '/home'
-//   },
-//   {
-//     title: '商品展示',
-//     key: '/form',
-//     icon: 'copy',
-//   },
-//
-//   {
-//     title: '个人中心',
-//     key: '/ui',
-//     icon: 'user',
-//     children: [
-//       {
-//         title: '我的账户',
-//         key: '/ui/buttons',
-//         icon: 'mail',
-//       },
-//       {
-//         title: '我的订单',
-//         key: '/ui/buttonss',
-//         icon: 'mail',
-//       },
-//     ]
-//   },
-// ];
-// export default MenuList
+
 const menuList = [
   {
     title: '首页',
@@ -42,116 +13,42 @@ const menuList = [
     key: '/shopcart',
   },
   {
-    title: 'UI',
-    key: '/ui',
-    children: [
+    title: '个人中心',
+    key: '/user',
+    children:[
       {
-        title: '按钮',
-        key: '/ui/buttons',
+        title:'订单合同',
+        key:'/user/contract'
       },
       {
-        title: '弹框',
-        key: '/ui/modals',
+        title:'管理地址',
+        key:'/user/adress'
       },
       {
-        title: 'Loading',
-        key: '/ui/loadings',
+        title:'开票记录',
+        key:'/user/recording'
       },
-      {
-        title: '通知提醒',
-        key: '/ui/notification',
-      },
-      {
-        title: '全局Message',
-        key: '/ui/messages',
-      },
-      {
-        title: 'Tab页签',
-        key: '/ui/tabs',
-      },
-      {
-        title: '图片画廊',
-        key: '/ui/gallery',
-      },
-      {
-        title: '轮播图',
-        key: '/ui/carousel',
-      }
     ]
   },
   {
-    title: '表单',
-    key: '/form',
+    title:'设置',
+    key:'/seting',
     children: [
       {
-        title: '登录',
-        key: '/form/login',
+        title: '修改密码',
+        key: '/seting/reset'
       },
       {
-        title: '注册',
-        key: '/form/reg',
-      }
-    ]
-  },
-  {
-    title: '表格',
-    key: '/table',
-    children: [
-      {
-        title: '基础表格',
-        key: '/table/basic',
+        title: '意见反馈',
+        key: '/seting/feedback'
       },
       {
-        title: '高级表格',
-        key: '/table/high',
-      }
-    ]
-  },
-  {
-    title: '富文本',
-    key: '/rich'
-  },
-  {
-    title: '城市管理',
-    key: '/city'
-  },
-  {
-    title: '订单管理',
-    key: '/order',
-    btnList: [
-      {
-        title: '订单详情',
-        key: 'detail'
+        title: '关于我们',
+        key: '/seting/our'
       },
       {
-        title: '结束订单',
-        key: 'finish'
-      }
-    ]
-  },
-  {
-    title: '员工管理',
-    key: '/user'
-  },
-  {
-    title: '车辆地图',
-    key: '/bikeMap'
-  },
-  {
-    title: '图标',
-    key: '/charts',
-    children: [
-      {
-        title: '柱形图',
-        key: '/charts/bar'
-      },
-      {
-        title: '饼图',
-        key: '/charts/pie'
-      },
-      {
-        title: '折线图',
-        key: '/charts/line'
+        title: '联系客服',
+        key: '/seting/service'
       },
     ]
   },
