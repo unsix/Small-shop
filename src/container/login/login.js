@@ -41,21 +41,21 @@ class LoginForm extends React.Component {
     this.setState({type})
   }
 
-  componentDidMount(){
-
-    axios.get("/api/test/profile")
-      .then(res=>{
-        // if (res.status==200&&res.data.code===0) {
-        // 	dispatch(authSuccess(res.data.data))
-        // }else{
-        // 	dispatch(errorMsg(res.data.msg))
-        // }
-        console.log(res);
-
-      })
-
-
-  }
+  // componentDidMount(){
+  //
+  //   axios.get("/api/test/profile")
+  //     .then(res=>{
+  //       // if (res.status==200&&res.data.code===0) {
+  //       // 	dispatch(authSuccess(res.data.data))
+  //       // }else{
+  //       // 	dispatch(errorMsg(res.data.msg))
+  //       // }
+  //       console.log(res);
+  //
+  //     })
+  //
+  //
+  // }
   render() {
     const { getFieldDecorator } = this.props.form;
     const TabPane = Tabs.TabPane;

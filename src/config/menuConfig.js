@@ -35,7 +35,7 @@ const menuList = [
     key:'/seting',
     children: [
       {
-        title: '修改密码',
+        title: '重置密码',
         key: '/seting/reset'
       },
       {

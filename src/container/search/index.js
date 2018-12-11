@@ -13,10 +13,11 @@ class Search extends React.Component{
   }
   //购物车+
   addSum = () => {
-    const nextSum = this.state.sum + 1
-    this.setState({
-      sum:nextSum
-    })
+
+      const nextSum = this.state.sum + 1
+      this.setState({
+        sum:nextSum
+      })
   }
   //购物车-
   reduceSum = () => {
@@ -59,74 +60,81 @@ class Search extends React.Component{
 
       <div className="container_search">
         <div className="ground-container">
-          <Select
-            mode="multiple"
-            placeholder={'油漆'}
-            showSearch
-          >
-            <Option value="1">
-              <div className="select_choice">
-                <li>沥青类</li>
-              </div>
+          <div className="search_card">
+            <Select
+              mode="multiple"
+              placeholder={'油漆'}
+              showSearch
+            >
+              <Option value="1">
+                <div className="select_choice">
+                  <li>沥青类</li>
+                </div>
+                <Card.Grid style={gridStyle}>沥青类</Card.Grid>
+              </Option>
+              <Option value="2">
+                <div className="select_choice">
+                  <li>橡胶类</li>
+                </div>
+                <Card.Grid style={gridStyle}>橡胶类</Card.Grid>
+              </Option>
+              <Option value="3">
+                <div className="select_choice">
+                  <li>水泥类</li>
+                </div>
+                <Card.Grid style={gridStyle}>水泥类</Card.Grid>
+              </Option>
+              <Option value="4">
+                <div className="select_choice">
+                  <li>金属类</li>
+                </div>
+                <Card.Grid style={gridStyle}>金属类</Card.Grid>
+              </Option>
+              <Option value="5">
+                <div className="select_choice">
+                  <li>其他类</li>
+                </div>
+                <Card.Grid style={gridStyle}>其他类</Card.Grid>
+              </Option>
+              <Option value="6">
+                <div className="select_choice">
+                  <li>等等类</li>
+                </div>
+                <Card.Grid style={gridStyle}>等等类</Card.Grid>
+              </Option>
+              <Option value="7">
+                <div className="select_choice">
+                  <li>不同类</li>
+                </div>
+                <Card.Grid style={gridStyle}>不同类</Card.Grid>
+              </Option>
+              <Option value="8">
+                <div className="select_choice">
+                  <li><Icon type="caret-down"/></li>
+                </div>
+                <Card.Grid style={gridStyle}><Icon type="caret-down"/></Card.Grid>
+              </Option>
+            </Select>
+            <Card >
               <Card.Grid style={gridStyle}>沥青类</Card.Grid>
-            </Option>
-            <Option value="2">
-              <div className="select_choice">
-                <li>橡胶类</li>
-              </div>
               <Card.Grid style={gridStyle}>橡胶类</Card.Grid>
-            </Option>
-            <Option value="3">
-              <div className="select_choice">
-                <li>水泥类</li>
-              </div>
               <Card.Grid style={gridStyle}>水泥类</Card.Grid>
-            </Option>
-            <Option value="4">
-              <div className="select_choice">
-                <li>金属类</li>
-              </div>
               <Card.Grid style={gridStyle}>金属类</Card.Grid>
-            </Option>
-            <Option value="5">
-              <div className="select_choice">
-                <li>其他类</li>
-              </div>
               <Card.Grid style={gridStyle}>其他类</Card.Grid>
-            </Option>
-            <Option value="6">
-              <div className="select_choice">
-                <li>等等类</li>
-              </div>
               <Card.Grid style={gridStyle}>等等类</Card.Grid>
-            </Option>
-            <Option value="7">
-              <div className="select_choice">
-                <li>不同类</li>
-              </div>
               <Card.Grid style={gridStyle}>不同类</Card.Grid>
-            </Option>
-            <Option value="8">
-              <div className="select_choice">
-                <li><Icon type="caret-down"/></li>
-              </div>
               <Card.Grid style={gridStyle}><Icon type="caret-down"/></Card.Grid>
-            </Option>
-          </Select>
-          <Card >
-            <Card.Grid style={gridStyle}>沥青类</Card.Grid>
-            <Card.Grid style={gridStyle}>橡胶类</Card.Grid>
-            <Card.Grid style={gridStyle}>水泥类</Card.Grid>
-            <Card.Grid style={gridStyle}>金属类</Card.Grid>
-            <Card.Grid style={gridStyle}>其他类</Card.Grid>
-            <Card.Grid style={gridStyle}>等等类</Card.Grid>
-            <Card.Grid style={gridStyle}>不同类</Card.Grid>
-            <Card.Grid style={gridStyle}><Icon type="caret-down"/></Card.Grid>
-          </Card>
+              <div className="sort_shop search_sort">
+                <h3>综合<Icon type="caret-down"/></h3>
+                <h3>销量</h3>
+                <h3>价格</h3>
+              </div>
+            </Card>
+          </div>
           <div className="sort_shop">
-            <h3>综合<Icon type="caret-down"/></h3>
-            <h3>销量</h3>
-            <h3>价格</h3>
+            {/*<h3>综合<Icon type="caret-down"/></h3>*/}
+            {/*<h3>销量</h3>*/}
+            {/*<h3>价格</h3>*/}
             <div className="shop_selected_bands">
               <Card
                 hoverable

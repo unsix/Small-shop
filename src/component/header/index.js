@@ -5,29 +5,34 @@ import { withRouter } from "react-router-dom"
 
 @withRouter
 class Header extends React.Component{
-
-
-  logout = () => {
-    this.props.history.push('/login')
+  constructor (props) {
+    super(props)
+    this.state = {
+    }
+  }
+  //根据传入类型跳转
+  LinkPush = (type) => {
+    this.props.history.push(type)
+    console.log(type)
   }
   render(){
     //下单menu
     const menu = (
       <Menu>
         <Menu.Item>
-          <a  href="http://www.alipay.com/"><span>基本信息</span></a>
+          <a ><span>基本信息</span></a>
         </Menu.Item>
         <Menu.Item>
-          <a href="http://www.taobao.com/"><span>收获管理</span></a>
+          <a ><span>收获管理</span></a>
         </Menu.Item>
         <Menu.Item>
-          <a href="http://www.tmall.com/"><span>设置</span></a>
+          <a onClick={()=>this.LinkPush('/seting/reset')}><span>重置密码</span></a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
 
         >
-          <a onClick={this.logout}><Icon type="logout" /><span>退出登录</span></a>
+          <a onClick={()=>this.LinkPush('/login')}><Icon type="logout" /><span>退出登录</span></a>
         </Menu.Item>
       </Menu>
     );

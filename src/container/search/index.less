@@ -4,9 +4,19 @@
   position: relative;
   background: #f0f2f5;
   .ground-container {
+    .search_card{
+      .ant-card-bordered{
+        margin-top: 20px;
+        .ant-card-body{
+          margin-top: 25px;
+          .sort_shop{
+            padding: 200px 0 30px 0;
+          }
+        }
+      }
+    }
     .ant-select{
       width: 100%;
-     margin-bottom: 10px;
     }
     .ant-select-selection--multiple{
       border-radius: 20px;
@@ -32,8 +42,11 @@
     }
   }
   //商品排序
+  .search_sort{
+    padding: 160px 0 30px 0;
+  }
   .sort_shop{
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
     h3{
       width: 150px;
@@ -47,6 +60,7 @@
   }
   // 购物车全
   .shop_selected_bands{
+    background-color: #fff;
     margin-top: 20px;
     text-align: left;
     border-bottom: 2px #eee solid;
@@ -92,7 +106,8 @@
     }
   }
   .relevant{
-    display: inline-block;
+    margin-top: 20px;
+    background-color: #fff;
     .ant-card-bordered{
       width: 100px;
       display: inline-block;
