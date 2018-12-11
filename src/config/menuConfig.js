@@ -9,6 +9,10 @@ const menuList = [
     key: '/search',
   },
   {
+    title: '所有商品',
+    key: '/shop',
+  },
+  {
     title: '购物车',
     key: '/shopcart',
   },
