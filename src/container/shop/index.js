@@ -1,6 +1,8 @@
 import React from 'react'
-import { Table, Button, Avatar, Popconfirm } from 'antd'
+import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination } from 'antd'
 import './index.less'
+
+const {Search} = Input
 class Shop extends React.Component {
   constructor (props){
     super(props)
@@ -8,6 +10,7 @@ class Shop extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      visible:false,
       data:[{
         key: '1',
         avatar:'U',
@@ -55,7 +58,7 @@ class Shop extends React.Component {
   //购物车+
   addSum = (value,record) => {
     record.number = value + 1
-    record.price = record.number*record.unit
+    // record.price = record.number*record.unit
     this.setState({
       value:record.number,
     })
@@ -67,22 +70,30 @@ class Shop extends React.Component {
     if(record.number>0){
       record.number = value - 1
     }
-    record.price = record.number*record.unit
     this.setState({
       value:record.number,
     })
-    // console.log(record.number,record)
   }
-  //删除
-  onDelete = (record,index,value) => {
-    console.log(record,value)
+  //查看详情
+  details = (record) => {
+    this.setState({
+      visible: true,
+    }, () => {
+    })
+  }
+  //删除行
+  onDelete = (record,index) => {
+    console.log(record)
     const dataChange = this.state.data
-    dataChange.splice(index,1)
+    dataChange.splice(index, 1);
     this.setState({
       data:dataChange
     })
   }
   render() {
+    const { getFieldDecorator } = this.props.form;
+    const FormItem = Form.Item;
+    const { TextArea } = Input;
     const columns = [
       {
         title: '图片',
@@ -127,6 +138,43 @@ class Shop extends React.Component {
         dataIndex: 'price',
       },
       {
+        title: '评价',
+        dataIndex: 'evaluate',
+        render:()=>{
+          return(
+            <div>
+              <Button>
+                评价
+              </Button>
+            </div>
+          )
+        }
+      },
+      {
+        title: '',
+        dataIndex: 'details',
+        render:(value,record) => {
+          return(
+            <div>
+              <Button onClick={()=>this.details(record)}>详情</Button>
+            </div>
+          )
+        }
+      },
+      {
+        title: '售后',
+        dataIndex: 'aftersale',
+        render:()=>{
+          return(
+            <div>
+              <Button>
+                售后
+              </Button>
+            </div>
+          )
+        }
+      },
+      {
         title: '',
         dataIndex: 'delete',
         render:(value,record,index) => {
@@ -138,30 +186,72 @@ class Shop extends React.Component {
               >
                 <img src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
               </Popconfirm>
-              <Button style={{marginLeft:'30px'}}>立即购买</Button>
+              <Button type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
             </div>
 
           )
         }
-      }
-      ,
+      },
+      {
+        title: '收藏',
+        dataIndex: 'star',
+        render:()=>{
+          return(
+            <div>
+              <Rate count={1} />
+            </div>
+          )
+        }
+      },
     ];
-    const {  selectedRowKeys} = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
     return (
       <div className="container_shop">
-
+        <div className="shop_top">
+          <h2>商品信息</h2>
+          <Search placeholder="油漆" onChange={this.search} />
+        </div>
         <Table
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
+          pagination={false}
         />
+        <Pagination
+          current={1} total={1} pageSize={1}
+          />
+        <Modal
+          title="商品详情"
+          onOk={this.handleOk}
+          onCancel={() => this.setState({visible: false})}
+          visible={this.state.visible}
+        >
+          <Form>
+            <FormItem label="名字"  >
+              {getFieldDecorator('name', {
+                rules: [{ required: true, message: 'Please input your phone number!' }],
+              })(
+                <Input  style={{ width: '100%' }} />
+              )}
+            </FormItem>
+            <FormItem label="联系方式"  >
+              {getFieldDecorator('phone', {
+                rules: [{ required: true, message: 'Please input your phone number!' }],
+              })(
+                <Input  style={{ width: '100%' }} />
+              )}
+            </FormItem>
+            <FormItem label="门街号" >
+              {getFieldDecorator('specific_address', {
+                rules: [{ required: true, message: 'Please input your phone number!' }],
+              })(
+                <TextArea placeholder={this.state.sum} autosize={{ minRows: 2, maxRows: 6 }} />,
+              )}
+            </FormItem>
+          </Form>
+        </Modal>
       </div>
     );
   }
 }
 
-export  default  Shop
+export  default   Form.create()(Shop)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Carousel, Card, Icon } from 'antd'
+import {Redirect} from 'react-router-dom'
 
 import './index.less'
 
@@ -11,7 +12,11 @@ class Home extends React.Component{
       textAlign: 'center',
     };
     const { Meta } = Card;
+    const path = this.props.location.pathname
+    const redirect = this.props.redirectTo
     return(
+      <div>
+        {redirect&&redirect!=path?<Redirect to={this.props.redirectTo} />:null}
       <div className="container_home">
         <div className="ground-container">
           <Carousel
@@ -91,6 +96,7 @@ class Home extends React.Component{
             </Card>
           </div>
         </div>
+      </div>
       </div>
     )
   }

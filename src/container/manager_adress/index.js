@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button,Popconfirm, Avatar,Icon, Modal,Input, Form, message,Cascader} from 'antd';
+import { Table, Button,Popconfirm, Avatar,Icon, Modal,Input, Form, message,Cascader,Switch} from 'antd';
 import './index.less'
 class ManagerAdress extends React.Component {
   constructor (props){
@@ -17,6 +17,7 @@ class ManagerAdress extends React.Component {
         address: '浙江省杭州市滨江区悦湾小区123',
         address_select:['zhejiang','hangzhou','xihu'],
         specific_address:'123',
+        default:true,
       },
         {
         key: '2',
@@ -24,7 +25,8 @@ class ManagerAdress extends React.Component {
         phone: '13456801341',
         address: '浙江省杭州市滨江区悦湾小区123',
           address_select:['zhejiang','hangzhou','xihu'],
-          specific_address:'123'
+          specific_address:'123',
+          default:false,
       },]
 
     }
@@ -42,7 +44,8 @@ class ManagerAdress extends React.Component {
         phone: value.phone,
         address_select:value.address_select,
         specific_address:value.specific_address,
-        address: value.address_select+value.specific_address
+        address: value.address_select+value.specific_address,
+        default:value.default
       };
       console.log(adddata)
       let data = this.state.data
@@ -94,7 +97,6 @@ class ManagerAdress extends React.Component {
   }
   render() {
     const FormItem = Form.Item;
-    const {confirm} = Modal;
     const { TextArea } = Input;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -122,21 +124,31 @@ class ManagerAdress extends React.Component {
       {
         title: '操作',
         dataIndex: 'delete',
-        render:(value,record,index) => {
+        render: (value, record, index) => {
           return (
             <div>
-              <Button onClick={()=>this.modal('edit',record,index)}>编辑</Button>
+              <Button onClick={() => this.modal('edit', record, index)}>编辑</Button>
               <Popconfirm
                 title="确认要删除这行码"
-                onConfirm = {()=>this.onDelete(record,index)}
+                onConfirm={() => this.onDelete(record, index)}
               >
-                <Button  style={{marginLeft:'15px'}}>删除</Button>
+                <Button style={{marginLeft: '15px'}}>删除</Button>
               </Popconfirm>
             </div>
           )
         }
-      }
-      ,
+      },
+      {
+        title: '默认',
+        dataIndex: 'default',
+        render:(record,value)=>{
+          return(
+            <div>
+              {value.default===true?<Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked />:<Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />}  />}
+            </div>
+          )
+        }
+      },
     ];
     const options = [{
       value: 'zhejiang',
@@ -213,6 +225,13 @@ class ManagerAdress extends React.Component {
                 rules: [{ required: true, message: 'Please input your phone number!' }],
               })(
                 <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
+              )}
+            </FormItem>
+            <FormItem label="设为默认地址"  {...formItemLayout}>
+              {getFieldDecorator('default', {
+                // rules: [{ required: false, message: 'Please input your phone number!' }],
+              })(
+                <Switch  />
               )}
             </FormItem>
           </Form>

@@ -158,7 +158,7 @@ class ShopCart extends React.Component {
               title="确认要删除这行码"
               onConfirm = {()=>this.onDelete(record,index)}
             >
-              <a>删除</a>
+             <Button type="danger">删除</Button>
             </Popconfirm>
           )
         }

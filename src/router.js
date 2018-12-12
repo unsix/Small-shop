@@ -27,14 +27,14 @@ class ERouter extends React.Component{
             <Route path="/" render={()=>
               <App>
                 <Switch>
-                  <Route path="/home" component={Home} />
+                  <Route path="/home" component={Home}  />
                   <Route path="/search" component={Seahch} />
                   <Route path="/user/adress" component={MangerAdress} />
 
                   <Route path="/seting/reset" component={ChangePwd} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
-                  <Route path="/shop" component={Shop} />
+                  <Route path="/shop/all" component={Shop} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

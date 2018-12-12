@@ -3,22 +3,51 @@ const menuList = [
   {
     title: '首页',
     key: '/home',
+    icon:'home',
+    children:[
+      {
+        title: '首页',
+        key: '/home',
+      },
+    ]
   },
   {
     title: '搜索',
     key: '/search',
+    icon:'search',
+    children:[
+      {
+        title: '搜索',
+        key: '/search',
+      },
+    ]
   },
   {
-    title: '所有商品',
+    title: '五金商品',
     key: '/shop',
+    icon:'shop',
+    children:[
+      {
+        title: '所有商品',
+        key: '/shop/all',
+      },
+    ]
   },
   {
     title: '购物车',
     key: '/shopcart',
+    icon:'shopping-cart',
+    children:[
+      {
+        title: '购物车',
+        key: '/shopcart',
+      },
+    ]
   },
   {
     title: '个人中心',
     key: '/user',
+    icon:'user',
     children:[
       {
         title:'订单合同',
@@ -37,6 +66,7 @@ const menuList = [
   {
     title:'设置',
     key:'/seting',
+    icon:'setting',
     children: [
       {
         title: '重置密码',
