@@ -4,8 +4,8 @@ import '../../style/table.less'
 
 
 const {confirm} = Modal;
-const statusMap = ['default','error']
-const status = ['交易关闭','等待买家付款']
+const statusMap = ['default','error','processing']
+const status = ['交易关闭','等待买家付款','等待卖家发货']
 class ShoppedTable extends React.Component {
   constructor (props){
     super(props)
@@ -17,7 +17,7 @@ class ShoppedTable extends React.Component {
       data:[
         {
           ordernumber:'0000000000000001',
-          status:1,
+          status:2,
           key: '2',
           avatar:'W',
           name: '霍尼韦尔PPR热水管(绿色)',
@@ -109,7 +109,11 @@ class ShoppedTable extends React.Component {
           {
             text:status[1],
             value:1
-          }
+          },
+          {
+            text:status[2],
+            value:0
+          },
         ],
         render:(val) => {
           return <Badge status={statusMap[val]} text={status[val]}/>

@@ -36,17 +36,27 @@ class RegisterForm extends React.Component {
   }
   //验证码读秒
   onGetCapcha = () => {
-    let count = 59
-    this.setState({
-      count
+    new Promise ((resolve,reject)=>{
+      this.props.form.validateFields(['phone'],{},(err,value) => {
+        if (err){
+          reject(err)
+        }
+        else{
+          //写请求
+          let count = 59
+          this.setState({
+            count
+          })
+          this.interval = setInterval(()=>{
+            count -= 1
+            this.setState({count})
+            if(count===0){
+              clearInterval(this.interval)
+            }
+          },1000)
+        }
+      })
     })
-    this.interval = setInterval(()=>{
-      count -= 1
-      this.setState({count})
-      if(count===0){
-        clearInterval(this.interval)
-      }
-    },1000)
   }
   componentDidMount(){
 
@@ -83,9 +93,12 @@ class RegisterForm extends React.Component {
                 <Form onSubmit={this.handleSubmit} className="login-form">
                   <FormItem>
                     {getFieldDecorator('phone', {
-                      rules: [{ required: true, message: '请输入手机号码!' }],
+                      rules: [
+                        { required: true, message: '请输入手机号码!' },
+                        { pattern: /^((1[3-8][0-9])+\d{8})$/, message:'手机号格式不对'},
+                        ],
                     })(
-                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="phone" />
+                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入手机号" />
                     )}
                   </FormItem>
                   <FormItem
@@ -115,9 +128,12 @@ class RegisterForm extends React.Component {
                   </FormItem>
                   <FormItem>
                     {getFieldDecorator('password', {
-                      rules: [{ required: true, message: '请输入密码!' }],
+                      rules: [
+                        { required: true, message: '请输入密码!' },
+                        {min:6, message:'密码长度不能小于6位'}
+                        ],
                     })(
-                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="请输入密码" />
                     )}
                   </FormItem>
                   <FormItem >

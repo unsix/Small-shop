@@ -77,14 +77,17 @@ class LoginForm extends React.Component {
                     {getFieldDecorator('userName', {
                       rules: [{ required: true, message: '请输入账号!' }],
                     })(
-                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username/phone" />
+                      <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入手机号" />
                     )}
                   </FormItem>
                   <FormItem>
                     {getFieldDecorator('password', {
-                      rules: [{ required: true, message: '请输入密码!' }],
+                      rules: [
+                        { required: true, message: '请输入密码!' },
+                        {min:6, message:'密码长度不能小于6位'}
+                        ],
                     })(
-                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                      <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="请输入密码" />
                     )}
                   </FormItem>
                   <FormItem>

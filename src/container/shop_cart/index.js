@@ -11,36 +11,33 @@ class ShopCart extends React.Component {
       allprice:0,
       data:[{
         key: '1',
-        name: '中财PPR热水管(绿色)',
-        brand: 32,
+        name: '中财PPR热水管',
         unit:10,
         number:1,
         price:10,
-        Specifications: '大',
+        Specifications: '蓝色',
       }, {
         key: '2',
         name: '霍尼韦尔PPR热水管(绿色)',
-        brand: 42,
         unit:20,
         number:1,
         price:20,
-        Specifications: '中',
+        Specifications: '黑色',
       }, {
         key: '3',
         name: '宜家不锈钢液压铰链',
         brand: 32,
         unit:30,
-        number:1,
-        price:30,
-        Specifications: '小',
+        number:2,
+        price:60,
+        Specifications: '灰色',
       }, {
         key: '4',
         name: '高渗透基膜',
-        brand: 99,
         unit:40,
         number:1,
         price:40,
-        Specifications: '大',
+        Specifications: '棕色',
       }]
 
     }
@@ -121,11 +118,7 @@ class ShopCart extends React.Component {
       dataIndex: 'name',
     },
       {
-        title: '品牌',
-        dataIndex: 'brand',
-      },
-      {
-        title: '规格',
+        title: '颜色',
         dataIndex: 'Specifications',
       },
       {

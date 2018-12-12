@@ -2,10 +2,9 @@ import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
 import '../../style/table.less'
 
-
 const {confirm} = Modal;
-const statusMap = ['default','error']
-const status = ['交易关闭','等待买家付款']
+const statusMap = ['default','error','processing']
+const status = ['交易关闭','等待买家付款','等待卖家发货']
 class OrderTable extends React.Component {
   constructor (props){
     super(props)
@@ -120,7 +119,11 @@ class OrderTable extends React.Component {
           {
             text:status[1],
             value:1
-          }
+          },
+          {
+            text:status[2],
+            value:2
+          },
         ],
         render:(val) => {
           return <Badge status={statusMap[val]} text={status[val]}/>
