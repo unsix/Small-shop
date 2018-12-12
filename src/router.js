@@ -12,6 +12,7 @@ import NoMatch from './component/nomatch'
 
 import ShopCart from './container/shop_cart'
 import Shop from './container/shop'
+import Order from './container/order'
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class ERouter extends React.Component{
@@ -29,9 +30,10 @@ class ERouter extends React.Component{
                 <Switch>
                   <Route path="/home" component={Home}  />
                   <Route path="/search" component={Seahch} />
+                  {/*个人中心*/}
+                  <Route path="/user/order" component={Order} />
                   <Route path="/user/adress" component={MangerAdress} />
-
-                  <Route path="/seting/reset" component={ChangePwd} />
+                  <Route path="/user/seting/reset" component={ChangePwd} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route path="/shop/all" component={Shop} />

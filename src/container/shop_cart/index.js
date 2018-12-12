@@ -172,7 +172,7 @@ class ShopCart extends React.Component {
     };
     const hasSelected = selectedRowKeys.length > 0;
     return (
-      <div>
+      <div className="container_shop_cart">
         <div style={{ marginBottom: 16 }}>
           <Button
             type="primary"
