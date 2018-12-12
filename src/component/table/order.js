@@ -3,8 +3,8 @@ import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Paginat
 import '../../style/table.less'
 
 const {confirm} = Modal;
-const statusMap = ['default','error','processing']
-const status = ['交易关闭','等待买家付款','等待卖家发货']
+const statusMap = ['default','error','processing','success']
+const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 class OrderTable extends React.Component {
   constructor (props){
     super(props)
@@ -42,26 +42,6 @@ class OrderTable extends React.Component {
   }
   componentDidMount(){
 
-  }
-
-  //购物车+
-  addSum = (value,record) => {
-    record.number = value + 1
-    // record.price = record.number*record.unit
-    this.setState({
-      value:record.number,
-    })
-
-    // console.log(data)
-  }
-  //购物车-
-  reduceSum = (value,record) => {
-    if(record.number>0){
-      record.number = value - 1
-    }
-    this.setState({
-      value:record.number,
-    })
   }
   //查看详情
   details = (record) => {
@@ -156,9 +136,7 @@ class OrderTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              {/*<Button onClick={()=>this.addSum(value,record)}>+</Button>*/}
-              <Button>{value}</Button>
-              {/*<Button onClick={()=>this.reduceSum(value,record)}>-</Button>*/}
+             {value}
             </div>
           )
         }

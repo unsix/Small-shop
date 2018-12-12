@@ -4,8 +4,8 @@ import '../../style/table.less'
 
 
 const {confirm} = Modal;
-const statusMap = ['default','error','processing']
-const status = ['交易关闭','等待买家付款','等待卖家发货']
+const statusMap = ['default','error','processing','success']
+const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 class WaitReceiveTable extends React.Component {
   constructor (props){
     super(props)
@@ -16,7 +16,7 @@ class WaitReceiveTable extends React.Component {
       visible:false,
       data:[{
         ordernumber:'0000000000000001',
-        status:0,
+        status:2,
         key: '1',
         avatar:'U',
         name: '中财PPR热水管',
@@ -28,7 +28,7 @@ class WaitReceiveTable extends React.Component {
       },
         {
           ordernumber:'0000000000000001',
-          status:1,
+          status:2,
           key: '2',
           avatar:'W',
           name: '霍尼韦尔PPR热水管',
@@ -46,25 +46,6 @@ class WaitReceiveTable extends React.Component {
 
   }
 
-  //购物车+
-  addSum = (value,record) => {
-    record.number = value + 1
-    // record.price = record.number*record.unit
-    this.setState({
-      value:record.number,
-    })
-
-    // console.log(data)
-  }
-  //购物车-
-  reduceSum = (value,record) => {
-    if(record.number>0){
-      record.number = value - 1
-    }
-    this.setState({
-      value:record.number,
-    })
-  }
   //查看详情
   details = (record) => {
     this.setState({
@@ -125,6 +106,10 @@ class WaitReceiveTable extends React.Component {
           {
             text:status[2],
             value:2
+          },
+          {
+            text:status[4],
+            value:4
           }
         ],
         render:(val) => {
@@ -157,10 +142,8 @@ class WaitReceiveTable extends React.Component {
         dataIndex: 'number',
         render:(value,record) => {
           return(
-            <div>
-              {/*<Button onClick={()=>this.addSum(value,record)}>+</Button>*/}
-              <Button>{value}</Button>
-              {/*<Button onClick={()=>this.reduceSum(value,record)}>-</Button>*/}
+            <div >
+             {value}
             </div>
           )
         }

@@ -1,20 +1,42 @@
 import React from 'react'
 import { Menu, Icon } from 'antd';
 import { NavLink } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {menu,authSuccess} from '../../redux/menu_redux'
 import Menulist from './../../config/menuConfig'
 import './index.less'
+
+@connect(
+  state=>state.menuName,
+  {authSuccess}
+)
+
 class NavLeft extends React.Component {
-  // state = {
-  //   currentKey: ''
-  // }
+  constructor (props){
+    super(props)
+    this.state = {
+      currentKey: ''
+    }
+  }
+
   componentWillMount(){
     const menuTreeNode = this.renderMenu(Menulist);
-
+    let currentKey = window.location.hash.replace(/#|\?.*$/g,'')
     this.setState({
-      menuTreeNode
+      menuTreeNode,
+      currentKey
     })
   }
-  菜单渲染
+  handleClick = ({item}) => {
+    console.log((item))
+
+    const { dispatch } = this.props
+    this.props.authSuccess(item.props.title)
+    this.setState({
+      currentKey:item.key
+    })
+  }
+  //菜单渲染
   renderMenu =(data)=>{
     const SubMenu = Menu.SubMenu;
     return data.map((item)=>{
@@ -25,16 +47,6 @@ class NavLeft extends React.Component {
             { this.renderMenu(item.children)}
           </SubMenu>
         )
-        // if(item.children){
-        //   return (
-        //     <SubMenu title={item.title}  key={item.key}>
-        //       { this.renderMenu(item.children)}
-        //     </SubMenu>
-        //   )
-        // }
-        // return <SubMenu title={item.title}  key={item.key}>
-        //   {item.title}
-        // </SubMenu>
       }
       return <Menu.Item title={item.title} key={item.key}>
         <NavLink to={item.key}>{item.title}</NavLink>
@@ -55,6 +67,8 @@ class NavLeft extends React.Component {
             defaultOpenKeys={['sub2']}
             mode="inline"
             theme="dark"
+            selectedKeys={[this.state.currentKey]}
+            onClick={this.handleClick}
           >
             { this.state.menuTreeNode }
           </Menu>

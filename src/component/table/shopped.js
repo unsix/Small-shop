@@ -4,8 +4,8 @@ import '../../style/table.less'
 
 
 const {confirm} = Modal;
-const statusMap = ['default','error','processing']
-const status = ['交易关闭','等待买家付款','等待卖家发货']
+const statusMap = ['default','error','processing','success']
+const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 class ShoppedTable extends React.Component {
   constructor (props){
     super(props)
@@ -17,7 +17,7 @@ class ShoppedTable extends React.Component {
       data:[
         {
           ordernumber:'0000000000000001',
-          status:2,
+          status:3,
           key: '2',
           avatar:'W',
           name: '霍尼韦尔PPR热水管(绿色)',
@@ -32,26 +32,6 @@ class ShoppedTable extends React.Component {
   }
   componentDidMount(){
 
-  }
-
-  //购物车+
-  addSum = (value,record) => {
-    record.number = value + 1
-    // record.price = record.number*record.unit
-    this.setState({
-      value:record.number,
-    })
-
-    // console.log(data)
-  }
-  //购物车-
-  reduceSum = (value,record) => {
-    if(record.number>0){
-      record.number = value - 1
-    }
-    this.setState({
-      value:record.number,
-    })
   }
   //查看详情
   details = (record) => {
@@ -146,9 +126,7 @@ class ShoppedTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              {/*<Button onClick={()=>this.addSum(value,record)}>+</Button>*/}
-              <Button>{value}</Button>
-              {/*<Button onClick={()=>this.reduceSum(value,record)}>-</Button>*/}
+             {value}
             </div>
           )
         }
@@ -181,24 +159,6 @@ class ShoppedTable extends React.Component {
           )
         }
       },
-      // {
-      //   title: '',
-      //   dataIndex: 'delete',
-      //   render:(value,record,index) => {
-      //     return (
-      //       <div>
-      //         <Popconfirm
-      //           title="确认加入购物车吗？"
-      //           onConfirm = {()=>this.onDelete(record,index)}
-      //         >
-      //          <Button>删除订单</Button>
-      //         </Popconfirm>
-      //         <Button type="danger" style={{marginLeft:'30px'}}>付款</Button>
-      //       </div>
-      //
-      //     )
-      //   }
-      // },
     ];
     return (
       <div className="container_shop congtainer_order">

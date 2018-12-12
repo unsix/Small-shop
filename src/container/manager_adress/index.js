@@ -17,7 +17,7 @@ class ManagerAdress extends React.Component {
         address: '浙江省杭州市滨江区悦湾小区123',
         address_select:['zhejiang','hangzhou','xihu'],
         specific_address:'123',
-        default:true,
+        default:true
       },
         {
         key: '2',
@@ -26,7 +26,7 @@ class ManagerAdress extends React.Component {
         address: '浙江省杭州市滨江区悦湾小区123',
           address_select:['zhejiang','hangzhou','xihu'],
           specific_address:'123',
-          default:false,
+          default:false
       },]
 
     }
@@ -69,6 +69,7 @@ class ManagerAdress extends React.Component {
 
   //添加编辑用户
   modal = (type, record) => {
+
     this.setState({
       visible: true,
       modalType: type
@@ -79,7 +80,8 @@ class ManagerAdress extends React.Component {
         name: record.name,
         phone: record.phone,
         address_select: record.address_select,
-        specific_address:record.specific_address
+        specific_address:record.specific_address,
+        default:record.default
       })
       console.log(record)
       this.setState({editRow: record})
@@ -139,12 +141,12 @@ class ManagerAdress extends React.Component {
         }
       },
       {
-        title: '默认',
+        title: '默认地址',
         dataIndex: 'default',
         render:(record,value)=>{
           return(
             <div>
-              {value.default===true?<Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked />:<Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />}  />}
+              {value.default===true?<Switch disabled checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked />:<Switch disabled checkedChildren={<Icon type="check" />}  unCheckedChildren={<Icon type="close" />}  />}
             </div>
           )
         }
@@ -175,7 +177,7 @@ class ManagerAdress extends React.Component {
     }];
 
     return (
-      <div>
+      <div className="container_manager_address">
         <div style={{ marginBottom: 16 }}>
           <Button
             type="primary"
