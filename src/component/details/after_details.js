@@ -7,18 +7,18 @@ import { Avatar } from 'antd'
 @connect(
   state=>state,
 )
-class ShopDetails extends React.Component{
+class AfterDetails extends React.Component{
 
   render(){
-    const details= this.props.shop.details
+    const after= this.props.shop.after
     return(
       <div className="container_details container_evaluate">
         <div className="evaluate_top">
-          <h3>商品详情{details.id}</h3>
+          <h3>售后服务{after}</h3>
         </div>
 
       </div>
     )
   }
 }
-export default ShopDetails
+export default AfterDetails

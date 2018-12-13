@@ -1,14 +1,14 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination } from 'antd'
 import {connect} from 'react-redux'
-import {shopDetails} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails} from '../../redux/shop_redux'
 import './index.less'
 
 
 const {Search} = Input
 @connect(
   state=>state,
-  {shopDetails}
+  {shopDetails,evaluateDetails,afterDetails}
 )
 class Shop extends React.Component {
   constructor (props){
@@ -70,7 +70,7 @@ class Shop extends React.Component {
   //购物车+
   addSum = (value,record) => {
     record.number = value + 1
-    // record.price = record.number*record.unit
+    record.price = record.number*record.unit
     this.setState({
       value:record.number,
     })
@@ -79,8 +79,9 @@ class Shop extends React.Component {
   }
   //购物车-
   reduceSum = (value,record) => {
-    if(record.number>0){
+    if(record.number>1){
       record.number = value - 1
+      record.price = record.number*record.unit
     }
     this.setState({
       value:record.number,
@@ -90,6 +91,16 @@ class Shop extends React.Component {
   details = (record) => {
     this.props.shopDetails(record)
     this.props.history.push(`/details/shop/${record.id}`)
+  }
+  //评价
+  evaluate = (record) => {
+    this.props.evaluateDetails(record)
+    this.props.history.push(`/details/evaluate/${record.id}`)
+  }
+  //售后
+  after = (record) => {
+    this.props.afterDetails(record)
+    this.props.history.push(`/details/after/${record.id}`)
   }
   //删除行
   onDelete = (record,index) => {
@@ -129,6 +140,7 @@ class Shop extends React.Component {
       {
         title: '单价',
         dataIndex: 'unit',
+        render:val=>`¥${val}`
       },
       {
         title: '数量',
@@ -146,14 +158,15 @@ class Shop extends React.Component {
       {
         title: '价格',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '评价',
         dataIndex: 'evaluate',
-        render:()=>{
+        render:(value,record)=>{
           return(
             <div>
-              <Button>
+              <Button onClick={()=>this.evaluate(record)}>
                 评价
               </Button>
             </div>
@@ -166,7 +179,9 @@ class Shop extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>详情</Button>
+              <Button onClick={()=>this.details(record)}>
+                详情
+              </Button>
             </div>
           )
         }
@@ -174,10 +189,10 @@ class Shop extends React.Component {
       {
         title: '售后',
         dataIndex: 'aftersale',
-        render:()=>{
+        render:(value,record)=>{
           return(
             <div>
-              <Button>
+              <Button onClick={()=>this.after(record)}>
                 售后
               </Button>
             </div>

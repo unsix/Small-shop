@@ -12,17 +12,6 @@ const menuList = [
     ]
   },
   {
-    title: '搜索',
-    key: '/search',
-    icon:'search',
-    children:[
-      {
-        title: '搜索',
-        key: '/search',
-      },
-    ]
-  },
-  {
     title: '五金商品',
     key: '/shop',
     icon:'shop',
@@ -83,6 +72,17 @@ const menuList = [
             key: '/seting/service'
           },
         ]
+      },
+    ]
+  },
+  {
+    title: '搜索',
+    key: '/search',
+    icon:'search',
+    children:[
+      {
+        title: '搜索',
+        key: '/search',
       },
     ]
   },

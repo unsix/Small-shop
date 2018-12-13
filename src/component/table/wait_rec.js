@@ -136,6 +136,7 @@ class WaitReceiveTable extends React.Component {
       {
         title: '单价',
         dataIndex: 'unit',
+        render:val=>`¥${val}`
       },
       {
         title: '数量',
@@ -151,6 +152,7 @@ class WaitReceiveTable extends React.Component {
       {
         title: '应付总额',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '订单详情',
@@ -196,7 +198,7 @@ class WaitReceiveTable extends React.Component {
       // },
     ];
     return (
-      <div className="container_shop congtainer_order">
+      <div className="container_table congtainer_order">
         <Table
           columns={columns}
           dataSource={this.state.data}

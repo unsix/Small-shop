@@ -3,4 +3,4 @@ import { menu } from './redux/menu_redux'
 import { shop } from './redux/shop_redux'
 
 
-export default combineReducers({menu})
+export default combineReducers({menu,shop})

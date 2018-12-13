@@ -13,8 +13,10 @@ import NoMatch from './component/nomatch'
 import ShopCart from './container/shop_cart'
 import Shop from './container/shop'
 import Order from './container/order'
-
+//id动态路由
 import ShopDetails from  './component/details/shop_details'
+import EvaluateDetails  from './component/details/evaluate_details'
+import AfterDetails from './component/details/after_details'
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class ERouter extends React.Component{
@@ -40,8 +42,9 @@ class ERouter extends React.Component{
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route path="/shop/all" component={Shop} />
-
                   <Route path="/details/shop/:id" component={ShopDetails} />
+                  <Route path="/details/evaluate/:id" component={EvaluateDetails} />
+                  <Route path="/details/after/:id" component={AfterDetails} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

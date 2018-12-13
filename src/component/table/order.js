@@ -133,6 +133,7 @@ class OrderTable extends React.Component {
       {
         title: '单价',
         dataIndex: 'unit',
+        render:val=>`¥${val}`
       },
       {
         title: '数量',
@@ -148,6 +149,7 @@ class OrderTable extends React.Component {
       {
         title: '应付总额',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '订单详情',
@@ -173,27 +175,9 @@ class OrderTable extends React.Component {
           )
         }
       },
-      // {
-      //   title: '',
-      //   dataIndex: 'delete',
-      //   render:(value,record,index) => {
-      //     return (
-      //       <div>
-      //         <Popconfirm
-      //           title="确认加入购物车吗？"
-      //           onConfirm = {()=>this.onDelete(record,index)}
-      //         >
-      //          <Button>删除订单</Button>
-      //         </Popconfirm>
-      //         <Button type="danger" style={{marginLeft:'30px'}}>付款</Button>
-      //       </div>
-      //
-      //     )
-      //   }
-      // },
     ];
     return (
-      <div className="container_shop congtainer_order">
+      <div className="container_table congtainer_order">
         <Table
           columns={columns}
           dataSource={this.state.data}

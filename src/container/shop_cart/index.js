@@ -90,10 +90,10 @@ class ShopCart extends React.Component {
   }
   //购物车-
   reduceSum = (value,record) => {
-    if(record.number>0){
+    if(record.number>1){
       record.number = value - 1
+      record.price = record.number*record.unit
     }
-    record.price = record.number*record.unit
     let allprice = this.state.allprice
     let data = this.state.data
     allprice= data.reduce((total, item) => total + item.price, 0)
@@ -124,6 +124,7 @@ class ShopCart extends React.Component {
       {
         title: '单价',
         dataIndex: 'unit',
+        render:val=>`¥${val}`
       },
       {
         title: '数量',
@@ -141,6 +142,7 @@ class ShopCart extends React.Component {
       {
         title: '价格',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '操作',

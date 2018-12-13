@@ -18,7 +18,7 @@ class ShoppedTable extends React.Component {
         {
           ordernumber:'0000000000000001',
           status:3,
-          key: '2',
+          key: '1',
           avatar:'W',
           name: '霍尼韦尔PPR热水管(绿色)',
           unit:20,
@@ -92,7 +92,11 @@ class ShoppedTable extends React.Component {
           },
           {
             text:status[2],
-            value:0
+            value:2
+          },
+          {
+            text:status[3],
+            value:3
           },
         ],
         render:(val) => {
@@ -119,6 +123,7 @@ class ShoppedTable extends React.Component {
       {
         title: '单价',
         dataIndex: 'unit',
+        render:val=>`¥${val}`
       },
       {
         title: '数量',
@@ -134,6 +139,7 @@ class ShoppedTable extends React.Component {
       {
         title: '应付总额',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '订单详情',
@@ -161,7 +167,7 @@ class ShoppedTable extends React.Component {
       },
     ];
     return (
-      <div className="container_shop congtainer_order">
+      <div className="container_table congtainer_order">
         <Table
           columns={columns}
           dataSource={this.state.data}
