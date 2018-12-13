@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,InputNumber } from 'antd'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
 import ShopModal from '../../component/modal/shop_modal'
 import './index.less'
 
@@ -9,7 +9,7 @@ import './index.less'
 const {Search} = Input
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart}
+  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
 )
 class Shop extends React.Component {
   constructor (props){
@@ -17,6 +17,7 @@ class Shop extends React.Component {
     this.state = {
       details:[],
       loading: false,
+      modalType:'cart',
       sum:0,
       allprice:0,
       visible:false,
@@ -106,12 +107,15 @@ class Shop extends React.Component {
     this.props.history.push(`/details/after/${record.id}`)
   }
   //购物车
-  shopCart = (record) => {
+  modal = (type,record) => {
     let visible = this.state.visible;
     this.setState({
-      visible:true
+      visible:!visible,
+      modalType:type
     },()=>{
+      // if (type === 'pay') return;
       this.props.shopCart(record)
+
     })
   }
   //取消弹窗
@@ -121,14 +125,39 @@ class Shop extends React.Component {
     })
   }
   //
-  handleOk= () => {
+  handleoks= (val,value) => {
    // console.log(value)
    //  this.props.form.validateFieldsAndScroll((err, value) => {
    //    console.log(value)
-   //    this.props.cartData(value)
+    let id = this.props.shop.cart.id
+    let price = this.props.shop.cart.price
+    // console.log(price)
+    let allprice = value.number*price
+    // console.log(value.number)
+    // console.log(allprice)
+    let obj = {
+      value:{
+        Specifications:value.Specifications,
+        color:value.color,
+        number:value.number,
+        allprice:allprice,
+      },
+      'id':id,
+    }
+    // obj.push(value,id)
+      this.props.cartData(obj)
+
+    if(this.state.modalType === 'pay'){
+      console.log(val)
       this.setState({
-        visible:false
+        visible:val
       })
+    }
+    else {
+      this.setState({
+        visible:val
+      })
+    }
     // })
   }
   //删除行
@@ -239,8 +268,8 @@ class Shop extends React.Component {
         render:(value,record,index) => {
           return (
             <div>
-                <img onClick={()=>this.shopCart(record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
-              <Button type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
+                <img onClick={()=>this.modal('cart',record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
+              <Button onClick={()=>this.modal('pay',record,index)} type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
             </div>
 
           )
@@ -275,7 +304,8 @@ class Shop extends React.Component {
           />
        <ShopModal
          visible={visible}
-         onOk={this.handleOk}
+         title={this.state.modalType}
+         onOk={this.handleoks}
          onCancel={this.onCancel}
        />
       </div>

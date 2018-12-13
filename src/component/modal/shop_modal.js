@@ -1,11 +1,9 @@
 import React from 'react'
 import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch } from 'antd'
 import {connect} from 'react-redux'
-import {cartData} from '../../redux/shop_redux'
 import "./index.less"
 @connect(
-  state=>state,
-  {cartData}
+  state=>state
 )
 class ShopModal extends React.Component{
   constructor (props){
@@ -19,15 +17,11 @@ class ShopModal extends React.Component{
     // console.log(e);
     // this.props.handleOk()
     // let id = this.props.shop.cart.id
-    let visible = !this.props.visible
     this.props.form.validateFieldsAndScroll((err, value) => {
-      if(err){
+        if(err) return
+        // this.props.cartData(value)
+        this.props.onOk(false,value)
 
-        this.props.cartData(value)
-        this.setState({
-          visible:!visible
-        })
-      }
   })
   }
 
@@ -35,6 +29,10 @@ class ShopModal extends React.Component{
     // console.log('cancel');
     this.props.onCancel();
   }
+  // getItemsValue = ()=>{    //3、自定义方法，用来传递数据（需要在父组件中调用获取数据）
+  //   //   const valus= this.props.form.getFieldsValue();       //4、getFieldsValue：获取一组输入控件的值，如不传入参数，则获取全部组件的值
+  //   //   return valus;
+  //   // }
   render(){
     // console.log(this.props)
     const FormItem = Form.Item;
@@ -55,7 +53,7 @@ class ShopModal extends React.Component{
     return(
       <div>
         <Modal
-          title="加入购物车"
+          title={this.props.title === 'cart' ? "加入购物车" : "立即购买"}
           visible={this.props.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -65,7 +63,7 @@ class ShopModal extends React.Component{
             <h3>{cart.name}</h3>
             <div className="img_dec">
               {cart.avatar&&cart.avatar.map(v=>(
-                <img key={v} src={v} />
+                <img key={v} src={v} alt={v}/>
               ))}
               <span>
                 ¥{cart.price}
@@ -84,7 +82,7 @@ class ShopModal extends React.Component{
                 )}
               </FormItem>
               <FormItem label="颜色分类"  {...formItemLayout}>
-                {getFieldDecorator('color ', {
+                {getFieldDecorator('color', {
                   rules: [{ required: true, message: '颜色分类' }],
                 })(
                   <RadioGroup>
@@ -95,7 +93,7 @@ class ShopModal extends React.Component{
                 )}
               </FormItem>
               <FormItem label="购买数量"  {...formItemLayout}>
-                {getFieldDecorator('number ',{ initialValue: 1}
+                {getFieldDecorator('number',{ initialValue: 1}
                 )(
                   <InputNumber
                     min={1}
