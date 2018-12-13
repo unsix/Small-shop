@@ -10,6 +10,7 @@ import { Avatar } from 'antd'
 class AfterDetails extends React.Component{
 
   render(){
+    console.log(this.props)
     const after= this.props.shop.after
     return(
       <div className="container_details container_evaluate">

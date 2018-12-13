@@ -1,14 +1,15 @@
 import React from 'react'
-import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination } from 'antd'
+import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,InputNumber } from 'antd'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,shopCart} from '../../redux/shop_redux'
+import ShopModal from '../../component/modal/shop_modal'
 import './index.less'
 
 
 const {Search} = Input
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails}
+  {shopDetails,evaluateDetails,afterDetails,shopCart}
 )
 class Shop extends React.Component {
   constructor (props){
@@ -22,43 +23,45 @@ class Shop extends React.Component {
       data:[{
         id:'1',
         key: '1',
-        avatar:'U',
-        name: '中财PPR热水管(绿色)',
-        brand: '中财',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+        ],
+        name: '中财PPR热水管',
         unit:10,
         number:1,
         price:10,
+        color:'黑色',
         Specifications: '大',
       }, {
         id:'2',
         key: '2',
-        avatar:'W',
-        name: '霍尼韦尔PPR热水管(绿色)',
-        brand: '中财',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+        name: '霍尼韦尔PPR热水管',
         unit:20,
         number:1,
         price:20,
+        color:'黑色',
         Specifications: '中',
       }, {
         id:'3',
         key: '3',
-        avatar:'C',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
         name: '宜家不锈钢液压铰链',
-        brand: '中财',
         unit:30,
         number:1,
         price:30,
+        color:'黑色',
         Specifications: '小',
       }, {
         id:'4',
         key: '4',
-        avatar:'Q',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
         name: '高渗透基膜',
-        brand: '中财',
         unit:40,
         number:1,
         price:40,
-        Specifications: '大',
+        color:'黑色',
+        Specifications: '中',
       }]
 
     }
@@ -102,6 +105,32 @@ class Shop extends React.Component {
     this.props.afterDetails(record)
     this.props.history.push(`/details/after/${record.id}`)
   }
+  //购物车
+  shopCart = (record) => {
+    let visible = this.state.visible;
+    this.setState({
+      visible:true
+    },()=>{
+      this.props.shopCart(record)
+    })
+  }
+  //取消弹窗
+  onCancel = () => {
+    this.setState({
+      visible:false
+    })
+  }
+  //
+  handleOk= () => {
+   // console.log(value)
+   //  this.props.form.validateFieldsAndScroll((err, value) => {
+   //    console.log(value)
+   //    this.props.cartData(value)
+      this.setState({
+        visible:false
+      })
+    // })
+  }
   //删除行
   onDelete = (record,index) => {
     console.log(record)
@@ -112,17 +141,22 @@ class Shop extends React.Component {
     })
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const FormItem = Form.Item;
-    const { TextArea } = Input;
+    // console.log(this.props)
+    const {visible} = this.state
     const columns = [
       {
         title: '图片',
         dataIndex: 'avatar',
-        render:(value,record)=>{
+        render:(value,record,index)=>{
           return(
-            <Avatar  style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{record.avatar}</Avatar>
-          )
+            <div>
+              {/*{record.avatar.map(v=>(*/}
+                {/*<Avatar  src={v}></Avatar>*/}
+              {/*))}*/}
+              {/*{<img src={record.avatar[0]} alt="">}*/}
+              <Avatar src={record.avatar[0]}></Avatar>
+            </div>
+        )
     }
       },
       {
@@ -130,31 +164,31 @@ class Shop extends React.Component {
       dataIndex: 'name',
        },
       {
-        title: '品牌',
-        dataIndex: 'brand',
-      },
-      {
         title: '规格',
         dataIndex: 'Specifications',
+      },
+      {
+        title: '颜色',
+        dataIndex: 'color',
       },
       {
         title: '单价',
         dataIndex: 'unit',
         render:val=>`¥${val}`
       },
-      {
-        title: '数量',
-        dataIndex: 'number',
-        render:(value,record) => {
-          return(
-            <div>
-              <Button onClick={()=>this.addSum(value,record)}>+</Button>
-              <Button>{value}</Button>
-              <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
-            </div>
-          )
-        }
-      },
+      // {
+      //   title: '数量',
+      //   dataIndex: 'number',
+      //   render:(value,record) => {
+      //     return(
+      //       <div>
+      //         <Button onClick={()=>this.addSum(value,record)}>+</Button>
+      //         <Button>{value}</Button>
+      //         <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
+      //       </div>
+      //     )
+      //   }
+      // },
       {
         title: '价格',
         dataIndex: 'price',
@@ -205,12 +239,7 @@ class Shop extends React.Component {
         render:(value,record,index) => {
           return (
             <div>
-              <Popconfirm
-                title="确认加入购物车吗？"
-                onConfirm = {()=>this.onDelete(record,index)}
-              >
-                <img src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
-              </Popconfirm>
+                <img onClick={()=>this.shopCart(record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
               <Button type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
             </div>
 
@@ -244,39 +273,14 @@ class Shop extends React.Component {
         <Pagination
           current={1} total={1} pageSize={1}
           />
-        <Modal
-          title="商品详情"
-          onOk={this.handleOk}
-          onCancel={() => this.setState({visible: false})}
-          visible={this.state.visible}
-        >
-          <Form>
-            <FormItem label="名字"  >
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="联系方式"  >
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="门街号" >
-              {getFieldDecorator('specific_address', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <TextArea placeholder={this.state.sum} autosize={{ minRows: 2, maxRows: 6 }} />,
-              )}
-            </FormItem>
-          </Form>
-        </Modal>
+       <ShopModal
+         visible={visible}
+         onOk={this.handleOk}
+         onCancel={this.onCancel}
+       />
       </div>
     );
   }
 }
 
-export  default   Form.create()(Shop)
+export  default  Shop
