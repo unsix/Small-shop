@@ -1,17 +1,26 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination } from 'antd'
+import {connect} from 'react-redux'
+import {shopDetails} from '../../redux/shop_redux'
 import './index.less'
 
+
 const {Search} = Input
+@connect(
+  state=>state,
+  {shopDetails}
+)
 class Shop extends React.Component {
   constructor (props){
     super(props)
     this.state = {
+      details:[],
       loading: false,
       sum:0,
       allprice:0,
       visible:false,
       data:[{
+        id:'1',
         key: '1',
         avatar:'U',
         name: '中财PPR热水管(绿色)',
@@ -21,6 +30,7 @@ class Shop extends React.Component {
         price:10,
         Specifications: '大',
       }, {
+        id:'2',
         key: '2',
         avatar:'W',
         name: '霍尼韦尔PPR热水管(绿色)',
@@ -30,6 +40,7 @@ class Shop extends React.Component {
         price:20,
         Specifications: '中',
       }, {
+        id:'3',
         key: '3',
         avatar:'C',
         name: '宜家不锈钢液压铰链',
@@ -39,6 +50,7 @@ class Shop extends React.Component {
         price:30,
         Specifications: '小',
       }, {
+        id:'4',
         key: '4',
         avatar:'Q',
         name: '高渗透基膜',
@@ -76,10 +88,8 @@ class Shop extends React.Component {
   }
   //查看详情
   details = (record) => {
-    this.setState({
-      visible: true,
-    }, () => {
-    })
+    this.props.shopDetails(record)
+    this.props.history.push(`/details/shop/${record.id}`)
   }
   //删除行
   onDelete = (record,index) => {

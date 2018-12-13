@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
-import{menu} from './redux/menu_redux'
-function reducer(state = 0, action) {
-  return state
-}
+import { menu } from './redux/menu_redux'
+import { shop } from './redux/shop_redux'
 
-export default combineReducers({reducer,menu})
+
+export default combineReducers({menu})

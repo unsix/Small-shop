@@ -36,7 +36,7 @@ class OrderTable extends React.Component {
         price:20,
         Specifications: '蓝色',
           operation:['取消订单','付款']
-      }
+      },
       ]
     }
   }
@@ -103,6 +103,10 @@ class OrderTable extends React.Component {
           {
             text:status[2],
             value:2
+          },
+          {
+            text:status[3],
+            value:3
           },
         ],
         render:(val) => {

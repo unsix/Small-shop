@@ -2,12 +2,12 @@ import React from 'react'
 import { Menu, Icon } from 'antd';
 import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux'
-import {menu,authSuccess} from '../../redux/menu_redux'
+import {authSuccess} from '../../redux/menu_redux'
 import Menulist from './../../config/menuConfig'
 import './index.less'
 
 @connect(
-  state=>state.menuName,
+  state=>state,
   {authSuccess}
 )
 
@@ -29,8 +29,6 @@ class NavLeft extends React.Component {
   }
   handleClick = ({item}) => {
     console.log((item))
-
-    const { dispatch } = this.props
     this.props.authSuccess(item.props.title)
     this.setState({
       currentKey:item.key
