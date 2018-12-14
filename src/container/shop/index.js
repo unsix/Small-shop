@@ -107,7 +107,7 @@ class Shop extends React.Component {
     })
   }
   //moadl提交
-  handleoks= (val,value) => {
+  handleok= (val,value) => {
     let id = this.props.shop.cart.id
     let price = this.props.shop.cart.price
     let allprice = value.number*price
@@ -159,8 +159,8 @@ class Shop extends React.Component {
             <div>
               <Avatar src={record.avatar[0]}></Avatar>
             </div>
-        )
-    }
+          )
+        }
       },
       {
       title: '名称',
@@ -279,7 +279,7 @@ class Shop extends React.Component {
        <ShopModal
          visible={visible}
          title={this.state.modalType}
-         onOk={this.handleoks}
+         onOk={this.handleok}
          onCancel={this.onCancel}
        />
       </div>

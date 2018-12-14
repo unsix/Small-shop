@@ -1,45 +1,65 @@
 import React from 'react'
-import { Table, Button,Popconfirm} from 'antd';
+import { Table, Button, Popconfirm, Avatar } from 'antd'
+import CartModal from '../../component/modal/cart_modal'
 import './index.less'
+import ShopModal from '../../component/modal/shop_modal'
 class ShopCart extends React.Component {
   constructor (props){
     super(props)
     this.state = {
       selectedRowKeys: [], // Check here to configure the default column
+      selectedRows:[],
       loading: false,
       sum:0,
       allprice:0,
+      visible:false,
       data:[{
+        id:'1',
         key: '1',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+        ],
         name: '中财PPR热水管',
         unit:10,
         number:1,
         price:10,
-        Specifications: '蓝色',
+        color:'黑色',
+        Specifications: '大',
+        star:0,
       }, {
+        id:'2',
         key: '2',
-        name: '霍尼韦尔PPR热水管(绿色)',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+        name: '霍尼韦尔PPR热水管',
         unit:20,
         number:1,
         price:20,
-        Specifications: '黑色',
+        color:'黑色',
+        Specifications: '中',
+        star:1
       }, {
+        id:'3',
         key: '3',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
         name: '宜家不锈钢液压铰链',
-        brand: 32,
         unit:30,
-        number:2,
-        price:60,
-        Specifications: '灰色',
+        number:1,
+        price:30,
+        color:'黑色',
+        Specifications: '小',
+        star:0
       }, {
+        id:'4',
         key: '4',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
         name: '高渗透基膜',
         unit:40,
         number:1,
         price:40,
-        Specifications: '棕色',
+        color:'黑色',
+        Specifications: '中',
+        star:0
       }]
-
     }
   }
   componentDidMount(){
@@ -61,6 +81,7 @@ class ShopCart extends React.Component {
     allprice= selectedRows.reduce((total, item) => total + item.price, 0)
     this.setState({
       selectedRowKeys,
+      selectedRows,
       allprice,
     });
     // console.log(selectedRows)
@@ -104,14 +125,48 @@ class ShopCart extends React.Component {
            data:dataChange
          })
   }
+  //结算modal
+  modal = () => {
+    let visible = this.state.visible;
+    let selectedRows = this.state.selectedRows;
+    console.log(selectedRows)
+    this.setState({
+      visible:!visible,
+    },()=>{
+      // this.props.shopCart(record)
+
+    })
+  }
+  //取消弹窗
+  onCancel = () => {
+    this.setState({
+      visible:false
+    })
+  }
   render() {
-    const columns = [{
+    const columns = [
+      {
+        title: '图片',
+        dataIndex: 'avatar',
+        render:(value,record,index)=>{
+          return(
+            <div>
+              <Avatar src={record.avatar[0]}></Avatar>
+            </div>
+          )
+        }
+      },
+      {
       title: '名称',
       dataIndex: 'name',
     },
       {
-        title: '颜色',
+        title: '规格',
         dataIndex: 'Specifications',
+      },
+      {
+        title: '颜色',
+        dataIndex: 'color',
       },
       {
         title: '单价',
@@ -152,7 +207,7 @@ class ShopCart extends React.Component {
       }
       ,
     ];
-    const { loading, selectedRowKeys} = this.state;
+    const { loading, selectedRowKeys,visible} = this.state;
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -163,10 +218,8 @@ class ShopCart extends React.Component {
         <div style={{ marginBottom: 16 }}>
           <Button
             type="primary"
-
             disabled={!hasSelected}
-
-
+            onClick={this.modal}
           >
             结算
           </Button>
@@ -180,6 +233,12 @@ class ShopCart extends React.Component {
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
+        />
+        <CartModal
+          visible={visible}
+          title={this.state.modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
         />
       </div>
     );

@@ -1,9 +1,10 @@
 .nav-left{
   min-width: 180px;
+
   .logo{
     line-height: 60px;
     padding-left: 20px;
-    background-color: #002140;
+
     img{
       height: 35px;
     }
@@ -19,5 +20,13 @@
       line-height: 50px;
       height: 50px;
     }
+  }
+  //menu 背景
+  .ant-menu-dark, .ant-menu-dark .ant-menu-sub{
+    background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+  }
+  //选中背景
+  .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected{
+    background:linear-gradient(rgba(250,97,173,1) 100%,rgba(247,107,28,1) 100%);
   }
 }

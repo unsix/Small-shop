@@ -15,10 +15,9 @@ class NavLeft extends React.Component {
   constructor (props){
     super(props)
     this.state = {
-      currentKey: ''
+      currentKey: '',
     }
   }
-
   componentWillMount(){
     const menuTreeNode = this.renderMenu(Menulist);
     let currentKey = window.location.hash.replace(/#|\?.*$/g,'')
@@ -63,7 +62,7 @@ class NavLeft extends React.Component {
         <div >
           <Menu
             defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub2']}
+            defaultOpenKeys={['sub1']}
             mode="inline"
             theme="dark"
             onClick={this.handleClick}

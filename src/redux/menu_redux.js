@@ -3,7 +3,6 @@
 // 获取
 const  SWITCH_MENU = 'SWITCH_MENU'
 
-const  SWITCH_SHOP = 'SWITCH_SHOP'
 const initState = {
     menuName:'首页',
 
@@ -15,11 +14,6 @@ export function menu(state=initState, action){
       return {
         ...state,
         menuName:action.payload
-      }
-    case SWITCH_SHOP:
-      return {
-        ...state,
-        details_shop:action.payload
       }
     default:
       return state

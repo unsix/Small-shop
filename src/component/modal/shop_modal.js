@@ -54,6 +54,7 @@ class ShopModal extends React.Component{
       <div>
         <Modal
           title={this.props.title === 'cart' ? "加入购物车" : "立即购买"}
+          okText={this.props.title === 'cart' ? "确定" : "提交订单"}
           visible={this.props.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
