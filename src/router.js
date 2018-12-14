@@ -17,6 +17,7 @@ import Order from './container/order'
 import ShopDetails from  './component/details/shop_details'
 import EvaluateDetails  from './component/details/evaluate_details'
 import AfterDetails from './component/details/after_details'
+import OrderDetails from './component/details/order_details'
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class ERouter extends React.Component{
@@ -42,9 +43,11 @@ class ERouter extends React.Component{
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route path="/shop/all" component={Shop} />
+
                   <Route path="/details/shop/:id" component={ShopDetails} />
                   <Route path="/details/evaluate/:id" component={EvaluateDetails} />
                   <Route path="/details/after/:id" component={AfterDetails} />
+                  <Route path="/details/order/:id" component={OrderDetails} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

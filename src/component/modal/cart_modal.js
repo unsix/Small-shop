@@ -1,6 +1,6 @@
 
 import React from 'react'
-import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch } from 'antd'
+import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch,List } from 'antd'
 import {connect} from 'react-redux'
 import "./index.less"
 @connect(
@@ -11,6 +11,7 @@ class CartModal extends React.Component{
     super(props)
     this.state = {
       visible: false,
+      allprice:''
     }
 
   }
@@ -24,7 +25,9 @@ class CartModal extends React.Component{
   render(){
     // console.log(this.props)
 
-    const cart = this.props.shop.cart
+    const datacart = this.props.cart.dataCart.selectedRows
+    const allprice = this.props.cart.dataCart.allprice
+    console.log(datacart)
     return(
       <div>
         <Modal
@@ -34,21 +37,61 @@ class CartModal extends React.Component{
           onCancel={this.handleCancel}
           destroyOnClose={true}
         >
-          <div className=" modal_shop modal_content">
-            <h3>{cart.name}</h3>
-            <div className="img_dec">
-              {cart.avatar&&cart.avatar.map(v=>(
-                <img key={v} src={v} alt={v}/>
-              ))}
-              <span>
-                ¥{cart.price}
-              </span>
+          <div className=" modal_cart modal_content">
+                <List
+                  itemLayout="horizontal"
+                  dataSource={datacart}
+                  renderItem={item => (
+                    <List.Item>
+                      <List.Item.Meta
+                        avatar={<Avatar src={item.avatar[0]} />}
+                        title={item.name}
+                      />
+                      <div className="content">
+                        <div className="unit">
+                          <h6>¥{item.unit} <span>×1</span></h6>
+                        </div>
+                        <h6 className="spe">{item.Specifications}</h6>
+                        <h6 className="cor">{item.color}</h6>
+                        <h6 className="num">×{item.number}</h6>
+                      </div>
+                    </List.Item>
+                  )}
+                />
+            <div>
+              <h3 className="pce">合计金额 :
+                <span>
+                ¥{allprice}
+                </span>
+              </h3>
             </div>
-
           </div>
         </Modal>
       </div>
     )
   }
 }
+// {chatmsgs.map(v=>{
+//   const avatar = require(`../img/${users[v.from].avatar}.png`)
+//   return v.from==userid?(
+//     <List key={v._id} >
+//       <Item
+//         thumb={avatar}
+//       >
+//
+//         {v.content}
+//       </Item>
+//     </List>):(
+//     <List key= {v._id} >
+//       <Item
+//         extra = {<img alt="头像" src={avatar} />}
+//         className='chat-me'
+//       >
+//         {v.content}
+//       </Item>
+//     </List>
+//   )
+//
+//
+// })}
 export default  CartModal

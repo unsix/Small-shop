@@ -1,8 +1,15 @@
 import React from 'react'
 import { Table, Button, Popconfirm, Avatar } from 'antd'
 import CartModal from '../../component/modal/cart_modal'
+import {connect} from 'react-redux'
+import {dataCart} from '../../redux/cart_redux'
 import './index.less'
-import ShopModal from '../../component/modal/shop_modal'
+
+
+@connect(
+  state=>state,
+  {dataCart}
+)
 class ShopCart extends React.Component {
   constructor (props){
     super(props)
@@ -128,15 +135,30 @@ class ShopCart extends React.Component {
   //结算modal
   modal = () => {
     let visible = this.state.visible;
+    let allprice = this.state.allprice
+    console.log(allprice)
     let selectedRows = this.state.selectedRows;
     console.log(selectedRows)
     this.setState({
       visible:!visible,
     },()=>{
-      // this.props.shopCart(record)
+      let obj = {
+        selectedRows:selectedRows,
+        allprice:allprice
+      }
+
+
+
+      this.props.dataCart(obj)
 
     })
   }
+  //modal提交
+  handleok = () => [
+    this.setState({
+      visible:false
+    })
+  ]
   //取消弹窗
   onCancel = () => {
     this.setState({
@@ -233,6 +255,7 @@ class ShopCart extends React.Component {
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
+
         />
         <CartModal
           visible={visible}

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
 import '../../style/table.less'
-
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
+
+
+
 class OrderTable extends React.Component {
   constructor (props){
     super(props)
@@ -14,6 +16,7 @@ class OrderTable extends React.Component {
       allprice:0,
       visible:false,
       data:[{
+        id:'1',
         ordernumber:'0000000000000001',
         status:0,
         key: '1',
@@ -26,6 +29,7 @@ class OrderTable extends React.Component {
         operation:['删除订单']
       },
         {
+          id:'2',
           ordernumber:'0000000000000001',
         status:1,
         key: '2',
@@ -43,13 +47,11 @@ class OrderTable extends React.Component {
   componentDidMount(){
 
   }
-  //查看详情
+  //传入父组件
   details = (record) => {
-    this.setState({
-      visible: true,
-    }, () => {
-    })
-  }
+    if ( this.props.details)
+    this.props.details(record)
+    }
   //操作与付款
   operation = (v,record,index) => {
     let _this = this               //由于内容onOK非箭头函数 改变this指向
