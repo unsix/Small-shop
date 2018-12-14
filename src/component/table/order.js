@@ -1,11 +1,18 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
 import '../../style/table.less'
+import OrderCart from './modal/order_modal'
+import connect from 'react-redux/es/connect/connect'
+import {orDetails} from '../../redux/order_redux'
+
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 
-
+@connect(
+  state=>state,
+  {orDetails}
+)
 
 class OrderTable extends React.Component {
   constructor (props){
@@ -14,13 +21,16 @@ class OrderTable extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      modalType:'取消订单',
       visible:false,
       data:[{
         id:'1',
         ordernumber:'0000000000000001',
         status:0,
         key: '1',
-        avatar:'U',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+        ],
         name: '中财PPR热水管(绿色)',
         unit:10,
         number:1,
@@ -33,7 +43,9 @@ class OrderTable extends React.Component {
           ordernumber:'0000000000000001',
         status:1,
         key: '2',
-        avatar:'W',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+          ],
         name: '霍尼韦尔PPR热水管(绿色)',
         unit:20,
         number:1,
@@ -71,6 +83,25 @@ class OrderTable extends React.Component {
         }
       })
     }
+    if(v==='取消订单'){
+      this.setState({
+        visible:true,
+        modalType:v
+      },()=>{
+      })
+    }
+    if(v==='付款'){
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+  }
+  //取消弹窗
+  onCancel = () => {
+    this.setState({
+      visible:false
+    })
   }
   //删除行
   onDelete = (record,index) => {
@@ -82,9 +113,7 @@ class OrderTable extends React.Component {
     })
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const FormItem = Form.Item;
-    const { TextArea } = Input;
+    const { visible ,modalType} = this.state
     const columns = [
       {
         title: '订单号',
@@ -120,7 +149,9 @@ class OrderTable extends React.Component {
         dataIndex: 'avatar',
         render:(value,record)=>{
           return(
-            <Avatar  style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{record.avatar}</Avatar>
+            <div>
+              <Avatar src={record.avatar[0]}></Avatar>
+            </div>
           )
         }
       },
@@ -189,39 +220,15 @@ class OrderTable extends React.Component {
         <Pagination
           current={1} total={1} pageSize={1}
         />
-        <Modal
-          title="商品详情"
-          onOk={this.handleOk}
-          onCancel={() => this.setState({visible: false})}
-          visible={this.state.visible}
-        >
-          <Form>
-            <FormItem label="名字"  >
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="联系方式"  >
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="门街号" >
-              {getFieldDecorator('specific_address', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <TextArea placeholder={this.state.sum} autosize={{ minRows: 2, maxRows: 6 }} />,
-              )}
-            </FormItem>
-          </Form>
-        </Modal>
+        <OrderCart
+          visible={visible}
+          title={modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
+        />
       </div>
     );
   }
 }
 
-export  default Form.create()(OrderTable)
+export  default OrderTable

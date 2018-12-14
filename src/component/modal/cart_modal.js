@@ -71,27 +71,4 @@ class CartModal extends React.Component{
     )
   }
 }
-// {chatmsgs.map(v=>{
-//   const avatar = require(`../img/${users[v.from].avatar}.png`)
-//   return v.from==userid?(
-//     <List key={v._id} >
-//       <Item
-//         thumb={avatar}
-//       >
-//
-//         {v.content}
-//       </Item>
-//     </List>):(
-//     <List key= {v._id} >
-//       <Item
-//         extra = {<img alt="头像" src={avatar} />}
-//         className='chat-me'
-//       >
-//         {v.content}
-//       </Item>
-//     </List>
-//   )
-//
-//
-// })}
 export default  CartModal
