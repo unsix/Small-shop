@@ -89,14 +89,13 @@ class Shop extends React.Component {
     this.props.afterDetails(record)
     this.props.history.push(`/details/after/${record.id}`)
   }
-  //购物车
+  //购物车//立即购买
   modal = (type,record) => {
     let visible = this.state.visible;
     this.setState({
       visible:!visible,
       modalType:type
     },()=>{
-      // if (type === 'pay') return;
       this.props.shopCart(record)
 
     })
@@ -158,10 +157,6 @@ class Shop extends React.Component {
         render:(value,record,index)=>{
           return(
             <div>
-              {/*{record.avatar.map(v=>(*/}
-                {/*<Avatar  src={v}></Avatar>*/}
-              {/*))}*/}
-              {/*{<img src={record.avatar[0]} alt="">}*/}
               <Avatar src={record.avatar[0]}></Avatar>
             </div>
         )

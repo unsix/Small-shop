@@ -33,6 +33,7 @@ class NavLeft extends React.Component {
     this.setState({
       currentKey:item.key
     })
+    console.log(this.state.currentKey)
   }
   //菜单渲染
   renderMenu =(data)=>{
@@ -65,7 +66,6 @@ class NavLeft extends React.Component {
             defaultOpenKeys={['sub2']}
             mode="inline"
             theme="dark"
-            selectedKeys={[this.state.currentKey]}
             onClick={this.handleClick}
           >
             { this.state.menuTreeNode }

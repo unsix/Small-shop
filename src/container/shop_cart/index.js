@@ -45,27 +45,19 @@ class ShopCart extends React.Component {
   componentDidMount(){
 
   }
-  start = () => {
-    this.setState({ loading: true });
-    // ajax request after empty completing
-    setTimeout(() => {
-      this.setState({
-        selectedRowKeys: [],
-        loading: false,
-      });
-    }, 1000);
-  }
+  // start = () => {
+  //   this.setState({ loading: true });
+  //   setTimeout(() => {
+  //     this.setState({
+  //       selectedRowKeys: [],
+  //       loading: false,
+  //     });
+  //   }, 1000);
+  // }
 
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys,'selectedRows',selectedRows);
     let allprice = this.state.allprice
-    // selectedRows.forEach(i=>{
-    //   console.log(i)
-    //   allprice += i.price
-    // })
-    // this.addSum(selectedRows.forEach(i=>{
-    //   allprice += i.price
-    // }))
     allprice= selectedRows.reduce((total, item) => total + item.price, 0)
     this.setState({
       selectedRowKeys,
@@ -171,9 +163,9 @@ class ShopCart extends React.Component {
         <div style={{ marginBottom: 16 }}>
           <Button
             type="primary"
-            onClick={this.start}
+
             disabled={!hasSelected}
-            loading={loading}
+
 
           >
             结算

@@ -5,7 +5,7 @@ import './index.less'
 
 class Navlist extends React.Component {
   state = {
-    current: 'mail',
+    current:'mail',
   }
 
   handleClick = (e) => {
@@ -13,6 +13,7 @@ class Navlist extends React.Component {
     this.setState({
       current: e.key,
     });
+    console.log(this.state.current)
   }
   onChange = (a,b,c)=>{
     console.log(a, b, c);
@@ -37,16 +38,6 @@ class Navlist extends React.Component {
             { this.renderMenu(item.children)}
           </SubMenu>
         )
-        // if(item.children){
-        //   return (
-        //     <SubMenu title={item.title}  key={item.key}>
-        //       { this.renderMenu(item.children)}
-        //     </SubMenu>
-        //   )
-        // }
-        // return <SubMenu title={item.title}  key={item.key}>
-        //   {item.title}
-        // </SubMenu>
       }
       return <Menu.Item title={item.title} key={item.key}>
         {item.title}
