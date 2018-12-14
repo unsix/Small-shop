@@ -33,6 +33,7 @@ class Shop extends React.Component {
         price:10,
         color:'黑色',
         Specifications: '大',
+        star:0,
       }, {
         id:'2',
         key: '2',
@@ -43,6 +44,7 @@ class Shop extends React.Component {
         price:20,
         color:'黑色',
         Specifications: '中',
+        star:1
       }, {
         id:'3',
         key: '3',
@@ -53,6 +55,7 @@ class Shop extends React.Component {
         price:30,
         color:'黑色',
         Specifications: '小',
+        star:0
       }, {
         id:'4',
         key: '4',
@@ -63,33 +66,13 @@ class Shop extends React.Component {
         price:40,
         color:'黑色',
         Specifications: '中',
+        star:0
       }]
 
     }
   }
   componentDidMount(){
 
-  }
-
-  //购物车+
-  addSum = (value,record) => {
-    record.number = value + 1
-    record.price = record.number*record.unit
-    this.setState({
-      value:record.number,
-    })
-
-    // console.log(data)
-  }
-  //购物车-
-  reduceSum = (value,record) => {
-    if(record.number>1){
-      record.number = value - 1
-      record.price = record.number*record.unit
-    }
-    this.setState({
-      value:record.number,
-    })
   }
   //查看详情
   details = (record) => {
@@ -124,17 +107,11 @@ class Shop extends React.Component {
       visible:false
     })
   }
-  //
+  //moadl提交
   handleoks= (val,value) => {
-   // console.log(value)
-   //  this.props.form.validateFieldsAndScroll((err, value) => {
-   //    console.log(value)
     let id = this.props.shop.cart.id
     let price = this.props.shop.cart.price
-    // console.log(price)
     let allprice = value.number*price
-    // console.log(value.number)
-    // console.log(allprice)
     let obj = {
       value:{
         Specifications:value.Specifications,
@@ -144,7 +121,6 @@ class Shop extends React.Component {
       },
       'id':id,
     }
-    // obj.push(value,id)
       this.props.cartData(obj)
 
     if(this.state.modalType === 'pay'){
@@ -158,7 +134,10 @@ class Shop extends React.Component {
         visible:val
       })
     }
-    // })
+  }
+  //收藏
+  collect = (reacord) => {
+    console.log(reacord)
   }
   //删除行
   onDelete = (record,index) => {
@@ -278,10 +257,10 @@ class Shop extends React.Component {
       {
         title: '收藏',
         dataIndex: 'star',
-        render:()=>{
+        render:(record,value)=>{
           return(
             <div>
-              <Rate count={1} />
+              <Rate onChange={()=>this.collect(record,value)}   count={1} />
             </div>
           )
         }
