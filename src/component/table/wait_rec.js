@@ -93,6 +93,27 @@ class WaitReceiveTable extends React.Component {
         modalType:v
       })
     }
+    if(v==='下载合同'){
+      // this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='申请退款'){
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='确认收货'){
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
   }
   //取消弹窗
   onCancel = () => {
