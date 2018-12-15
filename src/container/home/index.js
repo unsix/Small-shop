@@ -11,18 +11,45 @@ import './index.less'
 )
 class Home extends React.Component{
 
-
+  constructor(props){
+    super(props)
+    this.state = {
+      visible:false,
+      modalType:'cart'
+    }
+  }
+  //详情
   OnDetails = (record) => {
     this.props.shopDetails(record)
     this.props.history.push(`/details/shop/${record.id}`)
   }
+  //评价
   OnEvaluate = (record) => {
     this.props.evaluateDetails(record)
     this.props.history.push(`/details/evaluate/${record.id}`)
   }
+  //售后
   OnAfter = (record) => {
     this.props.afterDetails(record)
     this.props.history.push(`/details/after/${record.id}`)
+  }
+  //cart pay modal
+  OnModal = (type,record) => {
+    console.log(type)
+    let visible = this.state.visible;
+    this.setState({
+      visible:!visible,
+      modalType:type
+    },()=>{
+      this.props.shopCart(record)
+
+    })
+  }
+  //close modal
+  OnCancel = () => {
+    this.setState({
+      visible:false
+    })
   }
   render(){
     const menuName = this.props.menu.menuName
@@ -117,9 +144,12 @@ class Home extends React.Component{
           </div>
         </div>
         <Shop
+          visible={this.state.visible}
           details = {this.OnDetails}
           evaluate = {this.OnEvaluate}
           after = {this.OnAfter}
+          modal = {this.OnModal}
+          onCancel = {this.OnCancel}
         />
       </div>
     )

@@ -93,20 +93,19 @@ class Shop extends React.Component {
   }
   //购物车//立即购买
   modal = (type,record) => {
-    let visible = this.state.visible;
-    this.setState({
-      visible:!visible,
-      modalType:type
-    },()=>{
-      this.props.shopCart(record)
-
-    })
+    // let visible = this.state.visible;
+    // this.setState({
+    //   visible:!visible,
+    //   modalType:type
+    // },()=>{
+    //   this.props.shopCart(record)
+    //
+    // })
+    this.props.modal(type,record)
   }
   //取消弹窗
   onCancel = () => {
-    this.setState({
-      visible:false
-    })
+    this.props.onCancel()
   }
   //moadl提交
   handleok= (val,value) => {
@@ -152,7 +151,7 @@ class Shop extends React.Component {
   render() {
     // console.log(this.props)
     const menuName = this.props.menu.menuName
-    const {visible} = this.state
+    const {visible} = this.props
     const columns = [
       {
         title: '图片',
