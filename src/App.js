@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
 import Header from './component/header'
-import NavLeft from './component/navleftlist'
+import NavLeft from './component/navlist'
 import './style/common.less'
 import { Row,Col } from 'antd';
 
 class App extends Component {
   render() {
     return (
-      <div >
-        <Row className="container">
-          <Col span="3" className="nav-left">
+      <div className="container">
+        <Row >
+          <Col span="24" className="nav-menu">
             <NavLeft/>
           </Col>
-          <Col span="21" className="main">
-            <Header/>
-            <Row className="content">
-              {/* <Home/> */}
-              {this.props.children}
-
-            </Row>
-          </Col>
+            <Col span="24" className="" >
+              <div className="header_content">
+                <Header/>
+              </div>
+            </Col>
+            <Col span="24" className="main">
+              <div className="content">
+                {this.props.children}
+              </div>
+            </Col>
         </Row>
+        {/*<Col span="24" className="main">*/}
+
+            {/*<Row className="content">*/}
+              {/*/!* <Home/> *!/*/}
+
+
+            {/*</Row>*/}
+        {/*</Col>*/}
       </div>
     );
   }

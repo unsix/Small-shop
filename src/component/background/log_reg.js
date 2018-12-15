@@ -6,7 +6,7 @@ import './log_reg.less';
 class LogReg extends React.Component {
   render(){
     return(
-      <div className="container">
+      <div className="container container_lr">
         <div className="ground-container">
           <Carousel
             autoplay

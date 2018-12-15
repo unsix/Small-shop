@@ -5,7 +5,6 @@ import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../
 import ShopModal from '../../component/modal/shop_modal'
 import './index.less'
 
-
 const {Search} = Input
 @connect(
   state=>state,
@@ -149,6 +148,7 @@ class Shop extends React.Component {
   }
   render() {
     // console.log(this.props)
+    const menuName = this.props.menu.menuName
     const {visible} = this.state
     const columns = [
       {
@@ -262,9 +262,9 @@ class Shop extends React.Component {
       },
     ];
     return (
-      <div className="container_shop">
-        <div className="shop_top">
-          <h2>商品信息</h2>
+      <div className="container_shop container_width">
+        <div className="shop_top container_top">
+          <h2>{menuName}</h2>
           <Search placeholder="油漆" onChange={this.search} />
         </div>
         <Table

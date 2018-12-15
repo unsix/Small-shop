@@ -31,7 +31,7 @@ class OrderTable extends React.Component {
         avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
           'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
         ],
-        name: '中财PPR热水管(绿色)',
+        name: '中财PPR热水管',
         unit:10,
         number:1,
         price:10,
@@ -46,7 +46,7 @@ class OrderTable extends React.Component {
           avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
           ],
-        name: '霍尼韦尔PPR热水管(绿色)',
+        name: '霍尼韦尔PPR热水管',
         unit:20,
         number:1,
         price:20,
@@ -64,6 +64,12 @@ class OrderTable extends React.Component {
     if ( this.props.details)
     this.props.details(record)
     }
+  //提交
+  handleok = (val) => {
+    this.setState({
+      visible:val
+    })
+  }
   //操作与付款
   operation = (v,record,index) => {
     let _this = this               //由于内容onOK非箭头函数 改变this指向
@@ -84,17 +90,18 @@ class OrderTable extends React.Component {
       })
     }
     if(v==='取消订单'){
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
-      },()=>{
       })
     }
     if(v==='付款'){
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
-      })
+      },)
     }
   }
   //取消弹窗

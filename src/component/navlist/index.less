@@ -1,36 +1,61 @@
-//.navlist{
-//
-//  background: #001529;
-//  height: 80px;
-//  .logo{
-//    text-align: center;
-//    line-height: 67px;
-//    img{
-//      width: 60px;
-//      display: inline-block;
-//    }
-//    h1{
-//      color: rgba(255, 255, 255, 0.65);
-//      letter-spacing: 1px;
-//      display: inline-block;
-//    }
-//  .log_reg{
-//  }
-//  }
-//  .ant-menu{
-//    line-height: 80px;
-//  }
-//  .ant-carousel .slick-slide {
-//    text-align: center;
-//    height: 160px;
-//    line-height: 160px;
-//    background: #364d79;
-//    overflow: hidden;
-//  }
-//
-//  .ant-carousel .slick-slide h3 {
-//    color: #fff;
-//  }
-//
-//
-//}
+.nav-menu{
+  min-width: 180px;
+  background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 60px;
+    padding-left: 20px;
+    img{
+      height: 35px;
+    }
+    h1{
+      color: #ffffff;
+      font-size: 20px;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 0 0 10px;
+      letter-spacing: 1px;
+    }
+    .ant-menu-submenu-title {
+      line-height: 50px;
+      height: 50px;
+    }
+  }
+  .navNenu {
+
+
+  }
+  //menulist
+  .menuList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ant-menu-dark{
+      background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+      line-height: 60px;
+    }
+    //.ant-menu-item:hover,.ant-menu-dark:hover{
+    //  background-color: #fff;
+    //}
+    //.ant-menu-submenu:hover{
+    //  color: red;
+    //}
+    //选中背景
+    //.ant-menu-item-active {
+    //  background-color: #fff;
+    //}
+  }
+}
+.ant-menu-item-selected{
+  color: red;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected{
+  background:rgba(255,0,0,.6);
+}
+.ant-menu-dark .ant-menu-sub{
+  background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+}

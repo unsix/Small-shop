@@ -3,7 +3,7 @@ import React from  'react'
 import {connect} from 'react-redux'
 import { List} from 'antd/lib/list'
 import { Avatar,Button} from 'antd'
-
+import './index.less'
 @connect(
   state=>state,
 )

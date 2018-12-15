@@ -49,7 +49,7 @@ class CartModal extends React.Component{
                       />
                       <div className="content">
                         <div className="unit">
-                          <h6>¥{item.unit} <span>×1</span></h6>
+                          <h6><span>¥{item.unit}</span> <span>×1</span></h6>
                         </div>
                         <h6 className="spe">{item.Specifications}</h6>
                         <h6 className="cor">{item.color}</h6>

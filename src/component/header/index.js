@@ -49,12 +49,12 @@ class Header extends React.Component{
       </Menu>
     );
     return(
-      <div className="header">
+      <div className="component component_header">
         <Row className="header-top">
-          <Col span="6">
+          <Col span="12">
             <h3 >五金商城 <span>/{menuName}</span></h3>
           </Col>
-          <Col span="18" className="header-top-nav">
+          <Col span="12" className="header-top-nav">
               <Avatar style={{ backgroundColor: '#87d068' }} className="header-avatar">U</Avatar>
               <Dropdown overlay={menu}>
                   <span>欢迎 jack Ma <Icon type="caret-down" /></span>

@@ -230,14 +230,18 @@ class ShopCart extends React.Component {
       ,
     ];
     const { loading, selectedRowKeys,visible} = this.state;
+    const menuName = this.props.menu.menuName
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
     };
     const hasSelected = selectedRowKeys.length > 0;
     return (
-      <div className="container_shop_cart">
-        <div style={{ marginBottom: 16 }}>
+      <div className="container_shop_cart container_width">
+        <div className="shop_top container_top">
+          <h2>{menuName}</h2>
+        </div>
+        <div className="type_button">
           <Button
             type="primary"
             disabled={!hasSelected}

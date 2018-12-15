@@ -17,7 +17,7 @@ class Home extends React.Component{
     return(
       <div>
         {redirect&&redirect!=path?<Redirect to={this.props.redirectTo} />:null}
-      <div className="container_home">
+      <div className="container_home container_width">
         <div className="ground-container">
           <Carousel
             autoplay

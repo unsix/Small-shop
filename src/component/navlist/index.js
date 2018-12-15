@@ -1,85 +1,83 @@
-import React from 'react';
-import { Menu, Icon, Row,Col,Carousel} from 'antd';
-import Menulist from '../../config/menuConfig'
+
+
+import React from 'react'
+import { Menu, Icon,Row,Col } from 'antd';
+import { NavLink } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {authSuccess} from '../../redux/menu_redux'
+import Menulist from './../../config/menuConfig'
 import './index.less'
 
-class Navlist extends React.Component {
-  state = {
-    current:'mail',
-  }
+@connect(
+  state=>state,
+  {authSuccess}
+)
 
-  handleClick = (e) => {
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
-    console.log(this.state.current)
-  }
-  onChange = (a,b,c)=>{
-    console.log(a, b, c);
-  }
-  handlePrev = ()=>{
-    this.refs.img.next();
+class NavLeft extends React.Component {
+  constructor (props){
+    super(props)
+    this.state = {
+      currentKey: '',
+    }
   }
   componentWillMount(){
     const menuTreeNode = this.renderMenu(Menulist);
-
+    let currentKey = window.location.hash.replace(/#|\?.*$/g,'')
     this.setState({
-      menuTreeNode
+      menuTreeNode,
+      currentKey
     })
   }
-  菜单渲染
+  handleClick = ({item}) => {
+    console.log((item))
+    this.props.authSuccess(item.props.title)
+    this.setState({
+      currentKey:item.key
+    })
+    console.log(this.state.currentKey)
+  }
+  //菜单渲染
   renderMenu =(data)=>{
     const SubMenu = Menu.SubMenu;
     return data.map((item)=>{
       if(item.children){
         return (
+          //{/*<SubMenu title={item.title}  key={item.key}>*/}
           <SubMenu title={<span><Icon type={item.icon} />{item.title}</span> }  key={item.key}>
             { this.renderMenu(item.children)}
           </SubMenu>
         )
       }
       return <Menu.Item title={item.title} key={item.key}>
-        {item.title}
+        <NavLink to={item.key}>{item.title}</NavLink>
       </Menu.Item>
     })
   }
   render() {
-    const SubMenu = Menu.SubMenu;
-    const MenuItemGroup = Menu.ItemGroup;
+    // const SubMenu = Menu.SubMenu;
     return (
-      <div className="navlist">
+      <div className="navNenu">
         <Row>
-          <Col span="8">
+          <Col span="6">
             <div className="logo">
               <img src={require('../img/logo.jpg')} alt="" />
               <h1>五金商城</h1>
             </div>
           </Col>
-          <Col span="16">
-            <Menu
-              onClick={this.handleClick}
-              selectedKeys={[this.state.current]}
-              mode="horizontal"
-              theme="dark"
-            >
-              { this.state.menuTreeNode }
-              <SubMenu className="log_reg" title={<span className="submenu-title-wrapper "><Icon type="setting" />登录</span>}>
-              </SubMenu>
-              <SubMenu className="log_reg" title={<span className="submenu-title-wrapper "><Icon type="setting" />注册</span>}>
-              </SubMenu>
-            </Menu>
+          <Col span="18">
+            <div className="menuList">
+              <Menu
+                mode="horizontal"
+                theme="dark"
+                onClick={this.handleClick}
+              >
+                { this.state.menuTreeNode }
+              </Menu>
+            </div>
           </Col>
         </Row>
-        <Icon type="left" theme="outlined" style={{ fontSize: '30px'}} onClick={this.handlePrev}/>
-        <Carousel afterChange={this.onChange} ref='img'>
-          <div><h3>1</h3></div>
-          <div><h3>2</h3></div>
-          <div><h3>3</h3></div>
-          <div><h3>4</h3></div>
-        </Carousel>
       </div>
     )
   }
 }
-export default Navlist
+export  default NavLeft

@@ -27,23 +27,15 @@ time, mark, audio, video {
   }
 }
 .container{
-  display: flex;
-  .nav-left{
-    min-width: 180px;
-    background:linear-gradient(265deg,rgba(250,97,173,1) 0%,rgba(247,107,28,1) 100%);
-    color: #ffffff;
-    height: calc(100vh);
-  }
-  .main{
-    flex: 1 1;
-    height: calc(100vh);
-    background-color: @colorL;
-    overflow: auto;
-    display: inline-block;
+  background-color:#eee;
+  height: calc(100vh);
+  .header_content {
+    display: flex;
+    justify-content:center;
   }
   .content{
-    position: relative;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -59,5 +51,48 @@ time, mark, audio, video {
 .ant-card{
   button{
     margin-right: 10px;
+  }
+}
+
+//children的容器
+.container_width{
+  min-width: 1000px;
+  width: 1280px;
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 0 0  30px 0;
+  .type_button{
+    padding: 0 20px 20px 20px ;
+  }
+  .container_top{
+    padding: 20px 0 0 0;
+    margin-bottom: 20px;
+    background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+    h2{
+      color: #ddd;
+      letter-spacing: 1px;
+      text-align: center;
+      padding: 5px 0  10px 0 ;
+      margin-left: 10px;
+      display: inline-block;
+      font-size: 15px;
+    }
+  }
+}
+
+//下拉菜单
+.ant-dropdown-menu{
+  background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
+  top: 21px;
+  width: 139px;
+  li{
+    color: #ddd;
+    span{
+      color: #ddd;
+      margin-left: 6px;
+    }
+    i{
+      color: #ddd;
+    }
   }
 }

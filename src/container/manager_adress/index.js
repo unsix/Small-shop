@@ -1,6 +1,10 @@
 import React from 'react'
 import { Table, Button,Popconfirm, Avatar,Icon, Modal,Input, Form, message,Cascader,Switch} from 'antd';
 import './index.less'
+import {connect} from 'react-redux'
+@connect(
+  state=>state,
+)
 class ManagerAdress extends React.Component {
   constructor (props){
     super(props)
@@ -98,6 +102,7 @@ class ManagerAdress extends React.Component {
     })
   }
   render() {
+    const menuName = this.props.menu.menuName
     const FormItem = Form.Item;
     const { TextArea } = Input;
     const { getFieldDecorator } = this.props.form;
@@ -177,8 +182,11 @@ class ManagerAdress extends React.Component {
     }];
 
     return (
-      <div className="container_manager_address">
-        <div style={{ marginBottom: 16 }}>
+      <div className="container_manager_address container_width">
+        <div className="shop_top container_top">
+          <h2>{menuName}</h2>
+        </div>
+        <div className="type_button">
           <Button
             type="primary"
             onClick={() => this.modal('add')}

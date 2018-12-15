@@ -1,8 +1,14 @@
 @import './../../style/default.less';
-.header{
-  background-color: @colorM;
+.component_header{
+  border-radius: 35px;
+  height: 60px;
+  margin-top: 20px;
+  min-width: 500px;
+  color: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  background:linear-gradient(265deg,rgba(250,97,173,.8) 0%,rgba(247,107,28,1) 80%);
   .header-top{
+    margin: 0 auto;
     height: 60px;
     line-height: 60px;
     padding: 0 20px;
@@ -19,9 +25,9 @@
     h3{
       letter-spacing: 1px;
       min-width: 140px;
+      color: #ddd;
       span{
         margin-left: 10px;
-        color:#999999;
         font-size: 13px;
       }
     }
@@ -67,15 +73,5 @@
   .header-top{
     background:#1890ff;
     color:@colorM;
-  }
-}
-//下拉菜单
-.ant-dropdown-menu{
-  top: 21px;
-  width: 139px;
-  li{
-    span{
-      margin-left: 6px;
-    }
   }
 }

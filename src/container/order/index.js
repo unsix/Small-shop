@@ -20,8 +20,12 @@ class Order extends React.Component{
     this.props.history.push(`/details/order/${record.id}`)
   }
   render(){
+    const menuName = this.props.menu.menuName
     return(
-      <div className="container_order">
+      <div className="container_order container_width">
+        <div className="shop_top container_top">
+          <h2>{menuName}</h2>
+        </div>
         <Tabs defaultActiveKey="1" >
           <TabPane tab="全部合同订单" key="1">
             <OrderTable
@@ -29,13 +33,19 @@ class Order extends React.Component{
             />
           </TabPane>
           <TabPane tab="待付款" key="2">
-            <WaitPayTable />
+            <WaitPayTable
+              details={this.details}
+            />
           </TabPane>
           <TabPane tab="待发货" key="3">
-            <WaitReceiveTable />
+            <WaitReceiveTable
+              details={this.details}
+            />
           </TabPane>
           <TabPane tab="已发货" key="4">
-            <ShoppedTable />
+            <ShoppedTable
+              details={this.details}
+            />
           </TabPane>
         </Tabs>
       </div>

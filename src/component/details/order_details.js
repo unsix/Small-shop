@@ -21,8 +21,21 @@ class OrderDetails extends React.Component{
           <div className="order order_details">
             <div className="order_top">
               <h3>订单详情</h3>
-              <h3>交易关闭</h3>
-              <h6>卖家缺货</h6>
+              {details.status === 0 ?
+                <h3>交易关闭</h3>:(null)
+              }
+              {details.status === 1 ?
+                <h3>等待买家付款</h3>:(null)
+              }
+              {details.status === 2 ?
+                <h3>买家已付款</h3>:(null)
+              }
+              {details.status === 3 ?
+                <h3>卖家已发货</h3>:(null)
+              }
+              {details.status === 0 ?
+                <h6>卖家缺货</h6>:null
+              }
             </div>
             <div className="address">
               <div>

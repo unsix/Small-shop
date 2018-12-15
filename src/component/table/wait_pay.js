@@ -1,11 +1,18 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
+import OrderCart from './modal/order_modal'
+import connect from 'react-redux/es/connect/connect'
+import {orDetails} from '../../redux/order_redux'
 import '../../style/table.less'
 
 
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
+@connect(
+  state=>state,
+  {orDetails}
+)
 class WaitPayTable extends React.Component {
   constructor (props){
     super(props)
@@ -14,12 +21,15 @@ class WaitPayTable extends React.Component {
       sum:0,
       allprice:0,
       visible:false,
+      modalType:'待付款',
       data:[
         {
           ordernumber:'0000000000000001',
           status:1,
           key: '2',
-          avatar:'W',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+          ],
           name: '霍尼韦尔PPR热水管(绿色)',
           unit:20,
           number:1,
@@ -33,11 +43,16 @@ class WaitPayTable extends React.Component {
   componentDidMount(){
 
   }
-  //查看详情
+
+  //传入父组件
   details = (record) => {
+    if ( this.props.details)
+      this.props.details(record)
+  }
+  //提交
+  handleok = (val) => {
     this.setState({
-      visible: true,
-    }, () => {
+      visible:val
     })
   }
   //操作与付款
@@ -59,6 +74,25 @@ class WaitPayTable extends React.Component {
         }
       })
     }
+    if(v==='取消订单'){
+
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='付款'){
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+  }
+  //取消弹窗
+  onCancel = () => {
+    this.setState({
+      visible:false
+    })
   }
   //删除行
   onDelete = (record,index) => {
@@ -70,9 +104,7 @@ class WaitPayTable extends React.Component {
     })
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const FormItem = Form.Item;
-    const { TextArea } = Input;
+    const { visible ,modalType} = this.state
     const columns = [
       {
         title: '订单号',
@@ -165,24 +197,6 @@ class WaitPayTable extends React.Component {
           )
         }
       },
-      // {
-      //   title: '',
-      //   dataIndex: 'delete',
-      //   render:(value,record,index) => {
-      //     return (
-      //       <div>
-      //         <Popconfirm
-      //           title="确认加入购物车吗？"
-      //           onConfirm = {()=>this.onDelete(record,index)}
-      //         >
-      //          <Button>删除订单</Button>
-      //         </Popconfirm>
-      //         <Button type="danger" style={{marginLeft:'30px'}}>付款</Button>
-      //       </div>
-      //
-      //     )
-      //   }
-      // },
     ];
     return (
       <div className="container_table congtainer_order">
@@ -195,36 +209,12 @@ class WaitPayTable extends React.Component {
         <Pagination
           current={1} total={1} pageSize={1}
         />
-        <Modal
-          title="商品详情"
-          onOk={this.handleOk}
-          onCancel={() => this.setState({visible: false})}
-          visible={this.state.visible}
-        >
-          <Form>
-            <FormItem label="名字"  >
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="联系方式"  >
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="门街号" >
-              {getFieldDecorator('specific_address', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <TextArea placeholder={this.state.sum} autosize={{ minRows: 2, maxRows: 6 }} />,
-              )}
-            </FormItem>
-          </Form>
-        </Modal>
+        <OrderCart
+          visible={visible}
+          title={modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
+        />
       </div>
     );
   }
