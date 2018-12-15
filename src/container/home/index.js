@@ -1,23 +1,43 @@
 import React from 'react'
 import { Carousel, Card, Icon } from 'antd'
 import {Redirect} from 'react-router-dom'
-
+import {connect} from 'react-redux'
+import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
+import Shop from  '../../component/shop'
 import './index.less'
-
+@connect(
+  state=>state,
+  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
+)
 class Home extends React.Component{
 
+
+  OnDetails = (record) => {
+    this.props.shopDetails(record)
+    this.props.history.push(`/details/shop/${record.id}`)
+  }
+  OnEvaluate = (record) => {
+    this.props.evaluateDetails(record)
+    this.props.history.push(`/details/evaluate/${record.id}`)
+  }
+  OnAfter = (record) => {
+    this.props.afterDetails(record)
+    this.props.history.push(`/details/after/${record.id}`)
+  }
   render(){
+    const menuName = this.props.menu.menuName
     const gridStyle = {
       width: '20%',
       textAlign: 'center',
     };
     const { Meta } = Card;
-    const path = this.props.location.pathname
-    const redirect = this.props.redirectTo
+    // const path = this.props.location.pathname
+    // const redirect = this.props.redirectTo
     return(
-      <div>
-        {redirect&&redirect!=path?<Redirect to={this.props.redirectTo} />:null}
       <div className="container_home container_width">
+        <div className="home_top container_top">
+          <h2>{menuName}</h2>
+        </div>
         <div className="ground-container">
           <Carousel
             autoplay
@@ -96,7 +116,11 @@ class Home extends React.Component{
             </Card>
           </div>
         </div>
-      </div>
+        <Shop
+          details = {this.OnDetails}
+          evaluate = {this.OnEvaluate}
+          after = {this.OnAfter}
+        />
       </div>
     )
   }

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,InputNumber } from 'antd'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
-import ShopModal from '../../component/modal/shop_modal'
+// import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
+import ShopModal from '../modal/shop_modal'
 import './index.less'
 
 const {Search} = Input
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
+  // {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
 )
 class Shop extends React.Component {
   constructor (props){
@@ -75,18 +75,21 @@ class Shop extends React.Component {
   }
   //查看详情
   details = (record) => {
-    this.props.shopDetails(record)
-    this.props.history.push(`/details/shop/${record.id}`)
+    // this.props.shopDetails(record)
+    // this.props.history.push(`/details/shop/${record.id}`)
+    this.props.details(record)
   }
   //评价
   evaluate = (record) => {
-    this.props.evaluateDetails(record)
-    this.props.history.push(`/details/evaluate/${record.id}`)
+    // this.props.evaluateDetails(record)
+    // this.props.history.push(`/details/evaluate/${record.id}`)
+    this.props.evaluate(record)
   }
   //售后
   after = (record) => {
-    this.props.afterDetails(record)
-    this.props.history.push(`/details/after/${record.id}`)
+    // this.props.afterDetails(record)
+    // this.props.history.push(`/details/after/${record.id}`)
+    this.props.after(record)
   }
   //购物车//立即购买
   modal = (type,record) => {
@@ -251,7 +254,8 @@ class Shop extends React.Component {
     return (
       <div className="container_shop container_width">
         <div className="shop_top container_top">
-          <h2>{menuName}</h2>
+          {/*<h2>{menuName}</h2>*/}
+          <h2>所有商品</h2>
           <Search placeholder="油漆" onChange={this.search} />
         </div>
         <Table
