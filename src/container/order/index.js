@@ -15,10 +15,10 @@ const TabPane = Tabs.TabPane;
 )
 class Order extends React.Component{
 
-  details = (record) => {
-    this.props.orDetails(record)
-    this.props.history.push(`/details/order/${record.id}`)
-  }
+  // details = (record) => {
+  //   this.props.orDetails(record)
+  //   this.props.history.push(`/details/order/${record.id}`)
+  // }
   render(){
     const menuName = this.props.menu.menuName
     return(
@@ -29,7 +29,7 @@ class Order extends React.Component{
         <Tabs defaultActiveKey="1" >
           <TabPane tab="全部合同订单" key="1">
             <OrderTable
-              details={this.details}
+              // details={this.details}
             />
           </TabPane>
           <TabPane tab="待付款" key="2">

@@ -111,28 +111,35 @@ class WaitReceiveTable extends React.Component {
       })
     }
     if(v==='申请开票'){
-      // this.props.orDetails(record)
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
       })
     }
     if(v==='下载合同'){
-      // this.props.orDetails(record)
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
       })
     }
     if(v==='申请退款'){
-      // this.props.orDetails(record)
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
       })
     }
     if(v==='确认收货'){
-      // this.props.orDetails(record)
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='详情'){
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
@@ -230,7 +237,7 @@ class WaitReceiveTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>详情</Button>
+              <Button onClick={()=>this.operation('详情',record)}>详情</Button>
             </div>
           )
         }

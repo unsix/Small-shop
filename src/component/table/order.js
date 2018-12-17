@@ -77,9 +77,6 @@ class OrderTable extends React.Component {
     if(v==='删除订单'){
       confirm({
         title: '是否要删除该用户?',
-        okText: '是',
-        okType: '否',
-        cancelText: 'No',
         onOk(){
           const dataChange = _this.state.data
           dataChange.splice(index, 1);
@@ -97,6 +94,13 @@ class OrderTable extends React.Component {
       })
     }
     if(v==='付款'){
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      },)
+    }
+    if(v==='详情'){
       this.props.orDetails(record)
       this.setState({
         visible:true,
@@ -197,7 +201,7 @@ class OrderTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>详情</Button>
+              <Button onClick={()=>this.operation('详情',record)}>详情</Button>
             </div>
           )
         }

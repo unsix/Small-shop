@@ -1,6 +1,7 @@
 import React from 'react'
 import {  Form,  Modal, Input, Switch,  Icon ,Select} from 'antd'
 import {connect} from 'react-redux'
+import OrderDetails from '../../../component/details/order_details'
 import './index.less'
 
 const Option = Select.Option
@@ -55,6 +56,9 @@ class OrderCart extends React.Component{
           onCancel={this.handleCancel}
           destroyOnClose={true}
         >
+          {this.props.title === '详情'?
+            <OrderDetails /> : null
+          }
           {this.props.title === '取消订单'?
             <div className=" modal_order modal_cancel">
               <div className="order_content">

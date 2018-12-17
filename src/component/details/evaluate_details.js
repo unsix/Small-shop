@@ -1,5 +1,6 @@
 import React from  'react'
 import { List, Avatar,Button,Modal} from 'antd';
+import Picture_Browing from '../modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 
 import '../../style/details.less'
@@ -47,6 +48,7 @@ class EvaluateDetails extends React.Component{
       previewVisible:true,
       previewImage: v,
     })
+    console.log(v,this.state.previewVisible)
   }
   //展开收起
   toggleCentent = (item) => {
@@ -99,9 +101,15 @@ class EvaluateDetails extends React.Component{
             </List.Item>
           )}
         />
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+        {/*<Modal visible={previewVisible}
+               onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%',height:'500px' }} src={previewImage} />
-        </Modal>
+        </Modal>*/}
+        <Picture_Browing
+          previewVisible={previewVisible}
+          previewImage ={previewImage}
+          onCancel={this.handleCancel}
+        />
       </div>
     )
   }

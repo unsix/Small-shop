@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button, Popconfirm, Avatar } from 'antd'
+import { Table, Button, Popconfirm, Avatar, Pagination } from 'antd'
 import CartModal from '../../component/modal/cart_modal'
 import {connect} from 'react-redux'
 import {dataCart} from '../../redux/cart_redux'
@@ -251,7 +251,7 @@ class ShopCart extends React.Component {
           </Button>
           <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
           <span style={{ marginLeft: 8 }}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+            {hasSelected ? `共${selectedRowKeys.length}件商品` : ''}
           </span>
         </div>
         <Table
@@ -259,7 +259,10 @@ class ShopCart extends React.Component {
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
-
+          pagination={false}
+        />
+        <Pagination
+          current={1} total={1} pageSize={1}
         />
         <CartModal
           visible={visible}

@@ -14,9 +14,9 @@ class OrderDetails extends React.Component{
     const details= this.props.order.details
     return(
       <div className="container_details container_order">
-        <div className="back">
-          <Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>
-        </div>
+        {/*<div className="back">*/}
+          {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
+        {/*</div>*/}
         {details.avatar?
           <div className="order order_details">
             <div className="order_top">

@@ -1,10 +1,17 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
+import OrderCart from './modal/order_modal'
+import connect from 'react-redux/es/connect/connect'
+import {orDetails} from '../../redux/order_redux'
 import '../../style/table.less'
 
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
+@connect(
+  state=>state,
+  {orDetails}
+)
 class ShoppedTable extends React.Component {
   constructor (props){
     super(props)
@@ -12,13 +19,14 @@ class ShoppedTable extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      modalType:'申请开票',
       visible:false,
       data:[
         {
           ordernumber:'0000000000000001',
           status:3,
           key: '1',
-          avatar:'W',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
           name: '霍尼韦尔PPR热水管(绿色)',
           unit:20,
           number:1,
@@ -31,13 +39,6 @@ class ShoppedTable extends React.Component {
   }
   componentDidMount(){
 
-  }
-  //查看详情
-  details = (record) => {
-    this.setState({
-      visible: true,
-    }, () => {
-    })
   }
   //操作与付款
   operation = (v,record,index) => {
@@ -58,6 +59,47 @@ class ShoppedTable extends React.Component {
         }
       })
     }
+    if(v==='申请开票'){
+      // this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='下载合同'){
+      // this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='申请退款'){
+      // this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='确认收货'){
+      // this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='详情'){
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      },)
+    }
+  }
+  //取消弹窗
+  onCancel = () => {
+    this.setState({
+      visible:false
+    })
   }
   //删除行
   onDelete = (record,index) => {
@@ -69,9 +111,7 @@ class ShoppedTable extends React.Component {
     })
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const FormItem = Form.Item;
-    const { TextArea } = Input;
+    const { visible ,modalType} = this.state
     const columns = [
       {
         title: '订单号',
@@ -107,7 +147,9 @@ class ShoppedTable extends React.Component {
         dataIndex: 'avatar',
         render:(value,record)=>{
           return(
-            <Avatar  style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{record.avatar}</Avatar>
+            <div>
+              <Avatar src={record.avatar[0]}></Avatar>
+            </div>
           )
         }
       },
@@ -146,7 +188,7 @@ class ShoppedTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>详情</Button>
+              <Button onClick={()=>this.operation('详情',record)}>详情</Button>
             </div>
           )
         }
@@ -176,36 +218,12 @@ class ShoppedTable extends React.Component {
         <Pagination
           current={1} total={1} pageSize={1}
         />
-        <Modal
-          title="商品详情"
-          onOk={this.handleOk}
-          onCancel={() => this.setState({visible: false})}
-          visible={this.state.visible}
-        >
-          <Form>
-            <FormItem label="名字"  >
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="联系方式"  >
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="门街号" >
-              {getFieldDecorator('specific_address', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <TextArea placeholder={this.state.sum} autosize={{ minRows: 2, maxRows: 6 }} />,
-              )}
-            </FormItem>
-          </Form>
-        </Modal>
+        <OrderCart
+          visible={visible}
+          title={modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
+        />
       </div>
     );
   }

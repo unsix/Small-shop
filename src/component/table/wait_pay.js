@@ -75,13 +75,21 @@ class WaitPayTable extends React.Component {
       })
     }
     if(v==='取消订单'){
-
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
       })
     }
     if(v==='付款'){
+      this.props.orDetails(record)
+      this.setState({
+        visible:true,
+        modalType:v
+      })
+    }
+    if(v==='详情'){
+      this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
@@ -179,7 +187,7 @@ class WaitPayTable extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>详情</Button>
+              <Button onClick={()=>this.operation('详情',record)}>详情</Button>
             </div>
           )
         }

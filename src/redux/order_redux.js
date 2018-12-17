@@ -1,5 +1,5 @@
 // 获取
-const  DATA_CART = 'DATA_CART'
+const  DATA_ORDER= 'DATA_ORDER'
 
 const initState = {
   details:[]
@@ -7,7 +7,7 @@ const initState = {
 
 export function order(state=initState, action){
   switch(action.type){
-    case DATA_CART:
+    case DATA_ORDER:
       return {
         ...state,
         details:action.payload
@@ -18,5 +18,5 @@ export function order(state=initState, action){
 }
 
 export function orDetails(name) {
-  return {type: DATA_CART,payload:name}
+  return {type: DATA_ORDER,payload:name}
 }
