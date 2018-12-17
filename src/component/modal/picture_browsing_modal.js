@@ -18,19 +18,20 @@ class PictureBrowsing extends React.Component{
   }
 
   handleCancel = (e) => {
-    this.props.onCancel();
+    this.props.previewonCancel();
   }
   render(){
     // console.log(this.props)
     const { previewVisible,previewImage} = this.props
     return(
-      <div>
+      <div className="preview_browsing">
         <Modal
+          className="preview"
           visible={ previewVisible}
           footer={null}
           onCancel={this.handleCancel}
         >
-          <img alt="example" style={{ width: '100%',height:'500px' }} src={previewImage} />
+            <img alt="example" style={{ width: '100%',height:'520px' }} src={previewImage} />
         </Modal>
       </div>
     )

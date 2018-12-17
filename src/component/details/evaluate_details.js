@@ -1,6 +1,6 @@
 import React from  'react'
 import { List, Avatar,Button,Modal} from 'antd';
-import Picture_Browing from '../modal/picture_browsing_modal'
+import PictureBrowing from '../modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 
 import '../../style/details.less'
@@ -43,6 +43,7 @@ class EvaluateDetails extends React.Component{
         ]
       }
     }
+  //图片浏览
   toSee = (v) => {
     this.setState({
       previewVisible:true,
@@ -59,7 +60,7 @@ class EvaluateDetails extends React.Component{
       })
     }
   }
-  handleCancel = () => this.setState({ previewVisible: false })
+  previewonCancel = () => this.setState({ previewVisible: false })
   render(){
     const evaluates = this.props.shop.evaluates
     const {previewVisible,previewImage,contentEva} = this.state
@@ -101,14 +102,11 @@ class EvaluateDetails extends React.Component{
             </List.Item>
           )}
         />
-        {/*<Modal visible={previewVisible}
-               onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%',height:'500px' }} src={previewImage} />
-        </Modal>*/}
-        <Picture_Browing
+
+        <PictureBrowing
           previewVisible={previewVisible}
           previewImage ={previewImage}
-          onCancel={this.handleCancel}
+          previewonCancel={this.previewonCancel}
         />
       </div>
     )

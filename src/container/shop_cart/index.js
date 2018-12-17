@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table, Button, Popconfirm, Avatar, Pagination } from 'antd'
 import CartModal from '../../component/modal/cart_modal'
+import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 import {dataCart} from '../../redux/cart_redux'
 import './index.less'
@@ -19,6 +20,8 @@ class ShopCart extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      previewVisible:false,
+      previewImage:'',
       visible:false,
       data:[{
         id:'1',
@@ -165,7 +168,18 @@ class ShopCart extends React.Component {
       visible:false
     })
   }
+  //图片浏览打开
+  toSee = (v) => {
+    this.setState({
+      previewVisible:true,
+      previewImage: v,
+    })
+    console.log(v,this.state.previewVisible)
+  }
+  //预览弹窗关闭
+  previewonCancel = () => this.setState({ previewVisible: false })
   render() {
+    const {previewVisible,previewImage,} = this.state
     const columns = [
       {
         title: '图片',
@@ -173,7 +187,7 @@ class ShopCart extends React.Component {
         render:(value,record,index)=>{
           return(
             <div>
-              <Avatar src={record.avatar[0]}></Avatar>
+              <Avatar onClick={()=>this.toSee(record.avatar[0])} src={record.avatar[0]}></Avatar>
             </div>
           )
         }
@@ -269,6 +283,11 @@ class ShopCart extends React.Component {
           title={this.state.modalType}
           onOk={this.handleok}
           onCancel={this.onCancel}
+        />
+        <PictureBrowsing
+          previewVisible={previewVisible}
+          previewImage ={previewImage}
+          previewonCancel={this.previewonCancel}
         />
       </div>
     );

@@ -3,6 +3,7 @@ import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Paginat
 import {connect} from 'react-redux'
 // import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
 import ShopModal from '../modal/shop_modal'
+import PictureBrowsing from  '../modal/picture_browsing_modal'
 import './index.less'
 
 const {Search} = Input
@@ -19,6 +20,8 @@ class Shop extends React.Component {
       sum:0,
       allprice:0,
       visible:false,
+      previewVisible:false,
+      previewImage:'',
       data:[{
         id:'1',
         key: '1',
@@ -72,34 +75,7 @@ class Shop extends React.Component {
   componentDidMount(){
 
   }
-  // //查看详情
-  // details = (record) => {
-  //   // this.props.shopDetails(record)
-  //   // this.props.history.push(`/details/shop/${record.id}`)
-  //   this.props.details(record)
-  // }
-  // //评价
-  // evaluate = (record) => {
-  //   // this.props.evaluateDetails(record)
-  //   // this.props.history.push(`/details/evaluate/${record.id}`)
-  //   this.props.evaluate(record)
-  // }
-  // //售后
-  // after = (record) => {
-  //   // this.props.afterDetails(record)
-  //   // this.props.history.push(`/details/after/${record.id}`)
-  //   this.props.after(record)
-  // }
-  //购物车//立即购买
   modal = (type,record) => {
-    // let visible = this.state.visible;
-    // this.setState({
-    //   visible:!visible,
-    //   modalType:type
-    // },()=>{
-    //   this.props.shopCart(record)
-    //
-    // })
     this.props.modal(type,record)
   }
   //取消弹窗
@@ -138,6 +114,17 @@ class Shop extends React.Component {
   collect = (reacord) => {
     console.log(reacord)
   }
+  //图片浏览打开
+  toSee = (v) => {
+    this.setState({
+      previewVisible:true,
+      previewImage: v,
+    })
+    console.log(v,this.state.previewVisible)
+  }
+  //预览弹窗关闭
+  previewonCancel = () => this.setState({ previewVisible: false })
+
   //删除行
   onDelete = (record,index) => {
     console.log(record)
@@ -149,7 +136,8 @@ class Shop extends React.Component {
   }
   render() {
     // console.log(this.props)
-    const menuName = this.props.menu.menuName
+    // const menuName = this.props.menu.menuName
+    const {previewVisible,previewImage,} = this.state
     const {visible} = this.props
     const columns = [
       {
@@ -158,7 +146,7 @@ class Shop extends React.Component {
         render:(value,record,index)=>{
           return(
             <div>
-              <Avatar src={record.avatar[0]}></Avatar>
+              <Avatar onClick={()=>this.toSee(record.avatar[0])} src={record.avatar[0]}></Avatar>
             </div>
           )
         }
@@ -271,6 +259,11 @@ class Shop extends React.Component {
          onOk={this.handleok}
          onCancel={this.onCancel}
        />
+        <PictureBrowsing
+        previewVisible={previewVisible}
+        previewImage ={previewImage}
+        previewonCancel={this.previewonCancel}
+        />
       </div>
     );
   }

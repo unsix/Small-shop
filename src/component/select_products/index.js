@@ -3,6 +3,7 @@ import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Paginat
 import {connect} from 'react-redux'
 // import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
 import ShopModal from '../modal/shop_modal'
+import PictureBrowsing from  '../modal/picture_browsing_modal'
 import './index.less'
 
 const {Search} = Input
@@ -18,6 +19,8 @@ class SelectProducts extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      previewVisible:false,
+      previewImage:'',
       visible:false,
       data:[{
         id:'1',
@@ -52,20 +55,22 @@ class SelectProducts extends React.Component {
   }
   //购物车//立即购买
   modal = (type,record) => {
-    // let visible = this.state.visible;
-    // this.setState({
-    //   visible:!visible,
-    //   modalType:type
-    // },()=>{
-    //   this.props.shopCart(record)
-    //
-    // })
     this.props.modal(type,record)
   }
   //取消弹窗
   onCancel = () => {
     this.props.onCancel()
   }
+  //图片浏览打开
+  toSee = (v) => {
+    this.setState({
+      previewVisible:true,
+      previewImage: v,
+    })
+    console.log(v,this.state.previewVisible)
+  }
+  //预览弹窗关闭
+  previewonCancel = () => this.setState({ previewVisible: false })
   //moadl提交
   handleok= (val,value) => {
     let id = this.props.shop.cart.id
@@ -109,8 +114,9 @@ class SelectProducts extends React.Component {
   }
   render() {
     // console.log(this.props)
-    const menuName = this.props.menu.menuName
+    // const menuName = this.props.menu.menuName
     const {visible} = this.props
+    const {previewVisible,previewImage,} = this.state
     const columns = [
       {
         title: '图片',
@@ -118,7 +124,7 @@ class SelectProducts extends React.Component {
         render:(value,record,index)=>{
           return(
             <div>
-              <Avatar src={record.avatar[0]}></Avatar>
+              <Avatar onClick={()=>this.toSee(record.avatar[0])} src={record.avatar[0]}></Avatar>
             </div>
           )
         }
@@ -229,6 +235,11 @@ class SelectProducts extends React.Component {
           title={this.props.title}
           onOk={this.handleok}
           onCancel={this.onCancel}
+        />
+        <PictureBrowsing
+          previewVisible={previewVisible}
+          previewImage ={previewImage}
+          previewonCancel={this.previewonCancel}
         />
       </div>
     );

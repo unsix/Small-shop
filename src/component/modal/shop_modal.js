@@ -13,6 +13,8 @@ class ShopModal extends React.Component{
     super(props)
     this.state = {
       visible: false,
+      previewVisible:'',
+      previewImage:''
     }
 
   }
@@ -53,11 +55,12 @@ class ShopModal extends React.Component{
       },
     };
     const cart = this.props.shop.cart
+    const { title, visible} = this.props
     return(
       <div>
         <Modal
-          title={this.props.title}
-          visible={this.props.visible}
+          title={title}
+          visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           destroyOnClose={true}
