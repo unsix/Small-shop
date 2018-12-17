@@ -1,9 +1,14 @@
 import React from 'react'
 import { Table, Button,Popconfirm, Avatar,Icon, Modal,Input, Form, message,Cascader,Switch} from 'antd';
+import Address from  '../../component/modal/address_modal'
 import './index.less'
 import {connect} from 'react-redux'
+import { dataAdress } from '../../redux/address_redux'
+import ShopModal from '../../component/modal/shop_modal'
+
 @connect(
   state=>state,
+  {dataAdress}
 )
 class ManagerAdress extends React.Component {
   constructor (props){
@@ -11,27 +16,29 @@ class ManagerAdress extends React.Component {
     this.state = {
       selectedRowKeys: [], // Check here to configure the default column
       loading: false,
-      visible:false,
+      addressVisible: false,
       editRow: {},
-      modalType: "add",
-      data:[{
-        key: '1',
-        name: '小丸子',
-        phone: '13456801341',
-        address: '浙江省杭州市滨江区悦湾小区123',
-        address_select:['zhejiang','hangzhou','xihu'],
-        specific_address:'123',
-        default:true
-      },
-        {
-        key: '2',
-        name: '小篮子',
-        phone: '13456801341',
-        address: '浙江省杭州市滨江区悦湾小区123',
-          address_select:['zhejiang','hangzhou','xihu'],
-          specific_address:'123',
-          default:false
-      },]
+      modalType: "新建地址",
+      data:[
+      // {
+      //   key: '1',
+      //   name: '小丸子',
+      //   phone: '13456801341',
+      //   address: '浙江省杭州市滨江区悦湾小区123',
+      //   address_select:['zhejiang','hangzhou','xihu'],
+      //   specific_address:'123',
+      //   default:true
+      // },
+      // {
+      //   key: '2',
+      //   name: '小篮子',
+      //   phone: '13456801341',
+      //   address: '浙江省杭州市滨江区悦湾小区123',
+      //     address_select:['zhejiang','hangzhou','xihu'],
+      //     specific_address:'123',
+      //     default:false
+      // },
+      ]
 
     }
   }
@@ -39,47 +46,48 @@ class ManagerAdress extends React.Component {
 
   }
   //提交
-  handleOk = () => {
-    this.props.form.validateFieldsAndScroll((err, value) => {
-      if (err) return;
-      let adddata = {
+  handleok = (val,value) => {
+    console.log(value)
+      const _address = value.address_select+value.specific_address
+      const address = _address.replace(/,/g, "")
+      let addAdress = {
         key:value.name+value.address+value.specific_address,
         name: value.name,
         phone: value.phone,
         address_select:value.address_select,
         specific_address:value.specific_address,
-        address: value.address_select+value.specific_address,
+        address: address,
         default:value.default
       };
-      console.log(adddata)
+
+      console.log(addAdress)
       let data = this.state.data
-      if(this.state.modalType === 'add'){
-        data.push(adddata)
+      if(this.state.modalType === '新建地址'){
+        data.push(addAdress)
         this.setState({
           data,
-          visible:false
+          addressVisible:val
         })
+        this.props.dataAdress(data)
       }
       else {
         // data.splice(adddata)
         this.setState({
           data,
-          visible:false
+          addressVisible:val
         })
         console.log(data)
       }
-    })
   }
 
-  //添加编辑用户
+  //编辑用户弹窗
   modal = (type, record) => {
-
     this.setState({
-      visible: true,
+      addressVisible: true,
       modalType: type
     }, () => {
       this.props.form.resetFields();
-      if (type === 'add') return;
+      if (type === '新建地址') return;
       this.props.form.setFieldsValue({
         name: record.name,
         phone: record.phone,
@@ -91,7 +99,12 @@ class ManagerAdress extends React.Component {
       this.setState({editRow: record})
     })
   }
-
+  //close modal
+  onCancel = () => {
+    this.setState({
+      addressVisible:false
+    })
+  }
   //删除行
   onDelete = (record,index) => {
     console.log(index)
@@ -102,20 +115,7 @@ class ManagerAdress extends React.Component {
     })
   }
   render() {
-    const menuName = this.props.menu.menuName
-    const FormItem = Form.Item;
-    const { TextArea } = Input;
-    const { getFieldDecorator } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: {span: 24},
-        sm: {span: 4},
-      },
-      wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16},
-      },
-    };
+    const { addressVisible, modalType}  = this.state
     const columns = [{
       title: '名字',
       dataIndex: 'name',
@@ -134,7 +134,7 @@ class ManagerAdress extends React.Component {
         render: (value, record, index) => {
           return (
             <div>
-              <Button onClick={() => this.modal('edit', record, index)}>编辑</Button>
+              <Button onClick={() => this.modal('编辑地址', record, index)}>编辑</Button>
               <Popconfirm
                 title="确认要删除这行码"
                 onConfirm={() => this.onDelete(record, index)}
@@ -157,39 +157,16 @@ class ManagerAdress extends React.Component {
         }
       },
     ];
-    const options = [{
-      value: 'zhejiang',
-      label: 'Zhejiang',
-      children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-          value: 'xihu',
-          label: 'West Lake',
-        }],
-      }],
-    }, {
-      value: 'jiangsu',
-      label: 'Jiangsu',
-      children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-          value: 'zhonghuamen',
-          label: 'Zhong Hua Men',
-        }],
-      }],
-    }];
-
     return (
       <div className="container_manager_address container_width">
         <div className="shop_top container_top">
-          <h2>{menuName}</h2>
+          {/*<h2>{menuName}</h2>*/}
+          <h2>管理地址</h2>
         </div>
         <div className="type_button">
           <Button
             type="primary"
-            onClick={() => this.modal('add')}
+            onClick={() => this.modal('新建地址')}
           >
             <Icon type='plus' />
             新建
@@ -201,51 +178,12 @@ class ManagerAdress extends React.Component {
           onDelete={this.onDelete}
           rowKey={record => record.key}
         />
-        <Modal
-          title={this.state.modalType === 'add' ? "添加用户" : "编辑用户"}
-          onOk={this.handleOk}
-          onCancel={() => this.setState({visible: false})}
-          visible={this.state.visible}
-        >
-          <Form>
-            <FormItem label="名字"  {...formItemLayout}>
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="联系方式"  {...formItemLayout}>
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input  style={{ width: '100%' }} />
-              )}
-            </FormItem>
-            <FormItem label="省市区"  {...formItemLayout}>
-              {getFieldDecorator('address_select', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                  <Cascader options={options}  placeholder="Please select" />
-
-              )}
-            </FormItem>
-            <FormItem label="门街号"  {...formItemLayout}>
-              {getFieldDecorator('specific_address', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
-              )}
-            </FormItem>
-            <FormItem label="设为默认地址"  {...formItemLayout}>
-              {getFieldDecorator('default', {
-                // rules: [{ required: false, message: 'Please input your phone number!' }],
-              })(
-                <Switch  />
-              )}
-            </FormItem>
-          </Form>
-        </Modal>
+        <Address
+          addressVisible={addressVisible}
+          title={modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
+        />
       </div>
     );
   }

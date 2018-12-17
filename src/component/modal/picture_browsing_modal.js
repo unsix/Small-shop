@@ -27,7 +27,7 @@ class PictureBrowsing extends React.Component{
       <div className="preview_browsing">
         <Modal
           className="preview"
-          visible={ previewVisible}
+          visible={previewVisible}
           footer={null}
           onCancel={this.handleCancel}
         >

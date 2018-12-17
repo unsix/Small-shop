@@ -14,11 +14,6 @@ const TabPane = Tabs.TabPane;
   {orDetails}
 )
 class Order extends React.Component{
-
-  // details = (record) => {
-  //   this.props.orDetails(record)
-  //   this.props.history.push(`/details/order/${record.id}`)
-  // }
   render(){
     const menuName = this.props.menu.menuName
     return(
