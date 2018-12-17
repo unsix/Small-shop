@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
 import Shop from  '../../component/shop'
+import SelectProducts from  '../../component/select_products'
 import './index.less'
 @connect(
   state=>state,
@@ -18,21 +19,21 @@ class Home extends React.Component{
       modalType:'添加购物车'
     }
   }
-  //详情
-  OnDetails = (record) => {
-    this.props.shopDetails(record)
-    this.props.history.push(`/details/shop/${record.id}`)
-  }
-  //评价
-  OnEvaluate = (record) => {
-    this.props.evaluateDetails(record)
-    this.props.history.push(`/details/evaluate/${record.id}`)
-  }
-  //售后
-  OnAfter = (record) => {
-    this.props.afterDetails(record)
-    this.props.history.push(`/details/after/${record.id}`)
-  }
+  // //详情
+  // OnDetails = (record) => {
+  //   this.props.shopDetails(record)
+  //   this.props.history.push(`/details/shop/${record.id}`)
+  // }
+  // //评价
+  // OnEvaluate = (record) => {
+  //   this.props.evaluateDetails(record)
+  //   this.props.history.push(`/details/evaluate/${record.id}`)
+  // }
+  // //售后
+  // OnAfter = (record) => {
+  //   this.props.afterDetails(record)
+  //   this.props.history.push(`/details/after/${record.id}`)
+  // }
   //cart pay modal
   OnModal = (type,record) => {
     if(type === '添加购物车'){
@@ -127,59 +128,15 @@ class Home extends React.Component{
             <Card.Grid style={gridStyle}>分类</Card.Grid>
             <Card.Grid style={gridStyle}>其他</Card.Grid>
           </Card>
-          <div className="selected_bands">
-            <h2>精选品牌</h2>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={require('../../component/img/select_1.png')} />}
-            >
-              <Meta
-                className='shop_des'
-                title={<span>¥188<s>¥352</s></span>}
-                description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
-              />
-            </Card>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
-            >
-              <Meta
-                className='shop_des'
-                title={<span>¥188<s>¥352</s></span>}
-                description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
-              />
-            </Card>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={require('../../component/img/select_1.png')} />}
-            >
-              <Meta
-                className='shop_des'
-                title={<span>¥188<s>¥352</s></span>}
-                description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
-              />
-            </Card>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
-            >
-              <Meta
-                className='shop_des'
-                title={<span>¥188<s>¥352</s></span>}
-                description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
-              />
-            </Card>
-          </div>
+          <SelectProducts
+            visible={this.state.visible}
+            modal = {this.OnModal}
+            onCancel = {this.OnCancel}
+            title={this.state.modalType}
+          />
         </div>
         <Shop
           visible={this.state.visible}
-          details = {this.OnDetails}
-          evaluate = {this.OnEvaluate}
-          after = {this.OnAfter}
           modal = {this.OnModal}
           onCancel = {this.OnCancel}
           title={this.state.modalType}

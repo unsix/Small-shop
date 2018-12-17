@@ -2,6 +2,8 @@ import React from 'react'
 import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch } from 'antd'
 import {connect} from 'react-redux'
 import EvaluateDetails from '../details/evaluate_details'
+import ShopDetails from  '../details/shop_details'
+import AfterDtetails from  '../details/after_details'
 import "./index.less"
 @connect(
   state=>state
@@ -64,7 +66,14 @@ class ShopModal extends React.Component{
             this.props.title === '评价'?
              <EvaluateDetails /> :null
           }
-
+          {
+            this.props.title === '详情'?
+              <ShopDetails /> :null
+          }
+          {
+            this.props.title === '售后'?
+              <AfterDtetails /> :null
+          }
           {
             this.props.title === '添加购物车'?(
             <div className=" modal_shop modal_content">
@@ -118,7 +127,7 @@ class ShopModal extends React.Component{
                 <h3>{cart.name}</h3>
                 <div className="img_dec">
                   {cart.avatar&&cart.avatar.map(v=>(
-                    <img key={v} src={v} alt={v}/>
+                    <img className="img_dec_map" key={v} src={v} alt={v}/>
                   ))}
                   <span>
               ¥{cart.price}

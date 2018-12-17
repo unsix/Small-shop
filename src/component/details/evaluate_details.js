@@ -49,11 +49,13 @@ class EvaluateDetails extends React.Component{
     })
   }
   //展开收起
-  toggleCentent = () => {
-    const {contentEva} = this.state
-    this.setState({
-      contentEva:!contentEva
-    })
+  toggleCentent = (item) => {
+    if (item){
+      const {contentEva} = this.state
+      this.setState({
+        contentEva:!contentEva
+      })
+    }
   }
   handleCancel = () => this.setState({ previewVisible: false })
   render(){
@@ -72,7 +74,8 @@ class EvaluateDetails extends React.Component{
           itemLayout="horizontal"
           dataSource={this.state.data}
           renderItem={item => (
-            <List.Item>
+            <List.Item
+            >
               <List.Item.Meta
                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                 title={item.title}
@@ -86,7 +89,7 @@ class EvaluateDetails extends React.Component{
                 {contentEva === true?
                 <div>{item.content}</div>:null
                 }
-                <div className="toggleCentent" onClick={this.toggleCentent}>{contentEva === false?'全部展开':'收起'}</div>
+                <div className="toggleCentent" onClick={()=>this.toggleCentent(item)}>{contentEva === false?'全部展开':'收起'}</div>
                 <div style={{marginTop:'20px'}}>
                   {item.img.map(v=>(
                     <img onClick={()=>this.toSee(v)} src={v} key={v} style={{width:'100px',height:'100px'}} alt=""/>
