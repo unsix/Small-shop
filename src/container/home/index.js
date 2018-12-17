@@ -15,7 +15,7 @@ class Home extends React.Component{
     super(props)
     this.state = {
       visible:false,
-      modalType:'cart'
+      modalType:'添加购物车'
     }
   }
   //详情
@@ -35,15 +35,47 @@ class Home extends React.Component{
   }
   //cart pay modal
   OnModal = (type,record) => {
-    console.log(type)
-    let visible = this.state.visible;
-    this.setState({
-      visible:!visible,
-      modalType:type
-    },()=>{
+    if(type === '添加购物车'){
       this.props.shopCart(record)
-
-    })
+      console.log(type)
+      let visible = this.state.visible;
+      this.setState({
+        visible:!visible,
+        modalType:type
+      })
+    }
+    if(type === '立即购买') {
+      this.props.shopCart(record)
+      let visible = this.state.visible;
+      this.setState({
+        visible:!visible,
+        modalType:type
+      })
+    }
+    if(type === '评价') {
+      this.props.shopCart(record)
+      let visible = this.state.visible;
+      this.setState({
+        visible:!visible,
+        modalType:type
+      })
+    }
+    if(type === '详情') {
+      this.props.shopCart(record)
+      let visible = this.state.visible;
+      this.setState({
+        visible:!visible,
+        modalType:type
+      })
+    }
+    if(type === '售后') {
+      this.props.shopCart(record)
+      let visible = this.state.visible;
+      this.setState({
+        visible:!visible,
+        modalType:type
+      })
+    }
   }
   //close modal
   OnCancel = () => {
@@ -150,6 +182,7 @@ class Home extends React.Component{
           after = {this.OnAfter}
           modal = {this.OnModal}
           onCancel = {this.OnCancel}
+          title={this.state.modalType}
         />
       </div>
     )

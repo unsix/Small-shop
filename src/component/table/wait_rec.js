@@ -62,11 +62,35 @@ class WaitReceiveTable extends React.Component {
     if ( this.props.details)
       this.props.details(record)
   }
-  //提交
-  handleok = (val) => {
-    this.setState({
-      visible:val
-    })
+  //moadl提交
+  handleok= (val,value) => {
+
+    // let id = this.props.shop.cart.id
+    // let price = this.props.shop.cart.price
+    // let allprice = value.number*price
+    // let obj = {
+    //   value:{
+    //     Specifications:value.Specifications,
+    //     color:value.color,
+    //     number:value.number,
+    //     allprice:allprice,
+    //   },
+    //   'id':id,
+    // }
+    // this.props.orDetails(value)
+  console.log(this.state.modalType)
+    if(this.state.modalType === '申请发票'){
+      let ordernumber = this.props.shop.order.details.ordernumber
+      this.props.orDetails(value)
+      this.setState({
+        visible:val
+      })
+    }
+    else {
+      this.setState({
+        visible:val
+      })
+    }
   }
   //操作与付款
   operation = (v,record,index) => {
@@ -87,7 +111,7 @@ class WaitReceiveTable extends React.Component {
       })
     }
     if(v==='申请开票'){
-      this.props.orDetails(record)
+      // this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
@@ -101,14 +125,14 @@ class WaitReceiveTable extends React.Component {
       })
     }
     if(v==='申请退款'){
-      this.props.orDetails(record)
+      // this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v
       })
     }
     if(v==='确认收货'){
-      this.props.orDetails(record)
+      // this.props.orDetails(record)
       this.setState({
         visible:true,
         modalType:v

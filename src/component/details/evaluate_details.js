@@ -13,6 +13,7 @@ class EvaluateDetails extends React.Component{
       this.state = {
         previewVisible:false,
         previewImage:'',
+        contentEva:false,
         data:[
           {
             title: 'Ant Design Title 1',
@@ -42,20 +43,28 @@ class EvaluateDetails extends React.Component{
       }
     }
   toSee = (v) => {
-      this.setState({
-        previewVisible:true,
-        previewImage: v,
-      })
+    this.setState({
+      previewVisible:true,
+      previewImage: v,
+    })
+  }
+  //展开收起
+  toggleCentent = () => {
+    const {contentEva} = this.state
+    this.setState({
+      contentEva:!contentEva
+    })
   }
   handleCancel = () => this.setState({ previewVisible: false })
   render(){
     const evaluates = this.props.shop.evaluates
-    const {previewVisible,data,previewImage} = this.state
+    const {previewVisible,previewImage,contentEva} = this.state
     return(
       <div className="container_details container_evaluate">
-        <div className="back">
-          <Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>
-        </div>
+        {/*//改home*/}
+        {/*<div className="back">*/}
+          {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
+        {/*</div>*/}
         <div className="evaluate_top">
           <h3>全部评价{evaluates.id}</h3>
         </div>
@@ -70,15 +79,20 @@ class EvaluateDetails extends React.Component{
                 description={item.description}
               />
               <br/>
-              <div>
-                {item.content}
+              <div >
+                {contentEva === false?
+                  <div className="evaluate_content">{item.content}</div>:null
+                }
+                {contentEva === true?
+                <div>{item.content}</div>:null
+                }
+                <div className="toggleCentent" onClick={this.toggleCentent}>{contentEva === false?'全部展开':'收起'}</div>
                 <div style={{marginTop:'20px'}}>
                   {item.img.map(v=>(
                     <img onClick={()=>this.toSee(v)} src={v} key={v} style={{width:'100px',height:'100px'}} alt=""/>
                   ))}
                 </div>
               </div>
-
             </List.Item>
           )}
         />

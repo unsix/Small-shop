@@ -16,7 +16,6 @@ class Shop extends React.Component {
     this.state = {
       details:[],
       loading: false,
-      modalType:'cart',
       sum:0,
       allprice:0,
       visible:false,
@@ -73,24 +72,24 @@ class Shop extends React.Component {
   componentDidMount(){
 
   }
-  //查看详情
-  details = (record) => {
-    // this.props.shopDetails(record)
-    // this.props.history.push(`/details/shop/${record.id}`)
-    this.props.details(record)
-  }
-  //评价
-  evaluate = (record) => {
-    // this.props.evaluateDetails(record)
-    // this.props.history.push(`/details/evaluate/${record.id}`)
-    this.props.evaluate(record)
-  }
-  //售后
-  after = (record) => {
-    // this.props.afterDetails(record)
-    // this.props.history.push(`/details/after/${record.id}`)
-    this.props.after(record)
-  }
+  // //查看详情
+  // details = (record) => {
+  //   // this.props.shopDetails(record)
+  //   // this.props.history.push(`/details/shop/${record.id}`)
+  //   this.props.details(record)
+  // }
+  // //评价
+  // evaluate = (record) => {
+  //   // this.props.evaluateDetails(record)
+  //   // this.props.history.push(`/details/evaluate/${record.id}`)
+  //   this.props.evaluate(record)
+  // }
+  // //售后
+  // after = (record) => {
+  //   // this.props.afterDetails(record)
+  //   // this.props.history.push(`/details/after/${record.id}`)
+  //   this.props.after(record)
+  // }
   //购物车//立即购买
   modal = (type,record) => {
     // let visible = this.state.visible;
@@ -123,7 +122,7 @@ class Shop extends React.Component {
     }
       this.props.cartData(obj)
 
-    if(this.state.modalType === 'pay'){
+    if(this.state.modalType === '立即购买'){
       console.log(val)
       this.setState({
         visible:val
@@ -192,7 +191,7 @@ class Shop extends React.Component {
         render:(value,record)=>{
           return(
             <div>
-              <Button onClick={()=>this.evaluate(record)}>
+              <Button onClick={()=>this.modal('评价',record)}>
                 评价
               </Button>
             </div>
@@ -205,7 +204,7 @@ class Shop extends React.Component {
         render:(value,record) => {
           return(
             <div>
-              <Button onClick={()=>this.details(record)}>
+              <Button onClick={()=>this.modal('详情',record)}>
                 详情
               </Button>
             </div>
@@ -218,7 +217,7 @@ class Shop extends React.Component {
         render:(value,record)=>{
           return(
             <div>
-              <Button onClick={()=>this.after(record)}>
+              <Button onClick={()=>this.modal('售后',record)}>
                 售后
               </Button>
             </div>
@@ -231,8 +230,8 @@ class Shop extends React.Component {
         render:(value,record,index) => {
           return (
             <div>
-                <img onClick={()=>this.modal('cart',record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
-              <Button onClick={()=>this.modal('pay',record,index)} type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
+                <img onClick={()=>this.modal('添加购物车',record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
+              <Button onClick={()=>this.modal('立即购买',record,index)} type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
             </div>
 
           )
@@ -268,7 +267,7 @@ class Shop extends React.Component {
           />
        <ShopModal
          visible={visible}
-         title={this.state.modalType}
+         title={this.props.title}
          onOk={this.handleok}
          onCancel={this.onCancel}
        />

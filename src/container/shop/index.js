@@ -16,7 +16,7 @@ class Shop extends React.Component {
     this.state = {
       details:[],
       loading: false,
-      modalType:'cart',
+      modalType:'添加购物车',
       sum:0,
       allprice:0,
       visible:false,
@@ -90,13 +90,11 @@ class Shop extends React.Component {
   }
   //购物车//立即购买
   modal = (type,record) => {
+    this.props.shopCart(record)
     let visible = this.state.visible;
     this.setState({
       visible:!visible,
       modalType:type
-    },()=>{
-      this.props.shopCart(record)
-
     })
   }
   //取消弹窗
@@ -229,8 +227,8 @@ class Shop extends React.Component {
         render:(value,record,index) => {
           return (
             <div>
-                <img onClick={()=>this.modal('cart',record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
-              <Button onClick={()=>this.modal('pay',record,index)} type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
+                <img onClick={()=>this.modal('添加购物车',record,index)} src={require('../../component/img/shop_cart.png')} style={{width:'32px'}} alt=""/>
+              <Button onClick={()=>this.modal('立即购买',record,index)} type="danger" style={{marginLeft:'30px'}}>立即购买</Button>
             </div>
 
           )

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch } from 'antd'
 import {connect} from 'react-redux'
+import EvaluateDetails from '../details/evaluate_details'
 import "./index.less"
 @connect(
   state=>state
@@ -22,7 +23,7 @@ class ShopModal extends React.Component{
         // this.props.cartData(value)
         this.props.onOk(false,value)
 
-  })
+    })
   }
 
   handleCancel = (e) => {
@@ -53,56 +54,111 @@ class ShopModal extends React.Component{
     return(
       <div>
         <Modal
-          title={this.props.title === 'cart' ? "加入购物车" : "立即购买"}
-          okText={this.props.title === 'cart' ? "确定" : "提交订单"}
+          title={this.props.title}
           visible={this.props.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           destroyOnClose={true}
         >
-          <div className=" modal_shop modal_content">
-            <h3>{cart.name}</h3>
-            <div className="img_dec">
+          {
+            this.props.title === '评价'?
+             <EvaluateDetails /> :null
+          }
+
+          {
+            this.props.title === '添加购物车'?(
+            <div className=" modal_shop modal_content">
+              <h3>{cart.name}</h3>
+              <div className="img_dec">
               {cart.avatar&&cart.avatar.map(v=>(
                 <img key={v} src={v} alt={v}/>
               ))}
               <span>
-                ¥{cart.price}
+              ¥{cart.price}
               </span>
-            </div>
-            <Form className="form_shop form_content">
+              </div>
+              <Form className="form_shop form_content">
               <FormItem label="规格"  {...formItemLayout}>
-                {getFieldDecorator('Specifications', {
-                  rules: [{ required: true, message: '请选择规格' }],
-                })(
-                  <RadioGroup>
-                    <RadioButton value="大">大</RadioButton>
-                    <RadioButton value="中">中</RadioButton>
-                    <RadioButton value="小">小</RadioButton>
-                  </RadioGroup>
-                )}
+              {getFieldDecorator('Specifications', {
+                rules: [{ required: true, message: '请选择规格' }],
+              })(
+                <RadioGroup>
+                  <RadioButton value="大">大</RadioButton>
+                  <RadioButton value="中">中</RadioButton>
+                  <RadioButton value="小">小</RadioButton>
+                </RadioGroup>
+              )}
               </FormItem>
               <FormItem label="颜色分类"  {...formItemLayout}>
-                {getFieldDecorator('color', {
-                  rules: [{ required: true, message: '颜色分类' }],
-                })(
-                  <RadioGroup>
-                    <RadioButton value="黑色">黑色</RadioButton>
-                    <RadioButton value="白色">白色</RadioButton>
-                    <RadioButton value="蓝色">蓝色</RadioButton>
-                  </RadioGroup>
-                )}
+              {getFieldDecorator('color', {
+                rules: [{ required: true, message: '颜色分类' }],
+              })(
+                <RadioGroup>
+                  <RadioButton value="黑色">黑色</RadioButton>
+                  <RadioButton value="白色">白色</RadioButton>
+                  <RadioButton value="蓝色">蓝色</RadioButton>
+                </RadioGroup>
+              )}
               </FormItem>
               <FormItem label="购买数量"  {...formItemLayout}>
-                {getFieldDecorator('number',{ initialValue: 1}
-                )(
-                  <InputNumber
-                    min={1}
-                  />
-                )}
+              {getFieldDecorator('number',{ initialValue: 1}
+              )(
+                <InputNumber
+                  min={1}
+                />
+              )}
               </FormItem>
-            </Form>
-          </div>
+              </Form>
+            </div>
+            ):(null)
+          }
+          {
+            this.props.title === '立即购买'?(
+              <div className=" modal_shop modal_content">
+                <h3>{cart.name}</h3>
+                <div className="img_dec">
+                  {cart.avatar&&cart.avatar.map(v=>(
+                    <img key={v} src={v} alt={v}/>
+                  ))}
+                  <span>
+              ¥{cart.price}
+              </span>
+                </div>
+                <Form className="form_shop form_content">
+                  <FormItem label="规格"  {...formItemLayout}>
+                    {getFieldDecorator('Specifications', {
+                      rules: [{ required: true, message: '请选择规格' }],
+                    })(
+                      <RadioGroup>
+                        <RadioButton value="大">大</RadioButton>
+                        <RadioButton value="中">中</RadioButton>
+                        <RadioButton value="小">小</RadioButton>
+                      </RadioGroup>
+                    )}
+                  </FormItem>
+                  <FormItem label="颜色分类"  {...formItemLayout}>
+                    {getFieldDecorator('color', {
+                      rules: [{ required: true, message: '颜色分类' }],
+                    })(
+                      <RadioGroup>
+                        <RadioButton value="黑色">黑色</RadioButton>
+                        <RadioButton value="白色">白色</RadioButton>
+                        <RadioButton value="蓝色">蓝色</RadioButton>
+                      </RadioGroup>
+                    )}
+                  </FormItem>
+                  <FormItem label="购买数量"  {...formItemLayout}>
+                    {getFieldDecorator('number',{ initialValue: 1}
+                    )(
+                      <InputNumber
+                        min={1}
+                      />
+                    )}
+                  </FormItem>
+                </Form>
+              </div>
+            ):(null)
+          }
         </Modal>
       </div>
     )
