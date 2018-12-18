@@ -32,6 +32,10 @@ const menuList = [
         key:'/user/order'
       },
       {
+        title:'我的发票',
+        key:'/user/invoice'
+      },
+      {
         title:'管理地址',
         key:'/user/adress'
       },

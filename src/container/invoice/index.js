@@ -1,10 +1,13 @@
 import React from 'react'
-import { Table, Button, Popconfirm, Icon, Switch, Form } from 'antd'
-import Address from  '../../component/modal/address_modal'
+import { Table, Button, Popconfirm, Icon, Switch, Form, Badge, Pagination } from 'antd'
+import Invoice from  '../../component/modal/invoice_modal'
 import './index.less'
 import {connect} from 'react-redux'
 import { dataAdress } from '../../redux/address_redux'
 
+
+const orderStatus = ['待发货','交易成功']
+const invoiceStatus = ['待开票','已开票']
 @connect(
   state=>state,
   {dataAdress}
@@ -20,22 +23,16 @@ class ManagerAdress extends React.Component {
       modalType: "新建地址",
       data:[
         {
+          id:'1',
           key: '1',
-          name: '小丸子',
+          orderNumber:'00120301230120302',
           phone: '13456801341',
-          address: '浙江省杭州市滨江区悦湾小区123',
-          address_select:['zhejiang','hangzhou','xihu'],
-          specific_address:'123',
-          default:true
-        },
-        {
-          key: '2',
-          name: '小篮子',
-          phone: '13456801341',
-          address: '浙江省杭州市滨江区悦湾小区123',
-            address_select:['zhejiang','hangzhou','xihu'],
-            specific_address:'123',
-            default:false
+          orderStatus:0,
+          startTime:'2018-12-12 10:20:00',
+          invoiceStatus:0,
+          invoiceType:'纸质发票',
+          invoicePrice:'199'
+
         },
       ]
     }
@@ -46,36 +43,31 @@ class ManagerAdress extends React.Component {
   //提交
   handleok = (val,value) => {
     console.log(value)
-      const _address = value.address_select+value.specific_address
-      const address = _address.replace(/,/g, "")
-      let addAdress = {
-        key:value.name+value.address+value.specific_address,
-        name: value.name,
-        phone: value.phone,
-        address_select:value.address_select,
-        specific_address:value.specific_address,
-        address: address,
-        default:value.default
-      };
+    // const _address = value.address_select+value.specific_address
+    // const address = _address.replace(/,/g, "")
+    let addAdress = {
+      key:value.orderNumber,
+      orderNumber:value.orderNumber
+    };
 
-      console.log(addAdress)
-      let data = this.state.data
-      if(this.state.modalType === '新建地址'){
-        data.push(addAdress)
-        this.setState({
-          data,
-          addressVisible:val
-        })
-        this.props.dataAdress(data)
-      }
-      else {
-        // data.splice(adddata)
-        this.setState({
-          data,
-          addressVisible:val
-        })
-        console.log(data)
-      }
+    console.log(addAdress)
+    let data = this.state.data
+    if(this.state.modalType === '新建地址'){
+      data.push(addAdress)
+      this.setState({
+        data,
+        addressVisible:val
+      })
+      this.props.dataAdress(data)
+    }
+    else {
+      // data.splice(adddata)
+      this.setState({
+        data,
+        addressVisible:val
+      })
+      console.log(data)
+    }
   }
 
   //编辑用户弹窗
@@ -87,14 +79,13 @@ class ManagerAdress extends React.Component {
       // this.props.form.resetFields();
       // if (type === '新建地址') return;
       // this.props.form.setFieldsValue({
-      //   name: record.name,
+      //   orderNumber: record.name,
       //   phone: record.phone,
       //   address_select: record.address_select,
       //   specific_address:record.specific_address,
       //   default:record.default
       // })
       this.setState({editRow: record})
-      console.log(this.state.editRow,record)
     })
   }
   //close modal
@@ -115,16 +106,55 @@ class ManagerAdress extends React.Component {
   render() {
     const { addressVisible, modalType}  = this.state
     const columns = [{
-      title: '名字',
-      dataIndex: 'name',
+      title: '订单号',
+      dataIndex: 'orderNumber',
     },
       {
-        title: '联系号码',
-        dataIndex: 'phone',
+        title: '订单状态',
+        dataIndex:'orderStatus',
+        filters:[
+          {
+            text:orderStatus[0],
+            value:0
+          },
+          {
+            text:orderStatus[1],
+            value:1
+          },
+        ],
+        render:(val) => {
+          return <h6>{orderStatus[val]}</h6>
+        }
       },
       {
-        title: '详细地址',
-        dataIndex: 'address',
+        title: '开票时间',
+        dataIndex: 'startTime',
+      },
+      {
+        title: '开票状态',
+        dataIndex: 'invoiceStatus',
+        filters:[
+          {
+            text:invoiceStatus[0],
+            value:0
+          },
+          {
+            text:invoiceStatus[1],
+            value:1
+          },
+        ],
+        render:(val) => {
+          return <h6>{invoiceStatus[val]}</h6>
+        }
+      },
+      {
+        title: '发票类型',
+        dataIndex: 'invoiceType',
+      },
+      {
+        title: '开票金额',
+        dataIndex: 'invoicePrice',
+        render:val=>`¥${val}`
       },
       {
         title: '操作',
@@ -137,19 +167,8 @@ class ManagerAdress extends React.Component {
                 title="确认要删除这行码"
                 onConfirm={() => this.onDelete(record, index)}
               >
-                <Button style={{marginLeft: '15px'}}>删除</Button>
+                <Button style={{marginLeft: '15px'}}>查看</Button>
               </Popconfirm>
-            </div>
-          )
-        }
-      },
-      {
-        title: '默认地址',
-        dataIndex: 'default',
-        render:(record,value)=>{
-          return(
-            <div>
-              {value.default===true?<Switch disabled checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked />:<Switch disabled checkedChildren={<Icon type="check" />}  unCheckedChildren={<Icon type="close" />}  />}
             </div>
           )
         }
@@ -159,7 +178,7 @@ class ManagerAdress extends React.Component {
       <div className="container_manager_address container_width">
         <div className="shop_top container_top">
           {/*<h2>{menuName}</h2>*/}
-          <h2>管理地址</h2>
+          <h2>我的发票</h2>
         </div>
         <div className="type_button">
           <Button
@@ -175,8 +194,12 @@ class ManagerAdress extends React.Component {
           dataSource={this.state.data}
           onDelete={this.onDelete}
           rowKey={record => record.key}
+          pagination={false}
         />
-        <Address
+        <Pagination
+          current={1} total={1} pageSize={1}
+        />
+        <Invoice
           addressVisible={addressVisible}
           title={modalType}
           onOk={this.handleok}
