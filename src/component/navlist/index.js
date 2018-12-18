@@ -49,7 +49,9 @@ class NavLeft extends React.Component {
         )
       }
       return <Menu.Item title={item.title} key={item.key}>
+        {/*//有Icon 缺少 type*/}
         <NavLink to={item.key}>{<span><Icon type={item.icon} />{item.title}</span> }</NavLink>
+        {/*<NavLink to={item.key}>{item.title}</NavLink>*/}
       </Menu.Item>
     })
   }

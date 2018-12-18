@@ -11,6 +11,7 @@ class Address extends React.Component{
     super(props)
     this.state = {
       addressVisible: false,
+      // name:'111',
       data:[
           // {
           //   key: '1',
@@ -51,7 +52,7 @@ class Address extends React.Component{
     const FormItem = Form.Item;
     const { TextArea } = Input;
     const { getFieldDecorator } = this.props.form;
-    const { addressVisible,title} = this.props
+    const { addressVisible,title,record} = this.props
     const formItemLayout = {
       labelCol: {
         xs: {span: 24},
@@ -69,8 +70,8 @@ class Address extends React.Component{
         value: '杭州市',
         label: '杭州市',
         children: [{
-          value: '西湖',
-          label: '西湖',
+          value: '西湖区',
+          label: '西湖区',
         }],
       }],
     }, {
@@ -96,7 +97,7 @@ class Address extends React.Component{
         >
           <Form >
             <FormItem  label="姓名"  {...formItemLayout}>
-              {getFieldDecorator('name', {
+              {getFieldDecorator('name',{
                 rules: [{ required: true, message: '请输入姓名！' }],
               })(
                 <Input  style={{ width: '100%' }} />
@@ -110,7 +111,7 @@ class Address extends React.Component{
               )}
             </FormItem>
             <FormItem label="省市区"  {...formItemLayout}>
-              {getFieldDecorator('address_select', {
+              {getFieldDecorator('addressSelect',{
                 rules: [{ required: true, message: '请选择省市区!' }],
               })(
                 <Cascader options={options}  placeholder="请选择省市区" />
@@ -118,14 +119,16 @@ class Address extends React.Component{
               )}
             </FormItem>
             <FormItem label="门街号"  {...formItemLayout}>
-              {getFieldDecorator('specific_address', {
+              {getFieldDecorator('specificAddress', {
                 rules: [{ required: true, message: '请输入门街号!' }],
               })(
                 <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
               )}
             </FormItem>
             <FormItem label="设为默认地址"  {...formItemLayout}>
-              {getFieldDecorator('default', {
+              {getFieldDecorator('default',{
+                valuePropName: 'checked',
+              },{
                 // rules: [{ required: false, message: 'Please input your phone number!' }],
               })(
                 <Switch  />
@@ -137,4 +140,33 @@ class Address extends React.Component{
     )
   }
 }
-export default  Form.create()(Address)
+export default  Form.create(
+  {
+    mapPropsToFields(props){
+      console.log(props.record.default);
+     return{
+       name:Form.createFormField({
+         value:props.record.name
+       }),
+       phone:Form.createFormField({
+         value:props.record.phone
+       }),
+       addressSelect:Form.createFormField({
+         value:props.record.addressSelect
+       }),
+       specificAddress:Form.createFormField({
+         value:props.record.specificAddress
+       }),
+       default:Form.createFormField({
+         value:props.record.default
+       })
+     }
+    },
+    onFieldsChange(props, fields) {
+      fields.name = props.name;
+      fields.phone = props.addressSelect;
+      fields.specificAddress = props.specificAddress;
+      fields.default = props.default;
+    }
+  },
+)(Address)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Modal, Switch, DatePicker } from 'antd'
+import { Form, Input, Modal, Switch, DatePicker, Cascader } from 'antd'
 import {connect} from 'react-redux'
 
 import "./index.less"
@@ -125,14 +125,30 @@ class Invoice extends React.Component{
                 <DatePicker  />
                 )}
             </FormItem>
-            <FormItem label="企业电话"  {...formItemLayout}>
-              {getFieldDecorator('Phone')(
+            <FormItem label="发票状态"  {...formItemLayout}>
+              {getFieldDecorator('invoiceStatus')(
                 <Input />
               )}
             </FormItem>
-            <FormItem label="默认抬头"  {...formItemLayout}>
-              {getFieldDecorator('Default')(
+            <h6>发票信息</h6>
+            <FormItem label="收件人"  {...formItemLayout}>
+              {getFieldDecorator('name')(
                 <Switch  />
+              )}
+            </FormItem>
+            <FormItem label="省市区"  {...formItemLayout}>
+              {getFieldDecorator('address_select', {
+                rules: [{ required: true, message: '请选择省市区!' }],
+              })(
+                <Cascader options={options}  placeholder="请选择省市区" />
+
+              )}
+            </FormItem>
+            <FormItem label="详情地址"  {...formItemLayout}>
+              {getFieldDecorator('specific_address', {
+                rules: [{ required: true, message: '请输入详细地址!' }],
+              })(
+                <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
               )}
             </FormItem>
           </Form>

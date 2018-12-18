@@ -162,13 +162,14 @@ class ManagerAdress extends React.Component {
         render: (value, record, index) => {
           return (
             <div>
-              <Button onClick={() => this.modal('编辑地址', record, index)}>编辑</Button>
-              <Popconfirm
-                title="确认要删除这行码"
-                onConfirm={() => this.onDelete(record, index)}
-              >
-                <Button style={{marginLeft: '15px'}}>查看</Button>
-              </Popconfirm>
+              <Button onClick={() => this.modal('编辑发票', record, index)}>编辑</Button>
+              <Button style={{marginLeft: '15px'}} onClick={() => this.modal('查看发票', record, index)}>查看</Button>
+              {/*<Popconfirm*/}
+                {/*title="确认要删除这行码"*/}
+                {/*onConfirm={() => this.onDelete(record, index)}*/}
+              {/*>*/}
+                {/*<Button style={{marginLeft: '15px'}}>查看</Button>*/}
+              {/*</Popconfirm>*/}
             </div>
           )
         }

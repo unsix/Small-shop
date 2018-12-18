@@ -18,24 +18,27 @@ class ManagerAdress extends React.Component {
       addressVisible: false,
       editRow: {},
       modalType: "新建地址",
+      record:[],
       data:[
         {
+          id:1,
           key: '1',
           name: '小丸子',
           phone: '13456801341',
           address: '浙江省杭州市滨江区悦湾小区123',
-          address_select:['zhejiang','hangzhou','xihu'],
-          specific_address:'123',
+          addressSelect:['浙江省','杭州市','西湖区'],
+          specificAddress:'123',
           default:true
         },
         {
+          id:2,
           key: '2',
           name: '小篮子',
           phone: '13456801341',
           address: '浙江省杭州市滨江区悦湾小区123',
-            address_select:['zhejiang','hangzhou','xihu'],
-            specific_address:'123',
-            default:false
+          addressSelect:['浙江省','杭州市','西湖区'],
+          specificAddress:'123',
+          default:false
         },
       ]
     }
@@ -45,20 +48,20 @@ class ManagerAdress extends React.Component {
   }
   //提交
   handleok = (val,value) => {
-    console.log(value)
-      const _address = value.address_select+value.specific_address
+    // console.log(value)
+      const _address = value.addressSelect+value.specificAddress
       const address = _address.replace(/,/g, "")
       let addAdress = {
-        key:value.name+value.address+value.specific_address,
+        key:value.name+value.address+value.specificAddress,
         name: value.name,
         phone: value.phone,
-        address_select:value.address_select,
-        specific_address:value.specific_address,
+        addressSelect:value.addressSelect,
+        specificAddress:value.specificAddress,
         address: address,
         default:value.default
       };
 
-      console.log(addAdress)
+      // console.log(addAdress)
       let data = this.state.data
       if(this.state.modalType === '新建地址'){
         data.push(addAdress)
@@ -74,28 +77,40 @@ class ManagerAdress extends React.Component {
           data,
           addressVisible:val
         })
-        console.log(data)
+        // console.log(data)
       }
   }
 
   //编辑用户弹窗
   modal = (type, record) => {
-    this.setState({
-      addressVisible: true,
-      modalType: type
-    }, () => {
-      // this.props.form.resetFields();
+    if(type === '编辑地址') {
+      this.props.dataAdress(record)
+      console.log(record)
+      this.setState({
+        addressVisible: true,
+        modalType: type,
+        record:record
+      }, () => {
+
+        // this.props.form.setFieldsValue({
+        //   name: record.name,
+        //   phone: record.phone,
+        //   address_select: record.address_select,
+        //   specific_address:record.specific_address,
+        //   default:record.default
+        // })
+        this.setState({editRow: record})
+        // console.log(this.state.editRow,record)
+      })
+    }
+    else {
+      this.setState({
+        record:[],
+        addressVisible: true,
+        modalType: type,
+      })
       // if (type === '新建地址') return;
-      // this.props.form.setFieldsValue({
-      //   name: record.name,
-      //   phone: record.phone,
-      //   address_select: record.address_select,
-      //   specific_address:record.specific_address,
-      //   default:record.default
-      // })
-      this.setState({editRow: record})
-      console.log(this.state.editRow,record)
-    })
+    }
   }
   //close modal
   onCancel = () => {
@@ -105,7 +120,7 @@ class ManagerAdress extends React.Component {
   }
   //删除行
   onDelete = (record,index) => {
-    console.log(index)
+    // console.log(index)
     const dataChange = this.state.data
     dataChange.splice(index, 1);
     this.setState({
@@ -113,6 +128,7 @@ class ManagerAdress extends React.Component {
     })
   }
   render() {
+    // console.log(this.props)
     const { addressVisible, modalType}  = this.state
     const columns = [{
       title: '名字',
@@ -179,6 +195,7 @@ class ManagerAdress extends React.Component {
         <Address
           addressVisible={addressVisible}
           title={modalType}
+          record={this.state.record}
           onOk={this.handleok}
           onCancel={this.onCancel}
         />
