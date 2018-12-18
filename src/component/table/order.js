@@ -51,7 +51,7 @@ class OrderTable extends React.Component {
         number:1,
         price:20,
         Specifications: '蓝色',
-          operation:['取消订单','付款']
+          operation:['取消订单','付款'  ]
       },
       ]
     }
@@ -161,7 +161,7 @@ class OrderTable extends React.Component {
         render:(value,record)=>{
           return(
             <div>
-              <Avatar src={record.avatar[0]}></Avatar>
+              <Avatar src={record.avatar[0]}  ></Avatar>
             </div>
           )
         }

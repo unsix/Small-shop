@@ -37,7 +37,7 @@ class Order extends React.Component{
               details={this.details}
             />
           </TabPane>
-          <TabPane tab="已发货" key="4">
+          <TabPane tab="已收货" key="4">
             <ShoppedTable
               details={this.details}
             />

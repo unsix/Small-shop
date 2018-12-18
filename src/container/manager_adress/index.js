@@ -1,17 +1,16 @@
 import React from 'react'
-import { Table, Button,Popconfirm, Avatar,Icon, Modal,Input, Form, message,Cascader,Switch} from 'antd';
+import { Table, Button, Popconfirm, Icon, Switch, Form } from 'antd'
 import Address from  '../../component/modal/address_modal'
 import './index.less'
 import {connect} from 'react-redux'
 import { dataAdress } from '../../redux/address_redux'
-import ShopModal from '../../component/modal/shop_modal'
 
 @connect(
   state=>state,
   {dataAdress}
 )
 class ManagerAdress extends React.Component {
-  constructor (props){
+  constructor (props) {
     super(props)
     this.state = {
       selectedRowKeys: [], // Check here to configure the default column
@@ -19,27 +18,7 @@ class ManagerAdress extends React.Component {
       addressVisible: false,
       editRow: {},
       modalType: "新建地址",
-      data:[
-      // {
-      //   key: '1',
-      //   name: '小丸子',
-      //   phone: '13456801341',
-      //   address: '浙江省杭州市滨江区悦湾小区123',
-      //   address_select:['zhejiang','hangzhou','xihu'],
-      //   specific_address:'123',
-      //   default:true
-      // },
-      // {
-      //   key: '2',
-      //   name: '小篮子',
-      //   phone: '13456801341',
-      //   address: '浙江省杭州市滨江区悦湾小区123',
-      //     address_select:['zhejiang','hangzhou','xihu'],
-      //     specific_address:'123',
-      //     default:false
-      // },
-      ]
-
+      data:[]
     }
   }
   componentDidMount(){
@@ -95,7 +74,6 @@ class ManagerAdress extends React.Component {
         specific_address:record.specific_address,
         default:record.default
       })
-      console.log(record)
       this.setState({editRow: record})
     })
   }
@@ -189,4 +167,4 @@ class ManagerAdress extends React.Component {
   }
 }
 
-export  default  Form.create()(ManagerAdress)
+export  default Form.create()(ManagerAdress)

@@ -148,7 +148,9 @@ class WaitPayTable extends React.Component {
         dataIndex: 'avatar',
         render:(value,record)=>{
           return(
-            <Avatar  style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{record.avatar}</Avatar>
+            <div>
+              <Avatar src={record.avatar[0]}></Avatar>
+            </div>
           )
         }
       },

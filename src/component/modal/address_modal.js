@@ -11,10 +11,29 @@ class Address extends React.Component{
     super(props)
     this.state = {
       addressVisible: false,
-      data:[]
+      data:[
+        // {
+        //   key: '1',
+        //   name: '小丸子',
+        //   phone: '13456801341',
+        //   address: '浙江省杭州市滨江区悦湾小区123',
+        //   address_select:['zhejiang','hangzhou','xihu'],
+        //   specific_address:'123',
+        //   default:true
+        // },
+        // {
+        //   key: '2',
+        //   name: '小篮子',
+        //   phone: '13456801341',
+        //   address: '浙江省杭州市滨江区悦湾小区123',
+        //     address_select:['zhejiang','hangzhou','xihu'],
+        //     specific_address:'123',
+        //     default:false
+        // },
+        ]
+       }
     }
 
-  }
   handleok = (e) => {
     this.props.form.validateFieldsAndScroll((err, value) => {
       if(err) return

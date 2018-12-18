@@ -50,7 +50,6 @@ class OrderCart extends React.Component{
       <div>
         <Modal
           title={this.props.title }
-          okText={this.props.title}
           visible={this.props.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}

@@ -1,17 +1,51 @@
 import React from  'react'
 import './index.less'
-
 import {connect} from 'react-redux'
 import { List} from 'antd/lib/list'
 import { Avatar,Button,Icon} from 'antd'
+import ShopModal from  '../modal/shop_modal'
 
 @connect(
   state=>state,
 )
 class OrderDetails extends React.Component{
-
+  constructor(props){
+    super(props)
+    this.state = {
+      visible:false,
+      modalType:'再次购买',
+      footerNull:undefined,
+    }
+  }
+  onModal = (type,record) => {
+    if(type === '再次购买') {
+      // console.log(type)
+      this.setState({
+        visible:true,
+        modalType:type
+      })
+      // console.log(this.state.visible)
+    }
+    if(type === '查询物流') {
+      // console.log(type)
+      this.setState({
+        visible:true,
+        modalType:type,
+        footerNull:null,
+      })
+      // console.log(this.state.visible)
+    }
+  }
+  //close modal
+  onCancel = () => {
+    this.setState({
+      visible:false,
+      footerNull:undefined,
+    })
+  }
   render(){
     const details= this.props.order.details
+    const { modalType,visible,footerNull} = this.state
     return(
       <div className="container_details container_order">
         {/*<div className="back">*/}
@@ -78,12 +112,26 @@ class OrderDetails extends React.Component{
                 <h6 className="order_allprice"><span>¥306</span></h6>
               </div>
             </div>
+            <div>
+              <div className="againPay mt20">
+                <Button onClick={()=>this.onModal('查询物流')} type='primary'>查询物流</Button>
+              </div>
+              <div className="againPay mt20">
+                <Button onClick={()=>this.onModal('再次购买')} type='danger'>再次购买</Button>
+              </div>
+            </div>
           </div>
           :(
             null
           )
         }
-
+        <ShopModal
+          visible={visible}
+          title={modalType}
+          onOk={this.handleok}
+          onCancel={this.onCancel}
+          footerNull={footerNull}
+        />
       </div>
     )
   }
