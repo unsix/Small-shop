@@ -112,7 +112,7 @@ class OrderDetails extends React.Component{
                 <h6 className="order_allprice"><span>¥306</span></h6>
               </div>
             </div>
-            <div>
+            <div className="details_btn">
               <div className="againPay mt20">
                 <Button onClick={()=>this.onModal('查询物流')} type='primary'>查询物流</Button>
               </div>

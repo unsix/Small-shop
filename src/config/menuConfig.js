@@ -31,18 +31,18 @@ const menuList = [
         title:'我的订单',
         key:'/user/order'
       },
-      {
-        title:'我的评价',
-        key:'/user/evaluate'
-      },
+      // {
+      //   title:'我的评价',
+      //   key:'/user/evaluate'
+      // },
       {
         title:'我的发票',
         key:'/user/invoice'
       },
-      {
-        title:'退款售后',
-        key:'/user/refund_after'
-      },
+      // {
+      //   title:'退款售后',
+      //   key:'/user/refund_after'
+      // },
       {
         title:'管理地址',
         key:'/user/adress'

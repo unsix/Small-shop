@@ -22,6 +22,7 @@ class WaitPayTable extends React.Component {
       allprice:0,
       visible:false,
       modalType:'待付款',
+      footerNull:undefined,
       data:[
         {
           ordernumber:'0000000000000001',
@@ -92,14 +93,16 @@ class WaitPayTable extends React.Component {
       this.props.orDetails(record)
       this.setState({
         visible:true,
-        modalType:v
+        modalType:v,
+        footerNull:null
       })
     }
   }
   //取消弹窗
   onCancel = () => {
     this.setState({
-      visible:false
+      visible:false,
+      footerNull:undefined,
     })
   }
   //删除行
@@ -112,7 +115,7 @@ class WaitPayTable extends React.Component {
     })
   }
   render() {
-    const { visible ,modalType} = this.state
+    const { visible ,modalType,footerNull} = this.state
     const columns = [
       {
         title: '订单号',
@@ -222,6 +225,7 @@ class WaitPayTable extends React.Component {
         <OrderCart
           visible={visible}
           title={modalType}
+          footerNull={footerNull}
           onOk={this.handleok}
           onCancel={this.onCancel}
         />

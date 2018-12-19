@@ -21,6 +21,7 @@ class ShoppedTable extends React.Component {
       allprice:0,
       modalType:'申请开票',
       visible:false,
+      footerNull:undefined,
       data:[
         {
           ordernumber:'0000000000000001',
@@ -91,7 +92,8 @@ class ShoppedTable extends React.Component {
       this.props.orDetails(record)
       this.setState({
         visible:true,
-        modalType:v
+        modalType:v,
+        footerNull:null
       },)
     }
   }
@@ -111,7 +113,7 @@ class ShoppedTable extends React.Component {
     })
   }
   render() {
-    const { visible ,modalType} = this.state
+    const { visible ,modalType,footerNull} = this.state
     const columns = [
       {
         title: '订单号',
@@ -223,6 +225,7 @@ class ShoppedTable extends React.Component {
           title={modalType}
           onOk={this.handleok}
           onCancel={this.onCancel}
+          footerNull={footerNull}
         />
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,Badge } from 'antd'
 import '../../style/table.less'
 import OrderCart from './modal/order_modal'
-import connect from 'react-redux/es/connect/connect'
+import {connect} from 'react-redux'
 import {orDetails} from '../../redux/order_redux'
 
 const {confirm} = Modal;
@@ -21,6 +21,7 @@ class WaitReceiveTable extends React.Component {
       allprice:0,
       modalType:'取消订单',
       visible:false,
+      footerNull:undefined,
       data:[{
         ordernumber:'0000000000000001',
         status:2,
@@ -128,14 +129,16 @@ class WaitReceiveTable extends React.Component {
       this.props.orDetails(record)
       this.setState({
         visible:true,
-        modalType:v
+        modalType:v,
+        footerNull:null
       })
     }
   }
   //取消弹窗
   onCancel = () => {
     this.setState({
-      visible:false
+      visible:false,
+      footerNull:null
     })
   }
   //删除行
@@ -148,7 +151,7 @@ class WaitReceiveTable extends React.Component {
     })
   }
   render() {
-    const { visible ,modalType} = this.state
+    const { visible ,modalType, footerNull} = this.state
     const columns = [
       {
         title: '订单号',
@@ -260,6 +263,7 @@ class WaitReceiveTable extends React.Component {
           title={modalType}
           onOk={this.handleok}
           onCancel={this.onCancel}
+          footerNull={footerNull}
         />
       </div>
     );

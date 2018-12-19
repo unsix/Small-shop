@@ -23,6 +23,7 @@ class OrderTable extends React.Component {
       allprice:0,
       modalType:'取消订单',
       visible:false,
+      footerNull:undefined,
       data:[{
         id:'1',
         ordernumber:'0000000000000001',
@@ -104,14 +105,16 @@ class OrderTable extends React.Component {
       this.props.orDetails(record)
       this.setState({
         visible:true,
-        modalType:v
+        modalType:v,
+        footerNull:null
       },)
     }
   }
   //取消弹窗
   onCancel = () => {
     this.setState({
-      visible:false
+      visible:false,
+      footerNull:undefined
     })
   }
   //删除行
@@ -124,7 +127,7 @@ class OrderTable extends React.Component {
     })
   }
   render() {
-    const { visible ,modalType} = this.state
+    const { visible ,modalType,footerNull} = this.state
     const columns = [
       {
         title: '订单号',
@@ -234,6 +237,7 @@ class OrderTable extends React.Component {
         <OrderCart
           visible={visible}
           title={modalType}
+          footerNull={footerNull}
           onOk={this.handleok}
           onCancel={this.onCancel}
         />

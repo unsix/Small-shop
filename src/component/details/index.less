@@ -79,10 +79,11 @@
     }
   }
   .footer{
-      display: flex;
-      h6{
+    display: flex;
+    line-height: 30px;
+    h6{
         flex: 1 1;
-      }
+    }
     h6:nth-child(2){
       text-align: right;
     }
@@ -90,9 +91,16 @@
 }
 
 //再次购买
-.againPay{
- display: flex;
+//.againPay{
+// display: flex;
+//  justify-content: flex-end;
+//}
+.details_btn {
+  display: flex;
   justify-content: flex-end;
+  .againPay{
+    margin-left:10px;
+  }
 }
 
 //总金额

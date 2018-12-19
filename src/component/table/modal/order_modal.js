@@ -34,6 +34,7 @@ class OrderCart extends React.Component{
     const details = this.props.order.details
     const FormItem = Form.Item;
     const { getFieldDecorator } = this.props.form
+    const {footerNull,title,visible} =this.props
     const formItemLayout = {
       labelCol: {
         xs: {span: 24},
@@ -49,8 +50,9 @@ class OrderCart extends React.Component{
     return(
       <div>
         <Modal
-          title={this.props.title }
-          visible={this.props.visible}
+          title={title}
+          visible={visible}
+          footer={footerNull}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           destroyOnClose={true}
