@@ -2,9 +2,11 @@ import React from 'react'
 import { Form, Input, Modal, Switch, DatePicker, Cascader,Rate,Upload, Icon, } from 'antd'
 import {connect} from 'react-redux'
 import UploadModal from './upload_modal'
+import { dataEvaluate } from '../../redux/evaluate_redux'
 import "./index.less"
 @connect(
-  state=>state
+  state=>state,
+  {dataEvaluate}
 )
 class EvaluateModal extends React.Component{
   constructor (props){
@@ -13,16 +15,12 @@ class EvaluateModal extends React.Component{
       //图片上传
       previewVisible: false,
       previewImage: '',
-      fileList: [{
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      }],
-      addressVisible: false,
+      fileList: [],
+      evaluateVisible: false,
       valueOne:1,
       valueTwo:2,
       valueThr:3,
+      dec:'',
       data:[
         // {
         //   key: '1',
@@ -45,18 +43,47 @@ class EvaluateModal extends React.Component{
       ]
     }
   }
-  
+  //图片上传
+  onPreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
+  }
+  handleChange = ({ fileList }) => this.setState({ fileList })
+  previewCancel = (val) => this.setState({ previewVisible: val})
+  // beforUpload = (file) =>{
+  //   this.setState(({fileList})=>({
+  //     fileList:[...fileList,file],
+  //   }))
+  //   return false;
+  //
+  // }
+  // uploadData = () => {
+  //   const {fileList} = this.state
+  //   let list = {
+  //     url:fileList.url
+  //   }
+  //   return list
+  // }
   handleok = (e) => {
-    this.props.form.validateFieldsAndScroll((err, value) => {
-      if(err) return
-      // this.props.cartData(value)
+    const { valueOne,valueTwo,valueThr,dec,fileList} = this.state
+      const value ={
+        valueOne:valueOne,
+        valueTwo:valueTwo,
+        valueThr:valueThr,
+        dec:dec,
+        fileList:fileList
+      }
+      this.props.dataEvaluate(value)
       this.props.onOk(false,value)
-
-    })
   }
 
   handleCancel = (e) => {
     this.props.onCancel();
+    this.setState({
+      fileList:[]
+    })
   }
   ChangeOne = (value) => {
     this.setState({ valueOne:value });
@@ -70,9 +97,9 @@ class EvaluateModal extends React.Component{
     this.setState({ valueThr:value });
     console.log(value)
   }
-  ChangeOnes =(e) => {
-    this.setState({ value:e.target.value });
-    console.log(this.state.value)
+  ChangeDec =(e) => {
+    this.setState({ dec:e.target.value });
+    console.log(this.state.dec)
   }
   render(){
     // console.log(this.props)
@@ -85,7 +112,6 @@ class EvaluateModal extends React.Component{
         <div className="ant-upload-text">Upload</div>
       </div>
     );
-    const { getFieldDecorator } = this.props.form;
     const { evaluateVisible,title,footerNull} = this.props
     const evaluate = this.props.evaluate.evaluate
     const formItemLayout = {
@@ -98,29 +124,6 @@ class EvaluateModal extends React.Component{
         sm: {span: 16},
       },
     };
-    const options = [{
-      value: '浙江省',
-      label: '浙江省',
-      children: [{
-        value: '杭州市',
-        label: '杭州市',
-        children: [{
-          value: '西湖',
-          label: '西湖',
-        }],
-      }],
-    }, {
-      value: '江苏省',
-      label: '江苏省',
-      children: [{
-        value: '南京市',
-        label: '南京市',
-        children: [{
-          value: '宗华门',
-          label: '宗华门',
-        }],
-      }],
-    }];
     return(
       <div className="contaier_modal evaluate_modal">
         <Modal
@@ -130,6 +133,7 @@ class EvaluateModal extends React.Component{
           visible={evaluateVisible}
           onOk={this.handleok}
           onCancel={this.handleCancel}
+          destroyOnClose={true}
         >
           {title === '评价'?
             <div className=" modal_order modal_cancel evaluate_modal">
@@ -159,29 +163,32 @@ class EvaluateModal extends React.Component{
                   <Rate onChange={this.ChangeThr}  />
                 </div>
               </div>
-              <TextArea onChange={this.ChangeOnes}  placeholder="商品是否符合您的期待? 说说它的优点或美中不足的地方" autosize={{ minRows: 2, maxRows: 6 }}  />
+              <div className="describe mt20 mb20">
+                <TextArea
+                  onChange={this.ChangeDec}
+                  placeholder="商品是否符合您的期待? 说说它的优点或美中不足的地方"
+                  autosize={{ minRows: 4, maxRows: 6 }}  />
+              </div>
             </div>
             :(null)
           }
-          {/*<div className="clearfix">*/}
-            {/*<Upload*/}
-              {/*action="//jsonplaceholder.typicode.com/posts/"*/}
-              {/*listType="picture-card"*/}
-              {/*fileList={fileList}*/}
-              {/*onPreview={this.handlePreview}*/}
-              {/*onChange={this.handleChange}*/}
-            {/*>*/}
-              {/*{fileList.length >= 3 ? null : uploadButton}*/}
-            {/*</Upload>*/}
-            {/*<Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>*/}
-              {/*<img alt="example" style={{ width: '100%' }} src={previewImage} />*/}
-            {/*</Modal>*/}
-          {/*</div>*/}
           <UploadModal
-            />
+            action="//jsonplaceholder.typicode.com/posts/"
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={this.onPreview}
+            onChange={this.handleChange}
+            previewVisible = {previewVisible}
+            previewImage = {previewImage}
+            onCancel={this.previewCancel}
+            destroyOnClose={true}
+            // beforUploa={this.beforUpload}
+            // data={this.uploadData}
+          />
         </Modal>
       </div>
     )
   }
 }
+
 export default  Form.create()(EvaluateModal)

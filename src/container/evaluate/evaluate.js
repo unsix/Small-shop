@@ -55,8 +55,10 @@ class Evaluate extends React.Component {
   }
   //提交
   handleok = (val,value) => {
+    console.log(value)
+    console.log(val)
     this.setState({
-      addressVisible:val
+      evaluateVisible:val
     })
   }
 
@@ -149,15 +151,6 @@ class Evaluate extends React.Component {
           {/*<h2>{menuName}</h2>*/}
           <h2>评价中心</h2>
         </div>
-        {/*<div className="type_button">*/}
-          {/*<Button*/}
-            {/*type="primary"*/}
-            {/*onClick={() => this.modal('新建发票')}*/}
-          {/*>*/}
-            {/*<Icon type='plus' />*/}
-            {/*新建*/}
-          {/*</Button>*/}
-        {/*</div>*/}
         <Table
           columns={columns}
           dataSource={this.state.data}

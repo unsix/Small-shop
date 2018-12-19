@@ -1,7 +1,8 @@
 const  SWITCH_EVALUATE = 'SWITCH_EVALUATE'
-
+// const ADD_EVALUATE = 'ADD_EVALUATE'
 const initState = {
-  evaluate:[]
+  evaluate:[],
+  addEvaluate:[]
 }
 
 export function evaluate(state=initState, action){
