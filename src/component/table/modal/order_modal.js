@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Form,  Modal, Input, Switch,  Icon ,Select} from 'antd'
+import { Form, Modal, Input, Switch, Icon, Select, Avatar, Button } from 'antd'
 import {connect} from 'react-redux'
 import OrderDetails from '../../../component/details/order_details'
 import './index.less'
@@ -228,6 +228,42 @@ class OrderCart extends React.Component{
               </div>
             </div>
             :(null)
+          }
+          {this.props.title === '查看详情'?
+            <div className="order order_details">
+              <div className="order_top">
+                <h3 className="tg">退款详情</h3>
+                {details.orderStatus === 0 ?
+                  (<div className="order_top_content">
+                    <h3>退款成功</h3>
+                    <h6>7天无理由退款</h6>
+                  </div>)
+                  :(null)
+                }
+              </div>
+              <div className="content">
+                <Avatar src={details.avatar[0]} />
+                <div className="name">
+                  <h6>{details.name}</h6>
+                  <h6>{details.Specifications}</h6>
+                </div>
+                <div className="price">
+                  <h6>¥{details.unit}</h6>
+                  <h6 className="num">×{details.number}</h6>
+                </div>
+              </div>
+              <div className="information refund_information">
+                <h6>退款偏号 : 129376129873691826312837 </h6>
+                <h6 className="order_allprice">退款总金额: <span> ¥306</span></h6>
+                <h6>退回银行卡(尾号7788)</h6>
+                <h6>退款时间 : 2018年12月12日 14:30:25</h6>
+                <h6>申请件数 : 2018年12月12日 14:30:25</h6>
+                <h6>申请时间 : 2018年12月12日 14:30:25</h6>
+              </div>
+            </div>
+            :(
+              null
+            )
           }
         </Modal>
       </div>

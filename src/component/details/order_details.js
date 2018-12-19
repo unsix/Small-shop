@@ -54,7 +54,7 @@ class OrderDetails extends React.Component{
         {details.avatar?
           <div className="order order_details">
             <div className="order_top">
-              <h3>订单详情</h3>
+              <h3 className="tg">订单详情</h3>
               {details.status === 0 ?
                 <h3>交易关闭</h3>:(null)
               }

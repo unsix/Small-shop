@@ -21,26 +21,7 @@ class EvaluateModal extends React.Component{
       valueTwo:2,
       valueThr:3,
       dec:'',
-      data:[
-        // {
-        //   key: '1',
-        //   name: '小丸子',
-        //   phone: '13456801341',
-        //   address: '浙江省杭州市滨江区悦湾小区123',
-        //   address_select:['zhejiang','hangzhou','xihu'],
-        //   specific_address:'123',
-        //   default:true
-        // },
-        // {
-        //   key: '2',
-        //   name: '小篮子',
-        //   phone: '13456801341',
-        //   address: '浙江省杭州市滨江区悦湾小区123',
-        //     address_select:['zhejiang','hangzhou','xihu'],
-        //     specific_address:'123',
-        //     default:false
-        // },
-      ]
+      data:[]
     }
   }
   //图片上传
@@ -52,20 +33,6 @@ class EvaluateModal extends React.Component{
   }
   handleChange = ({ fileList }) => this.setState({ fileList })
   previewCancel = (val) => this.setState({ previewVisible: val})
-  // beforUpload = (file) =>{
-  //   this.setState(({fileList})=>({
-  //     fileList:[...fileList,file],
-  //   }))
-  //   return false;
-  //
-  // }
-  // uploadData = () => {
-  //   const {fileList} = this.state
-  //   let list = {
-  //     url:fileList.url
-  //   }
-  //   return list
-  // }
   handleok = (e) => {
     const { valueOne,valueTwo,valueThr,dec,fileList} = this.state
       const value ={
@@ -182,8 +149,6 @@ class EvaluateModal extends React.Component{
             previewImage = {previewImage}
             onCancel={this.previewCancel}
             destroyOnClose={true}
-            // beforUploa={this.beforUpload}
-            // data={this.uploadData}
           />
         </Modal>
       </div>

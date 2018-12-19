@@ -1,6 +1,5 @@
 import { Upload, Icon, Modal } from 'antd';
 import React from 'react'
-import EvaluateModal from './evaluate_modal'
 class UploadModal extends React.Component {
   constructor (props){
     super(props)
@@ -34,26 +33,8 @@ class UploadModal extends React.Component {
     this.setState(({fileList})=>({
       fileList:[...fileList,file],
     }))
-
-    // let reader = new FileReader();
-    // reader.readAsDataURL(file);
-    //
-    // reader.onloadend = function () {
-    //   this.setState({
-    //     fileList:[{
-    //       uid: -1,
-    //       name: 'xxx.png',
-    //       status: 'done',
-    //       url: reader.result
-    //     }]
-    //   });
-    // };
     return false;
   }
-
-  // handleUploadData = () => {
-  //   this.props.data()
-  // }
 
   render() {
     const { previewVisible, previewImage, fileList,action} = this.props;

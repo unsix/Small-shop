@@ -6,6 +6,7 @@ import Seahch from './container/search'
 import MangerAdress from './container/manager_adress'
 import Invoice from  './container/invoice'
 import Evaluate from  './container/evaluate/evaluate'
+import RefundAfter from './container/refund_after'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import ForgotPwd  from './container/forgot_pwd'
@@ -42,7 +43,7 @@ class ERouter extends React.Component{
                   <Route path="/user/adress" component={MangerAdress} />
                   <Route path="/user/invoice" component={Invoice} />
                   <Route path="/user/evaluate" component={Evaluate} />
-
+                  <Route path="/user/refund_after" component={RefundAfter} />
                   <Route path="/seting/reset" component={ChangePwd} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />

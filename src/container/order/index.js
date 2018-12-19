@@ -7,6 +7,8 @@ import OrderTable from '../../component/table/order'
 import WaitPayTable from '../../component/table/wait_pay'
 import WaitReceiveTable from '../../component/table/wait_rec'
 import ShoppedTable from '../../component/table/shopped'
+import EvaluateTable from  '../../component/table/evaluate'
+import RefundAfter from  '../../component/table/refund_after'
 const TabPane = Tabs.TabPane;
 
 @connect(
@@ -41,6 +43,12 @@ class Order extends React.Component{
             <ShoppedTable
               details={this.details}
             />
+          </TabPane>
+          <TabPane tab="评价" key="5">
+            <EvaluateTable />
+          </TabPane>
+          <TabPane tab="退款售后" key="6">
+            <RefundAfter />
           </TabPane>
         </Tabs>
       </div>

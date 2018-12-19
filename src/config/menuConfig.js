@@ -40,12 +40,12 @@ const menuList = [
         key:'/user/invoice'
       },
       {
-        title:'管理地址',
-        key:'/user/adress'
+        title:'退款售后',
+        key:'/user/refund_after'
       },
       {
-        title:'开票记录',
-        key:'/user/recording'
+        title:'管理地址',
+        key:'/user/adress'
       },
       {
         title:'设置',

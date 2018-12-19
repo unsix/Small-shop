@@ -245,7 +245,7 @@ class WaitReceiveTable extends React.Component {
       },
     ];
     return (
-      <div className="container_table congtainer_order">
+      <div className=" container_manager_address container_table congtainer_order">
         <Table
           columns={columns}
           dataSource={this.state.data}
