@@ -1,5 +1,5 @@
 
-const  SWITCH_ADDRESS = 'SWICH_ADRESS'
+const  SWITCH_ADDRESS = 'SWICH_ADDRESS'
 
 const initState = {
   data_Address:[]

@@ -1,7 +1,6 @@
 import React from "react";
 // import logoImg from './job.png'
 import { Menu, Icon, Row,Col,Carousel} from 'antd';
-import Login from '../../container/login/login'
 import './log_reg.less';
 class LogReg extends React.Component {
   render(){

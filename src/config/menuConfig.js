@@ -32,6 +32,10 @@ const menuList = [
         key:'/user/order'
       },
       {
+        title:'我的评价',
+        key:'/user/evaluate'
+      },
+      {
         title:'我的发票',
         key:'/user/invoice'
       },

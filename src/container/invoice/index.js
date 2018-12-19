@@ -21,6 +21,7 @@ class ManagerAdress extends React.Component {
       addressVisible: false,
       editRow: {},
       modalType: "新建地址",
+      footerNull:undefined,
       data:[
         {
           id:'1',
@@ -32,7 +33,6 @@ class ManagerAdress extends React.Component {
           invoiceStatus:0,
           invoiceType:'纸质发票',
           invoicePrice:'199'
-
         },
       ]
     }
@@ -42,51 +42,62 @@ class ManagerAdress extends React.Component {
   }
   //提交
   handleok = (val,value) => {
-    console.log(value)
-    // const _address = value.address_select+value.specific_address
-    // const address = _address.replace(/,/g, "")
-    let addAdress = {
-      key:value.orderNumber,
-      orderNumber:value.orderNumber
-    };
-
-    console.log(addAdress)
-    let data = this.state.data
-    if(this.state.modalType === '新建地址'){
-      data.push(addAdress)
-      this.setState({
-        data,
-        addressVisible:val
-      })
-      this.props.dataAdress(data)
-    }
-    else {
-      // data.splice(adddata)
-      this.setState({
-        data,
-        addressVisible:val
-      })
-      console.log(data)
-    }
+    this.setState({
+      addressVisible:val
+    })
   }
 
   //编辑用户弹窗
   modal = (type, record) => {
-    this.setState({
-      addressVisible: true,
-      modalType: type
-    }, () => {
-      // this.props.form.resetFields();
+    console.log(type)
+    if(type === '编辑发票') {
+      this.props.dataAdress(record)
+      console.log(record)
+      this.setState({
+        addressVisible: true,
+        modalType: type,
+        record:record,
+        footerNull:undefined
+      }, () => {
+
+        // this.props.form.setFieldsValue({
+        //   name: record.name,
+        //   phone: record.phone,
+        //   address_select: record.address_select,
+        //   specific_address:record.specific_address,
+        //   default:record.default
+        // })
+        this.setState({editRow: record})
+        // console.log(this.state.editRow,record)
+      })
+    }
+    if(type === '查看发票'){
+      this.setState({
+        record:[],
+        addressVisible: true,
+        modalType: type,
+        footerNull:null
+      })
+      // console.log(())
       // if (type === '新建地址') return;
-      // this.props.form.setFieldsValue({
-      //   orderNumber: record.name,
-      //   phone: record.phone,
-      //   address_select: record.address_select,
-      //   specific_address:record.specific_address,
-      //   default:record.default
-      // })
-      this.setState({editRow: record})
-    })
+    }
+    // if(type === '新建地址'){
+    //   this.setState({
+    //     record:[],
+    //     addressVisible: true,
+    //     modalType: type,
+    //   })
+    //   if (type === '新建地址') return;
+    // }
+    else {
+      this.setState({
+        record:[],
+        addressVisible: true,
+        modalType: type,
+        footerNull:undefined
+      })
+      // if (type === '新建地址') return;
+    }
   }
   //close modal
   onCancel = () => {
@@ -104,7 +115,7 @@ class ManagerAdress extends React.Component {
     })
   }
   render() {
-    const { addressVisible, modalType}  = this.state
+    const { addressVisible, modalType,footerNull}  = this.state
     const columns = [{
       title: '订单号',
       dataIndex: 'orderNumber',
@@ -184,7 +195,7 @@ class ManagerAdress extends React.Component {
         <div className="type_button">
           <Button
             type="primary"
-            onClick={() => this.modal('新建地址')}
+            onClick={() => this.modal('新建发票')}
           >
             <Icon type='plus' />
             新建
@@ -205,6 +216,7 @@ class ManagerAdress extends React.Component {
           title={modalType}
           onOk={this.handleok}
           onCancel={this.onCancel}
+          footerNull={footerNull}
         />
       </div>
     );

@@ -4,5 +4,6 @@ import { shop } from './redux/shop_redux'
 import { cart} from './redux/cart_redux'
 import { order } from  './redux/order_redux'
 import { address } from './redux/address_redux'
+import { evaluate } from  './redux/evaluate_redux'
 
-export default combineReducers({menu,shop,cart,order,address})
+export default combineReducers({menu,shop,cart,order,address,evaluate})
