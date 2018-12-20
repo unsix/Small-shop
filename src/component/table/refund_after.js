@@ -62,7 +62,8 @@ class RefundAfter extends React.Component {
       this.props.orDetails(record)
       this.setState({
         evaluateVisible:true,
-        modalType:v
+        modalType:v,
+        footerNull:null
       })
     }
   }
@@ -78,11 +79,12 @@ class RefundAfter extends React.Component {
   //close modal
   onCancel = () => {
     this.setState({
-      evaluateVisible:false
+      evaluateVisible:false,
+      footerNull:undefined
     })
   }
   render() {
-    const { evaluateVisible, modalType}  = this.state
+    const { evaluateVisible, modalType,footerNull}  = this.state
     const columns = [{
       title: '订单号',
       dataIndex: 'orderNumber',
@@ -179,6 +181,7 @@ class RefundAfter extends React.Component {
           title={modalType}
           onOk={this.handleok}
           onCancel={this.onCancel}
+          footerNull={footerNull}
         />
       </div>
     );

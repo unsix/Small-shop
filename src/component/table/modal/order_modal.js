@@ -79,6 +79,22 @@ class OrderCart extends React.Component{
                   <h6>×{details.number}</h6>
                 </div>
               </div>
+              <div className="refund_from mt20">
+                <Form className="form_shop form_content">
+
+                  <FormItem label="取消理由"  {...formItemLayout}>
+                    {getFieldDecorator('Content',{
+                      rules: [{ required: true, message: '颜色分类' }],
+                    })(
+                      <Select placeholder="请选择取消理由">
+                        <Option value="1">信息填写错误，重新拍</Option>
+                        <Option value="2">卖家缺货</Option>
+                        <Option value="3">其他原因</Option>
+                      </Select>
+                    )}
+                  </FormItem>
+                </Form>
+              </div>
             </div>
             :(null)
           }
