@@ -6,6 +6,7 @@ import { dataEvaluate } from '../../redux/evaluate_redux'
 
 
 const orderStatus = ['交易成功']
+const statusMap = ['success','error']
 @connect(
   state=>state,
   {dataEvaluate}
@@ -87,7 +88,7 @@ class EvaluateTable extends React.Component {
           },
         ],
         render:(val) => {
-          return <h6>{orderStatus[val]}</h6>
+          return  <Badge status={statusMap[val]} text={orderStatus[val]}/>
         }
       },
       {

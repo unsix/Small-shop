@@ -83,32 +83,43 @@ class Shop extends React.Component {
     this.props.onCancel()
   }
   //moadl提交
-  handleok= (val,value) => {
-    let id = this.props.shop.cart.id
-    let price = this.props.shop.cart.price
+  shopOk= (val,value) => {
+    // let id = this.props.shop.cart.id
+    // let price = this.props.shop.cart.price
+    // let allprice = value.number*price
+    // let obj = {
+    //   value:{
+    //     Specifications:value.Specifications,
+    //     color:value.color,
+    //     number:value.number,
+    //     allprice:allprice,
+    //   },
+    //   'id':id,
+    // }
+    const { id, price } = this.props.shop.cart
     let allprice = value.number*price
     let obj = {
-      value:{
+        payMode:value.payMode,
         Specifications:value.Specifications,
         color:value.color,
         number:value.number,
         allprice:allprice,
-      },
-      'id':id,
+        'id':id,
     }
-      this.props.cartData(obj)
+    this.props.onOk(val,obj)
+    console.log(val,obj)
 
-    if(this.state.modalType === '立即购买'){
-      console.log(val)
-      this.setState({
-        visible:val
-      })
-    }
-    else {
-      this.setState({
-        visible:val
-      })
-    }
+    // if(this.state.modalType === '立即购买'){
+    //   console.log(val)
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
+    // else {
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
   }
   //收藏
   collect = (reacord) => {
@@ -138,7 +149,7 @@ class Shop extends React.Component {
     // console.log(this.props)
     // const menuName = this.props.menu.menuName
     const {previewVisible,previewImage,} = this.state
-    const {visible} = this.props
+    const {visible,footerNull} = this.props
     const columns = [
       {
         title: '图片',
@@ -256,8 +267,9 @@ class Shop extends React.Component {
        <ShopModal
          visible={visible}
          title={this.props.title}
-         onOk={this.handleok}
+         onOk={this.shopOk}
          onCancel={this.onCancel}
+         footerNull={footerNull}
        />
         <PictureBrowsing
         previewVisible={previewVisible}

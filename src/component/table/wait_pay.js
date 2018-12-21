@@ -3,6 +3,7 @@ import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Paginat
 import OrderCart from './modal/order_modal'
 import connect from 'react-redux/es/connect/connect'
 import {orDetails} from '../../redux/order_redux'
+import { shopCart } from  '../../redux/shop_redux'
 import '../../style/table.less'
 
 
@@ -11,7 +12,7 @@ const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 @connect(
   state=>state,
-  {orDetails}
+  {orDetails,shopCart}
 )
 class WaitPayTable extends React.Component {
   constructor (props){
@@ -21,10 +22,11 @@ class WaitPayTable extends React.Component {
       sum:0,
       allprice:0,
       visible:false,
-      modalType:'待付款',
+      modalType:'',
       footerNull:undefined,
       data:[
         {
+          id:1,
           ordernumber:'0000000000000001',
           status:1,
           key: '2',
@@ -49,12 +51,6 @@ class WaitPayTable extends React.Component {
   details = (record) => {
     if ( this.props.details)
       this.props.details(record)
-  }
-  //提交
-  handleok = (val) => {
-    this.setState({
-      visible:val
-    })
   }
   //操作与付款
   operation = (v,record,index) => {
@@ -86,17 +82,42 @@ class WaitPayTable extends React.Component {
       this.props.orDetails(record)
       this.setState({
         visible:true,
-        modalType:v
+        modalType:v,
       })
     }
     if(v==='详情'){
       this.props.orDetails(record)
+      this.props.shopCart(record)
       this.setState({
         visible:true,
         modalType:v,
         footerNull:null
       })
     }
+  }
+  //提交
+  orderOk = (val,value) => {
+    const { modalType } = this.state
+    if(modalType==='付款'){
+      const { id, price } = this.props.order.details
+      let obj = {
+        payMode:value.payMode,
+        price:price,
+        id:id
+      }
+      this.setState({
+        visible:val
+      })
+
+      this.props.payCount(obj)
+    }
+    else {
+      this.setState({
+        visible:val
+      })
+    }
+    console.log(value,'123')
+
   }
   //取消弹窗
   onCancel = () => {
@@ -226,7 +247,7 @@ class WaitPayTable extends React.Component {
           visible={visible}
           title={modalType}
           footerNull={footerNull}
-          onOk={this.handleok}
+          onOk={this.orderOk}
           onCancel={this.onCancel}
         />
       </div>

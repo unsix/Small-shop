@@ -4,13 +4,14 @@ import OrderCart from './modal/order_modal'
 import connect from 'react-redux/es/connect/connect'
 import {orDetails} from '../../redux/order_redux'
 import '../../style/table.less'
+import { shopCart } from '../../redux/shop_redux'
 
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 @connect(
   state=>state,
-  {orDetails}
+  {orDetails,shopCart}
 )
 class ShoppedTable extends React.Component {
   constructor (props){
@@ -90,12 +91,25 @@ class ShoppedTable extends React.Component {
     }
     if(v==='详情'){
       this.props.orDetails(record)
+      this.props.shopCart(record)
       this.setState({
         visible:true,
         modalType:v,
         footerNull:null
       },)
     }
+  }
+  //提交
+  orderOk = (val,obj) => {
+    const { modalType } = this.state
+    if(modalType==='待付款'){
+      this.setState({
+        visible:val
+      })
+      console.log(obj,'123')
+      // this.props.history.push(`payment/${obj.value.id}`)
+    }
+
   }
   //取消弹窗
   onCancel = () => {
@@ -223,7 +237,7 @@ class ShoppedTable extends React.Component {
         <OrderCart
           visible={visible}
           title={modalType}
-          onOk={this.handleok}
+          onOk={this.orderOk}
           onCancel={this.onCancel}
           footerNull={footerNull}
         />

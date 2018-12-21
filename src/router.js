@@ -8,11 +8,14 @@ import Invoice from  './container/invoice'
 // import Evaluate from  './container/evaluate/evaluate'
 // import RefundAfter from './container/refund_after'
 import FeedBack from  './container/feedback'
+import AboutUs from  './container/about_us'
+import Service from  './container/service'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import ForgotPwd  from './container/forgot_pwd'
 import ChangePwd from './container/change_pwd'
 import NoMatch from './component/nomatch'
+import Payment from  './component/payment'
 
 import ShopCart from './container/shop_cart'
 import Shop from './container/shop'
@@ -44,11 +47,12 @@ class ERouter extends React.Component{
                   <Route path="/user/adress" component={MangerAdress} />
                   <Route path="/user/invoice" component={Invoice} />
                   <Route path="/user/invoice" component={Invoice} />
-
                   {/*<Route path="/user/evaluate" component={Evaluate} />*/}
                   {/*<Route path="/user/refund_after" component={RefundAfter} />*/}
                   <Route path="/seting/reset" component={ChangePwd} />
                   <Route path="/seting/feedback" component={FeedBack} />
+                  <Route path="/seting/our" component={AboutUs} />
+                  <Route path="/seting/service" component={Service} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route path="/shop/all" component={Shop} />
@@ -57,6 +61,7 @@ class ERouter extends React.Component{
                   <Route path="/details/evaluate/:id" component={EvaluateDetails} />
                   <Route path="/details/after/:id" component={AfterDetails} />
                   <Route path="/details/order/:id" component={OrderDetails} />
+                  <Route path="/payment/:id" component={Payment} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

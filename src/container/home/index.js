@@ -16,7 +16,8 @@ class Home extends React.Component{
     super(props)
     this.state = {
       visible:false,
-      modalType:'添加购物车'
+      modalType:'',
+      footerNull:undefined
     }
   }
   // //详情
@@ -52,13 +53,15 @@ class Home extends React.Component{
         visible:!visible,
         modalType:type
       })
+      console.log(this.state.modalType)
     }
     if(type === '评价') {
       this.props.shopCart(record)
       let visible = this.state.visible;
       this.setState({
         visible:!visible,
-        modalType:type
+        modalType:type,
+        footerNull:null
       })
     }
     if(type === '详情') {
@@ -66,7 +69,8 @@ class Home extends React.Component{
       let visible = this.state.visible;
       this.setState({
         visible:!visible,
-        modalType:type
+        modalType:type,
+        footerNull:null
       })
     }
     if(type === '售后') {
@@ -74,18 +78,32 @@ class Home extends React.Component{
       let visible = this.state.visible;
       this.setState({
         visible:!visible,
-        modalType:type
+        modalType:type,
+        footerNull:null
       })
+    }
+  }
+  shopOk = (val,obj) => {
+    console.log(val)
+    if(this.state.modalType === '立即购买'){
+      console.log(val)
+      this.setState({
+        visible:val
+      })
+      this.props.shopCart(obj)
+      this.props.history.push(`payment/${obj.id}`)
     }
   }
   //close modal
   OnCancel = () => {
     this.setState({
-      visible:false
+      visible:false,
+      footerNull:undefined
     })
   }
   render(){
     const menuName = this.props.menu.menuName
+    const { footerNull } = this.state
     const gridStyle = {
       width: '20%',
       textAlign: 'center',
@@ -133,12 +151,16 @@ class Home extends React.Component{
             modal = {this.OnModal}
             onCancel = {this.OnCancel}
             title={this.state.modalType}
+            onOk={this.shopOk}
+            footerNull={footerNull}
           />
           <Shop
             visible={this.state.visible}
             modal = {this.OnModal}
             onCancel = {this.OnCancel}
             title={this.state.modalType}
+            onOk={this.shopOk}
+            footerNull={footerNull}
           />
         </div>
       </div>

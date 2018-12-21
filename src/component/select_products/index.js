@@ -72,32 +72,33 @@ class SelectProducts extends React.Component {
   //预览弹窗关闭
   previewonCancel = () => this.setState({ previewVisible: false })
   //moadl提交
-  handleok= (val,value) => {
-    let id = this.props.shop.cart.id
-    let price = this.props.shop.cart.price
+  shopOk= (val,value) => {
+    const { id, price } = this.props.shop.cart
     let allprice = value.number*price
     let obj = {
       value:{
+        payMode:value.payMode,
         Specifications:value.Specifications,
         color:value.color,
         number:value.number,
         allprice:allprice,
+        'id':id,
       },
-      'id':id,
     }
-    this.props.cartData(obj)
-
-    if(this.state.modalType === '立即购买'){
-      console.log(val)
-      this.setState({
-        visible:val
-      })
-    }
-    else {
-      this.setState({
-        visible:val
-      })
-    }
+    // this.props.cartData(obj)
+    this.props.onOk(val,obj)
+    console.log(val,obj)
+    // if(this.state.modalType === '立即购买'){
+    //   console.log(val)
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
+    // else {
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
   }
   //收藏
   collect = (reacord) => {
@@ -115,8 +116,8 @@ class SelectProducts extends React.Component {
   render() {
     // console.log(this.props)
     // const menuName = this.props.menu.menuName
-    const {visible} = this.props
-    const {previewVisible,previewImage,} = this.state
+    const { visible,footerNull } = this.props
+    const {previewVisible,previewImage} = this.state
     const columns = [
       {
         title: '图片',
@@ -233,8 +234,9 @@ class SelectProducts extends React.Component {
         <ShopModal
           visible={visible}
           title={this.props.title}
-          onOk={this.handleok}
+          onOk={this.shopOk}
           onCancel={this.onCancel}
+          footerNull={footerNull}
         />
         <PictureBrowsing
           previewVisible={previewVisible}

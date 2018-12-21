@@ -1,10 +1,13 @@
 import React from 'react'
-import {Radio, Form,Button, InputNumber, Modal, Input, Avatar, Cascader, Switch } from 'antd'
+import { Radio, Form, Button, InputNumber, Modal, Input, Avatar, Cascader, Switch, Select } from 'antd'
 import {connect} from 'react-redux'
 import EvaluateDetails from '../details/evaluate_details'
 import ShopDetails from  '../details/shop_details'
 import AfterDtetails from  '../details/after_details'
 import "./index.less"
+
+
+const Option = Select.Option
 @connect(
   state=>state
 )
@@ -14,15 +17,22 @@ class ShopModal extends React.Component{
     this.state = {
       visible: false,
       previewVisible:'',
-      previewImage:''
+      previewImage:'',
+      formData:[]
     }
 
   }
   handleOk = (e) => {
     this.props.form.validateFieldsAndScroll((err, value) => {
+      console.log(value)
         if(err) return
-        this.props.onOk(false,value)
-
+        this.setState({
+          formData:value
+        },()=>{
+          const { formData } = this.state
+          this.props.onOk(false,formData)
+          console.log(this.state.formData)
+        })
     })
   }
 
@@ -47,7 +57,6 @@ class ShopModal extends React.Component{
     };
     const cart = this.props.shop.cart
     const { title, visible,footerNull} = this.props
-    console.log(footerNull)
     return(
       <div>
         <Modal
@@ -160,6 +169,17 @@ class ShopModal extends React.Component{
                       />
                     )}
                   </FormItem>
+                  <FormItem label="支付方式"  {...formItemLayout}>
+                    {getFieldDecorator('payMode',{
+                      rules: [{ required: true, message: '请选择支付方式' }],
+                    })(
+                      <Select placeholder="请选择支付方式">
+                        <Option value="1">支付宝</Option>
+                        <Option value="2">微信</Option>
+                        <Option value="3">线下汇款</Option>
+                      </Select>
+                    )}
+                  </FormItem>
                 </Form>
               </div>
             ):(null)
@@ -193,9 +213,9 @@ class ShopModal extends React.Component{
                       rules: [{ required: true, message: '颜色分类' }],
                     })(
                       <RadioGroup>
-                        <RadioButton value="黑色">黑色</RadioButton>
-                        <RadioButton value="白色">白色</RadioButton>
-                        <RadioButton value="蓝色">蓝色</RadioButton>
+                        <RadioButton value="1">黑色</RadioButton>
+                        <RadioButton value="2">白色</RadioButton>
+                        <RadioButton value="3">蓝色</RadioButton>
                       </RadioGroup>
                     )}
                   </FormItem>
@@ -205,6 +225,17 @@ class ShopModal extends React.Component{
                       <InputNumber
                         min={1}
                       />
+                    )}
+                  </FormItem>
+                  <FormItem label="支付方式"  {...formItemLayout}>
+                    {getFieldDecorator('payMode',{
+                      rules: [{ required: true, message: '请选择支付方式' }],
+                    })(
+                      <Select placeholder="请选择支付方式">
+                        <Option value="1">支付宝</Option>
+                        <Option value="2">微信</Option>
+                        <Option value="3">线下汇款</Option>
+                      </Select>
                     )}
                   </FormItem>
                 </Form>

@@ -4,9 +4,14 @@ import {connect} from 'react-redux'
 import { List} from 'antd/lib/list'
 import { Avatar,Button,Icon} from 'antd'
 import ShopModal from  '../modal/shop_modal'
+import { orDetails } from '../../redux/order_redux'
+import { shopCart } from '../../redux/shop_redux'
+import { withRouter } from 'react-router-dom'
 
+@withRouter
 @connect(
   state=>state,
+  {orDetails,shopCart}
 )
 class OrderDetails extends React.Component{
   constructor(props){
@@ -17,6 +22,45 @@ class OrderDetails extends React.Component{
       footerNull:undefined,
     }
   }
+  shopOk= (val,value) => {
+    // let id = this.props.shop.cart.id
+    // let price = this.props.shop.cart.price
+    // let allprice = value.number*price
+    // let obj = {
+    //   value:{
+    //     Specifications:value.Specifications,
+    //     color:value.color,
+    //     number:value.number,
+    //     allprice:allprice,
+    //   },
+    //   'id':id,
+    // }
+    const { id, price } = this.props.shop.cart
+    let allprice = value.number*price
+    let obj = {
+      payMode:value.payMode,
+      Specifications:value.Specifications,
+      color:value.color,
+      number:value.number,
+      allprice:allprice,
+      'id':id,
+    }
+    this.props.shopCart(obj)
+    this.props.history.push(`/payment/${obj.id}`)
+    console.log(val,obj)
+
+    // if(this.state.modalType === '立即购买'){
+    //   console.log(val)
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
+    // else {
+    //   this.setState({
+    //     visible:val
+    //   })
+    // }
+  }
   onModal = (type,record) => {
     if(type === '再次购买') {
       // console.log(type)
@@ -24,6 +68,7 @@ class OrderDetails extends React.Component{
         visible:true,
         modalType:type
       })
+      console.log(record)
       // console.log(this.state.visible)
     }
     if(type === '查询物流') {
@@ -46,6 +91,7 @@ class OrderDetails extends React.Component{
   render(){
     const details= this.props.order.details
     const { modalType,visible,footerNull} = this.state
+    console.log(this.props)
     return(
       <div className="container_details container_order">
         {/*<div className="back">*/}
@@ -128,7 +174,7 @@ class OrderDetails extends React.Component{
         <ShopModal
           visible={visible}
           title={modalType}
-          onOk={this.handleok}
+          onOk={this.shopOk}
           onCancel={this.onCancel}
           footerNull={footerNull}
         />

@@ -64,5 +64,5 @@ class ChangeForm extends React.Component {
   }
 }
 
-const ChangePwd = Form.create()(ChangeForm)
-export  default  ChangePwd
+const FeedBack = Form.create()(ChangeForm)
+export  default  FeedBack

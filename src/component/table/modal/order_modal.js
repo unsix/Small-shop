@@ -13,20 +13,27 @@ class OrderCart extends React.Component{
     super(props)
     this.state = {
       visible: false,
-      allprice:''
+      allprice:'',
+      modalType:'',
+      formData:[]
     }
 
   }
-  handleOk = (e) => {
-
-    this.props.form.validateFieldsAndScroll((err, value) => {
-      if(err) return
-      // this.props.cartData(value)
-      this.props.onOk(false,value)
-
-    })
+  orderOk = (e) => {
+      this.props.form.validateFieldsAndScroll((err, value) => {
+        if(err) return
+        this.setState({
+          formData:value,
+        },()=>{
+          const { formData } = this.state
+          this.props.onOk(false,formData)
+          console.log(formData)
+        })
+      })
   }
-
+  // payCount = (val,obj) => {
+  //   this.props.onOk(val,obj)
+  // }
   handleCancel = (e) => {
     this.props.onCancel();
   }
@@ -53,12 +60,14 @@ class OrderCart extends React.Component{
           title={title}
           visible={visible}
           footer={footerNull}
-          onOk={this.handleOk}
+          onOk={this.orderOk}
           onCancel={this.handleCancel}
           destroyOnClose={true}
         >
           {this.props.title === '详情'?
-            <OrderDetails /> : null
+            <OrderDetails
+              // onOK={this.payCount}
+            /> : null
           }
           {this.props.title === '取消订单'?
             <div className=" modal_order modal_cancel">
@@ -117,6 +126,19 @@ class OrderCart extends React.Component{
                   <h6>×{details.number}</h6>
                 </div>
               </div>
+              <Form className="patMent">
+                <FormItem label="支付方式"  {...formItemLayout}>
+                  {getFieldDecorator('payMode',{
+                    rules: [{ required: true, message: '请选择支付方式' }],
+                  })(
+                    <Select placeholder="请选择支付方式">
+                      <Option value="1">支付宝</Option>
+                      <Option value="2">微信</Option>
+                      <Option value="3">线下汇款</Option>
+                    </Select>
+                  )}
+                </FormItem>
+              </Form>
             </div>
             :(null)
           }
