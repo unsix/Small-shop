@@ -57,7 +57,7 @@ class Header extends React.Component{
           <Col span="12" className="header-top-nav">
               <Avatar style={{ backgroundColor: '#87d068' }} className="header-avatar">U</Avatar>
               <Dropdown overlay={menu}>
-                  <span>欢迎 jack Ma <Icon type="caret-down" /></span>
+                  <span>欢迎 Jack Ma <Icon type="caret-down" /></span>
               </Dropdown>
           </Col>
         </Row>

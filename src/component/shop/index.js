@@ -15,6 +15,9 @@ class Shop extends React.Component {
   constructor (props){
     super(props)
     this.state = {
+      current: 1,
+      size: 10,
+      total: 1,
       details:[],
       loading: false,
       sum:0,
@@ -22,54 +25,188 @@ class Shop extends React.Component {
       visible:false,
       previewVisible:false,
       previewImage:'',
-      data:[{
+      data:[
+        {
         id:'1',
         key: '1',
         avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-        ],
+                'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'],
         name: '中财PPR热水管',
         unit:10,
         number:1,
         price:10,
         color:'黑色',
         Specifications: '大',
-        star:0,
-      }, {
-        id:'2',
-        key: '2',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '霍尼韦尔PPR热水管',
-        unit:20,
-        number:1,
-        price:20,
-        color:'黑色',
-        Specifications: '中',
-        star:1
-      }, {
-        id:'3',
-        key: '3',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '宜家不锈钢液压铰链',
-        unit:30,
-        number:1,
-        price:30,
-        color:'黑色',
-        Specifications: '小',
         star:0
-      }, {
-        id:'4',
-        key: '4',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '高渗透基膜',
-        unit:40,
-        number:1,
-        price:40,
-        color:'黑色',
-        Specifications: '中',
-        star:0
-      }]
-
+      },
+      {
+      id:'2',
+      key: '2',
+      avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+      name: '霍尼韦尔PPR热水管',
+      unit:20,
+      number:1,
+      price:20,
+      color:'黑色',
+      Specifications: '中',
+      star:1
+      },
+      {
+      id:'3',
+      key: '3',
+      avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+      name: '宜家不锈钢液压铰链',
+      unit:30,
+      number:1,
+      price:30,
+      color:'黑色',
+      Specifications: '小',
+      star:0
+      },
+       {
+      id:'4',
+      key: '4',
+      avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+      name: '高渗透基膜',
+      unit:40,
+      number:1,
+      price:40,
+      color:'黑色',
+      Specifications: '中',
+      star:0
+      },
+        {
+          id:'4123',
+          key: '123',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'101',
+          key: '101',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'5',
+          key: '5',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },{
+          id:'6',
+          key: '6',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'7',
+          key: '7',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'8',
+          key: '8',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'9',
+          key: '9',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'12555',
+          key: '15552',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'10',
+          key: '10',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'11',
+          key: '11',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        },
+        {
+          id:'12',
+          key: '12',
+          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
+          name: '高渗透基膜',
+          unit:40,
+          number:1,
+          price:40,
+          color:'黑色',
+          Specifications: '中',
+          star:0
+        }
+    ],
     }
   }
   componentDidMount(){
@@ -179,11 +316,11 @@ class Shop extends React.Component {
         dataIndex: 'unit',
         render:val=>`¥${val}`
       },
-      {
-        title: '价格',
-        dataIndex: 'price',
-        render:val=>`¥${val}`
-      },
+      // {
+      //   title: '价格',
+      //   dataIndex: 'price',
+      //   render:val=>`¥${val}`
+      // },
       {
         title: '评价',
         dataIndex: 'evaluate',
@@ -259,11 +396,8 @@ class Shop extends React.Component {
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
-          pagination={false}
+
         />
-        <Pagination
-          current={1} total={1} pageSize={1}
-          />
        <ShopModal
          visible={visible}
          title={this.props.title}

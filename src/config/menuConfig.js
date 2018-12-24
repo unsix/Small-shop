@@ -29,15 +29,17 @@ const menuList = [
     children:[
       {
         title:'我的订单',
-        key:'/user/order'
+        key:'/user/order',
+        icon:'ordered-list'
       },
       // {
       //   title:'我的评价',
       //   key:'/user/evaluate'
       // },
       {
-        title:'我的发票',
-        key:'/user/invoice'
+        title:'管理收藏',
+        key:'/user/collection',
+        icon:'star'
       },
       // {
       //   title:'退款售后',
@@ -45,7 +47,13 @@ const menuList = [
       // },
       {
         title:'管理地址',
-        key:'/user/adress'
+        key:'/user/address',
+        icon:'form'
+      },
+      {
+        title:'我的发票',
+        key:'/user/invoice',
+        icon:'snippets'
       },
       {
         title:'设置',

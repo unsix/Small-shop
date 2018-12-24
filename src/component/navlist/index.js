@@ -1,13 +1,15 @@
 
 
 import React from 'react'
-import { Menu, Icon,Row,Col } from 'antd';
+import { Menu, Icon, Row, Col, Avatar, Dropdown } from 'antd'
 import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {authSuccess} from '../../redux/menu_redux'
 import Menulist from './../../config/menuConfig'
 import './index.less'
+import { withRouter } from "react-router-dom"
 
+@withRouter
 @connect(
   state=>state,
   {authSuccess}
@@ -36,6 +38,12 @@ class NavLeft extends React.Component {
     })
     console.log(this.state.currentKey)
   }
+  //根据传入类型跳转
+  LinkPush = (type) => {
+    this.props.history.push(type)
+    console.log(type,this.props)
+
+  }
   //菜单渲染
   renderMenu =(data)=>{
     const SubMenu = Menu.SubMenu;
@@ -57,16 +65,37 @@ class NavLeft extends React.Component {
   }
   render() {
     // const SubMenu = Menu.SubMenu;
+    //下单menu
+    const menuName = this.props.menu.menuName
+    const menu = (
+      <Menu>
+        <Menu.Item>
+          <a ><span>基本信息</span></a>
+        </Menu.Item>
+        <Menu.Item>
+          <a ><span>收获管理</span></a>
+        </Menu.Item>
+        <Menu.Item>
+          <a onClick={()=>this.LinkPush('/seting/reset')}><span>重置密码</span></a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+
+        >
+          <a onClick={()=>this.LinkPush('/login')}><Icon type="logout" /><span>退出登录</span></a>
+        </Menu.Item>
+      </Menu>
+    );
     return (
       <div className="navNenu">
         <Row>
-          <Col span="6">
+          <Col span="4">
             <div className="logo">
               <img src={require('../img/logo.jpg')} alt="" />
               <h1>五金商城</h1>
             </div>
           </Col>
-          <Col span="18">
+          <Col span="12">
             <div className="menuList">
               <Menu
                 mode="horizontal"
@@ -75,6 +104,14 @@ class NavLeft extends React.Component {
               >
                 { this.state.menuTreeNode }
               </Menu>
+            </div>
+          </Col>
+          <Col span="6">
+            <div className="userName">
+              <Avatar style={{ backgroundColor: '#87d068' }} className="user-avatar">U</Avatar>
+              <Dropdown overlay={menu}>
+                <span>欢迎 Jack Ma <Icon type="caret-down" /></span>
+              </Dropdown>
             </div>
           </Col>
         </Row>

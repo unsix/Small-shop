@@ -148,12 +148,12 @@ class ManagerAdress extends React.Component {
         render: (value, record, index) => {
           return (
             <div>
-              <Button onClick={() => this.modal('编辑地址', record, index)}>编辑</Button>
+              <Button onClick={() => this.modal('编辑地址', record, index)}><Icon type="edit"/>编辑</Button>
               <Popconfirm
                 title="确认要删除这行码"
                 onConfirm={() => this.onDelete(record, index)}
               >
-                <Button style={{marginLeft: '15px'}}>删除</Button>
+                <Button  style={{marginLeft: '15px'}}><Icon type="delete"/>删除</Button>
               </Popconfirm>
             </div>
           )

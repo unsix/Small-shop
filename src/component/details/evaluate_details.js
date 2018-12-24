@@ -25,6 +25,7 @@ class EvaluateDetails extends React.Component{
               '我来评价下这个宝贝，价格不错，质量不错，快递不错，老板不错。下次网购我还是这样写满100个字的评价' +
               '，让那些不相信我评价语的网友产生怀疑，这人买东西有一套，不然评语不会这么坚定',
             img:['https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
+              'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
               'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
             ]
           },
@@ -37,6 +38,7 @@ class EvaluateDetails extends React.Component{
               '非常满意,真的很喜欢，完全超出期望值，发货速度非常快，包装非常仔细、' +
               '严实，运送速度很快，很满意的一次购物。小学毕业了。',
              img:['https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
+               'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
              ]
           },

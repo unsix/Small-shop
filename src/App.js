@@ -12,11 +12,6 @@ class App extends Component {
           <Col span="24" className="nav-menu">
             <NavLeft/>
           </Col>
-            <Col span="24" className="" >
-              <div className="header_content">
-                <Header/>
-              </div>
-            </Col>
             <Col span="24" className="main">
               <div className="content">
                 {this.props.children}

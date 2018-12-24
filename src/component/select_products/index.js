@@ -19,6 +19,7 @@ class SelectProducts extends React.Component {
       loading: false,
       sum:0,
       allprice:0,
+      value:0,
       previewVisible:false,
       previewImage:'',
       visible:false,
@@ -101,8 +102,11 @@ class SelectProducts extends React.Component {
     // }
   }
   //收藏
-  collect = (reacord) => {
-    console.log(reacord)
+  collect = (value,record) => {
+    this.setState({
+
+    })
+    console.log(value,record)
   }
   //删除行
   onDelete = (record,index) => {
@@ -147,11 +151,11 @@ class SelectProducts extends React.Component {
         dataIndex: 'unit',
         render:val=>`¥${val}`
       },
-      {
-        title: '价格',
-        dataIndex: 'price',
-        render:val=>`¥${val}`
-      },
+      // {
+      //   title: '价格',
+      //   dataIndex: 'price',
+      //   render:val=>`¥${val}`
+      // },
       {
         title: '评价',
         dataIndex: 'evaluate',
@@ -210,7 +214,7 @@ class SelectProducts extends React.Component {
         render:(record,value)=>{
           return(
             <div>
-              <Rate onChange={()=>this.collect(record,value)}   count={1} />
+              <Rate onClick={()=>this.collect(record,value)} defaultValue={record}   count={1} />
             </div>
           )
         }

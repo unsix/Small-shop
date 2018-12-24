@@ -173,7 +173,7 @@ class ManagerAdress extends React.Component {
         render: (value, record, index) => {
           return (
             <div>
-              <Button onClick={() => this.modal('编辑发票', record, index)}>编辑</Button>
+              <Button onClick={() => this.modal('编辑发票', record, index)}><Icon type="edit" /> 编辑</Button>
               <Button style={{marginLeft: '15px'}} onClick={() => this.modal('查看发票', record, index)}>查看</Button>
               {/*<Popconfirm*/}
                 {/*title="确认要删除这行码"*/}

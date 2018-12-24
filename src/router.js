@@ -14,6 +14,7 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import ForgotPwd  from './container/forgot_pwd'
 import ChangePwd from './container/change_pwd'
+import Collection from  './container/collection/collection'
 import NoMatch from './component/nomatch'
 import Payment from  './component/payment'
 
@@ -44,7 +45,8 @@ class ERouter extends React.Component{
                   <Route path="/search" component={Seahch} />
                   {/*个人中心*/}
                   <Route path="/user/order" component={Order} />
-                  <Route path="/user/adress" component={MangerAdress} />
+                  <Route path="/user/address" component={MangerAdress} />
+                  <Route path="/user/collection" component={Collection} />
                   <Route path="/user/invoice" component={Invoice} />
                   <Route path="/user/invoice" component={Invoice} />
                   {/*<Route path="/user/evaluate" component={Evaluate} />*/}

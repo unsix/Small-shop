@@ -4,14 +4,14 @@ import CartModal from '../../component/modal/cart_modal'
 import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 import {dataCart} from '../../redux/cart_redux'
-import './index.less'
+
 
 
 @connect(
   state=>state,
   {dataCart}
 )
-class ShopCart extends React.Component {
+class Collection extends React.Component {
   constructor (props){
     super(props)
     this.state = {
@@ -120,20 +120,20 @@ class ShopCart extends React.Component {
     let allprice = this.state.allprice
     let data = this.state.data
     allprice= data.reduce((total, item) => total + item.price, 0)
-      this.setState({
-        value:record.number,
-        allprice,
-        data
-      })
-      // console.log(record.number,record)
+    this.setState({
+      value:record.number,
+      allprice,
+      data
+    })
+    // console.log(record.number,record)
   }
   //删除
   onDelete = (record,index) => {
-   const dataChange = this.state.data
-         dataChange.splice(index,1)
-         this.setState({
-           data:dataChange
-         })
+    const dataChange = this.state.data
+    dataChange.splice(index,1)
+    this.setState({
+      data:dataChange
+    })
   }
   //结算modal
   modal = () => {
@@ -193,9 +193,9 @@ class ShopCart extends React.Component {
         }
       },
       {
-      title: '名称',
-      dataIndex: 'name',
-    },
+        title: '名称',
+        dataIndex: 'name',
+      },
       {
         title: '规格',
         dataIndex: 'Specifications',
@@ -212,20 +212,7 @@ class ShopCart extends React.Component {
       {
         title: '数量',
         dataIndex: 'number',
-        render:(value,record) => {
-         return(
-           <div>
-             <Button onClick={()=>this.addSum(value,record)}>+</Button>
-             <Button>{value}</Button>
-             <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
-           </div>
-         )
-        }
-      },
-      {
-        title: '价格',
-        dataIndex: 'price',
-        render:val=>`¥${val}`
+        render:(val) => val
       },
       {
         title: '操作',
@@ -236,7 +223,7 @@ class ShopCart extends React.Component {
               title="确认要删除这行码"
               onConfirm = {()=>this.onDelete(record,index)}
             >
-             <Button type="danger"><Icon type="delete"/>删除</Button>
+              <Button type="danger"><Icon type="delete"/>删除</Button>
             </Popconfirm>
           )
         }
@@ -257,16 +244,12 @@ class ShopCart extends React.Component {
         </div>
         <div className="type_button">
           <Button
-            type="primary"
+            type="danger"
             disabled={!hasSelected}
-            onClick={this.modal}
+            onClick={this.onDelete}
           >
-            结算
+            批量删除
           </Button>
-          <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
-          <span style={{ marginLeft: 8 }}>
-            {hasSelected ? `共${selectedRowKeys.length}件商品` : ''}
-          </span>
         </div>
         <Table
           rowSelection={rowSelection}
@@ -294,4 +277,4 @@ class ShopCart extends React.Component {
   }
 }
 
-export  default  ShopCart
+export  default  Collection
