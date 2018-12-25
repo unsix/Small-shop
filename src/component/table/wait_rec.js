@@ -24,6 +24,7 @@ class WaitReceiveTable extends React.Component {
       visible:false,
       footerNull:undefined,
       data:[{
+        id:1,
         ordernumber:'0000000000000001',
         status:2,
         key: '1',
@@ -37,21 +38,22 @@ class WaitReceiveTable extends React.Component {
         Specifications: '绿色',
         operation:['申请开票','下载合同','申请退款','确认收货']
       },
-        {
-          ordernumber:'0000000000000001',
-          status:2,
-          key: '2',
-          avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-          ],
-          name: '霍尼韦尔PPR热水管',
-          unit:20,
-          number:1,
-          price:20,
-          Specifications: '蓝色',
-          operation:['申请开票','下载合同','申请退款','确认收货']
+      {
+        id:2,
+        ordernumber:'0000000000000001',
+        status:2,
+        key: '2',
+        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+        ],
+        name: '霍尼韦尔PPR热水管',
+        unit:20,
+        number:1,
+        price:20,
+        Specifications: '蓝色',
+        operation:['申请开票','下载合同','申请退款','确认收货']
 
-        }
+      }
       ]
     }
   }
@@ -82,6 +84,7 @@ class WaitReceiveTable extends React.Component {
   }
   //操作与付款
   operation = (v,record,index) => {
+    console.log(record)
     let _this = this               //由于内容onOK非箭头函数 改变this指向
     if(v==='删除订单'){
       confirm({
@@ -99,41 +102,30 @@ class WaitReceiveTable extends React.Component {
       })
     }
     if(v==='申请开票'){
-      this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/applyinvoice/${record.id}`
     }
-    if(v==='下载合同'){
-      this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
-    }
+    // if(v==='下载合同'){
+    //   this.props.orDetails(record)
+    //   this.setState({
+    //     visible:true,
+    //     modalType:v
+    //   })
+    // }
     if(v==='申请退款'){
-      this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/refund/${record.id}`
     }
     if(v==='确认收货'){
-      this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      // this.props.orDetails(record)
+      // this.setState({
+      //   visible:true,
+      //   modalType:v
+      // })
     }
     if(v==='详情'){
-      this.props.orDetails(record)
-      this.props.shopCart(record)
-      this.setState({
-        visible:true,
-        modalType:v,
-        footerNull:null
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/order/${record.id}`
     }
   }
   //取消弹窗

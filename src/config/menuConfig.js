@@ -57,24 +57,24 @@ const menuList = [
       },
       {
         title:'设置',
-        key:'/seting',
+        key:'/setting',
         icon:'setting',
         children: [
           {
             title: '重置密码',
-            key: '/seting/reset'
+            key: '/setting/reset'
           },
           {
             title: '意见反馈',
-            key: '/seting/feedback'
+            key: '/setting/feedback'
           },
           {
             title: '关于我们',
-            key: '/seting/our'
+            key: '/setting/our'
           },
           {
             title: '联系客服',
-            key: '/seting/service'
+            key: '/setting/service'
           },
         ]
       },

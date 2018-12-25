@@ -36,6 +36,9 @@ class ShopDetails extends React.Component{
     const RadioGroup = Radio.Group;
     const TabPane = Tabs.TabPane;
     const { data } = this.state
+    const {id} = this.props.match.params
+
+    console.log(id)
     return(
       <div className="container_details container_evaluate " >
         {/*<div className="back">*/}

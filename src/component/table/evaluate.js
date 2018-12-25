@@ -23,6 +23,7 @@ class EvaluateTable extends React.Component {
       footerNull:undefined,
       data:[
         {
+          id:1,
           orderNumber:'0000000000000001',
           orderStatus:0,
           key: '2',
@@ -45,11 +46,8 @@ class EvaluateTable extends React.Component {
   operation = (v,record) => {
     console.log(v)
     if(v==='评价'){
-      this.props.dataEvaluate(record)
-      this.setState({
-        evaluateVisible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/evaluate/${record.id}`
     }
 
   }
@@ -146,7 +144,7 @@ class EvaluateTable extends React.Component {
       },
     ];
     return (
-      <div className="container_manager_address container_width">
+      <div className="container_manager_address  ">
         {/*<div className="shop_top container_top">*/}
           {/*/!*<h2>{menuName}</h2>*!/*/}
           {/*<h2>评价中心</h2>*/}

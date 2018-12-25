@@ -32,9 +32,9 @@ class Payment extends React.Component {
     const { current } = this.state;
     const { getFieldDecorator } = this.props.form;
     const FormItem = Form.Item;
-    if(this.props.shop.cart.payMode === undefined){
-      this.props.history.push('/user/order')
-    }
+    // if(this.props.shop.cart.payMode === undefined){
+    //   this.props.history.push('/user/order')
+    // }
     const payMentMode  = this.props.shop.cart.payMode
     console.log(this.props)
     const formItemLayout = {
@@ -53,27 +53,24 @@ class Payment extends React.Component {
         <div className="shop_top container_top contain">
           <h2>付款</h2>
         </div>
-        {payMentMode === '1'?
-          (
+
             <div className="steps">
               <Steps current={current}>
                 <Step title="扫码支付" />
               </Steps>
               <img src={require('../img/alipay.jpg')} style={{ width:'200px',marginTop:'30px'}} alt="weixing" />
-            </div>):null
-        }
-        {payMentMode === '2'?
+            </div>
 
-          (
+
+
             <div className="steps">
               <Steps current={current}>
                 <Step title="扫码支付" />
               </Steps>
             <img src={require('../img/weixing.jpg')} style={{ width:'200px',marginTop:'30px'}} alt="weixing" />
-          </div>):null
-        }
-        {payMentMode === '3'?
-          ( <div className="steps">
+          </div>
+
+           <div className="steps">
           <Steps current={current}>
             <Step title="填写支付信息" />
             <Step title="确认支付信息" />
@@ -152,8 +149,8 @@ class Payment extends React.Component {
               )
             }
           </div>
-        </div>):null
-        }
+        </div>
+
       </div>
     );
   }

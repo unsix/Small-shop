@@ -10,10 +10,8 @@ import { Avatar,Button } from 'antd'
 class Logistics extends React.Component{
 
   render(){
-    console.log(this.props)
-    const after= this.props.shop.after
     return(
-      <div className="container_logistics">
+      <div className="container_details container_logistics">
         {/*<div className="back">*/}
         {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
         {/*</div>*/}

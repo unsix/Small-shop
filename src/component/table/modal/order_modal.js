@@ -143,7 +143,7 @@ class OrderCart extends React.Component{
             :(null)
           }
           {this.props.title === '申请开票'?
-            <div className=" modal_order .modal_invoice">
+            <div className=" modal_order modal_invoice">
               <div className="address">
                 <div>
                   <Icon type="environment" />

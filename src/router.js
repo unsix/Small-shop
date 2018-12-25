@@ -26,6 +26,11 @@ import ShopDetails from  './component/details/shop_details'
 import EvaluateDetails  from './component/details/evaluate_details'
 import AfterDetails from './component/details/after_details'
 import OrderDetails from './component/details/order_details'
+import Logistics from  './component/details/logistics'
+import ApplyInvoice from  './component/details/apply_invoice'
+import Refund from  './component/details/refund'
+import Evaluate from  './component/details/evaluate'
+import ReundDetails from  './component/details/refund_details'
 
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
@@ -49,22 +54,26 @@ class ERouter extends React.Component{
                   <Route path="/user/address" component={MangerAdress} />
                   <Route path="/user/collection" component={Collection} />
                   <Route path="/user/invoice" component={Invoice} />
-                  <Route path="/user/invoice" component={Invoice} />
                   {/*<Route path="/user/evaluate" component={Evaluate} />*/}
                   {/*<Route path="/user/refund_after" component={RefundAfter} />*/}
-                  <Route path="/seting/reset" component={ChangePwd} />
-                  <Route path="/seting/feedback" component={FeedBack} />
-                  <Route path="/seting/our" component={AboutUs} />
-                  <Route path="/seting/service" component={Service} />
+                  <Route path="/setting/reset" component={ChangePwd} />
+                  <Route path="/setting/feedback" component={FeedBack} />
+                  <Route path="/setting/our" component={AboutUs} />
+                  <Route path="/setting/service" component={Service} />
                   <Route path="/ui/buttons" component={Login} />
                   <Route path="/shopcart" component={ShopCart} />
                   <Route path="/shop/all" component={Shop} />
 
                   <Route path="/details/shop/:id" component={ShopDetails} />
-                  <Route path="/details/evaluate/:id" component={EvaluateDetails} />
+                  {/*<Route path="/details/evaluate/:id" component={EvaluateDetails} />*/}
                   <Route path="/details/after/:id" component={AfterDetails} />
                   <Route path="/details/order/:id" component={OrderDetails} />
-                  <Route path="/payment/:id" component={Payment} />
+                  <Route path="/details/logistics/:id" component={Logistics} />
+                  <Route path="/details/applyinvoice/:id" component={ApplyInvoice} />
+                  <Route path="/details/refund/:id" component={Refund} />
+                  <Route path="/details/evaluate/:id" component={Evaluate} />
+                  <Route path="/details/reunddetails/:id" component={ReundDetails} />
+                  <Route path="/details/payment/:id" component={Payment} />
                   <Route component={NoMatch} />
                 </Switch>
               </App>

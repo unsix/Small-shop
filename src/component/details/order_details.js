@@ -82,23 +82,10 @@ class OrderDetails extends React.Component{
     const url = window.open('http://localhost:3000/')
     url.location.href=`/#/details/shop/${id}`
   }
-  onModal = (type,record) => {
-    if(type === '查询物流') {
-      // console.log(type)
-      this.setState({
-        visible:true,
-        modalType:type,
-        footerNull:null,
-      })
-      // console.log(this.state.visible)
-    }
-  }
-  //close modal
-  onCancel = () => {
-    this.setState({
-      visible:false,
-      footerNull:undefined,
-    })
+  logistics = () => {
+    const {id} = this.state.data
+    const url = window.open('http://localhost:3000/')
+    url.location.href=`/#/details/logistics/${id}`
   }
   render(){
     const details= this.props.order.details
@@ -171,7 +158,7 @@ class OrderDetails extends React.Component{
             </div>
             <div className="details_btn">
               <div className="againPay mt20">
-                <Button onClick={()=>this.onModal('查询物流')} type='primary'>查询物流</Button>
+                <Button onClick={()=>this.logistics('查询物流')} type='primary'>查询物流</Button>
               </div>
               <div className="againPay mt20">
                 <Button onClick={()=>this.againPay('再次购买')} type='danger'>再次购买</Button>

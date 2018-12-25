@@ -91,11 +91,8 @@ class OrderTable extends React.Component {
       })
     }
     if(v==='付款'){
-      this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      },)
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/payment/${record.id}`
     }
     if(v==='详情'){
       const url = window.open('http://localhost:3000/')

@@ -25,6 +25,7 @@ class ShoppedTable extends React.Component {
       footerNull:undefined,
       data:[
         {
+          id:1,
           ordernumber:'0000000000000001',
           status:3,
           key: '1',
@@ -62,41 +63,30 @@ class ShoppedTable extends React.Component {
       })
     }
     if(v==='申请开票'){
-      // this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/applyinvoice/${record.id}`
     }
     if(v==='下载合同'){
       // this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      // this.setState({
+      //   visible:true,
+      //   modalType:v
+      // })
     }
     if(v==='申请退款'){
-      // this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/refund/${record.id}`
     }
     if(v==='确认收货'){
       // this.props.orDetails(record)
-      this.setState({
-        visible:true,
-        modalType:v
-      })
+      // this.setState({
+      //   visible:true,
+      //   modalType:v
+      // })
     }
     if(v==='详情'){
-      this.props.orDetails(record)
-      this.props.shopCart(record)
-      this.setState({
-        visible:true,
-        modalType:v,
-        footerNull:null
-      },)
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/order/${record.id}`
     }
   }
   //提交

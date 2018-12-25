@@ -24,6 +24,7 @@ class RefundAfter extends React.Component {
       footerNull:undefined,
       data:[
         {
+          id:1,
           orderNumber:'0000000000000001',
           orderStatus:0,
           key: '2',
@@ -46,11 +47,8 @@ class RefundAfter extends React.Component {
   operation = (v,record) => {
     console.log(v)
     if(v==='申请开票'){
-      this.props.dataEvaluate(record)
-      this.setState({
-        evaluateVisible:true,
-        modalType:v
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/applyinvoice/${record.id}`
     }
     if(v==='下载合同'){
       this.props.dataEvaluate(record)
@@ -60,12 +58,8 @@ class RefundAfter extends React.Component {
       })
     }
     if(v==='查看详情'){
-      this.props.orDetails(record)
-      this.setState({
-        evaluateVisible:true,
-        modalType:v,
-        footerNull:null
-      })
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/reunddetails/${record.id}`
     }
   }
   //提交
@@ -162,7 +156,7 @@ class RefundAfter extends React.Component {
       },
     ];
     return (
-      <div className="container_manager_address container_width">
+      <div className="container_manager_address">
         {/*<div className="shop_top container_top">*/}
           {/*/!*<h2>{menuName}</h2>*!/*/}
           {/*<h2>退款售后</h2>*/}
