@@ -26,6 +26,7 @@ import ShopDetails from  './component/details/shop_details'
 import EvaluateDetails  from './component/details/evaluate_details'
 import AfterDetails from './component/details/after_details'
 import OrderDetails from './component/details/order_details'
+
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class ERouter extends React.Component{

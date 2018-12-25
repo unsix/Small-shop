@@ -17,9 +17,24 @@ class OrderDetails extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      visible:false,
-      modalType:'再次购买',
-      footerNull:undefined,
+      visible: false,
+      modalType: '再次购买',
+      footerNull: undefined,
+      data: {
+        id: '1',
+        ordernumber: '0000000000000001',
+        status: 0,
+        key: '1',
+        avatar: ['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+        ],
+        name: '中财PPR热水管',
+        unit: 10,
+        number: 1,
+        price: 10,
+        Specifications: '黑色',
+        operation: ['删除订单']
+      }
     }
   }
   shopOk= (val,value) => {
@@ -61,16 +76,13 @@ class OrderDetails extends React.Component{
     //   })
     // }
   }
+  //再次购买
+  againPay = () => {
+    const {id} = this.state.data
+    const url = window.open('http://localhost:3000/')
+    url.location.href=`/#/details/shop/${id}`
+  }
   onModal = (type,record) => {
-    if(type === '再次购买') {
-      // console.log(type)
-      this.setState({
-        visible:true,
-        modalType:type
-      })
-      console.log(record)
-      // console.log(this.state.visible)
-    }
     if(type === '查询物流') {
       // console.log(type)
       this.setState({
@@ -90,31 +102,30 @@ class OrderDetails extends React.Component{
   }
   render(){
     const details= this.props.order.details
-    const { modalType,visible,footerNull} = this.state
+    const { modalType,visible,footerNull,data} = this.state
     console.log(this.props)
     return(
       <div className="container_details container_order">
         {/*<div className="back">*/}
           {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
         {/*</div>*/}
-        {details.avatar?
           <div className="order order_details">
             <div className="order_top">
               <h3 className="tg">订单详情</h3>
-              {details.status === 0 ?
-                <h3>交易关闭</h3>:(null)
+              {data.status === 0 ?
+                <h4>交易关闭</h4>:(null)
               }
-              {details.status === 1 ?
-                <h3>等待买家付款</h3>:(null)
+              {data.status === 1 ?
+                <h4>等待买家付款</h4>:(null)
               }
-              {details.status === 2 ?
-                <h3>买家已付款</h3>:(null)
+              {data.status === 2 ?
+                <h4>买家已付款</h4>:(null)
               }
-              {details.status === 3 ?
-                <h3>卖家已发货</h3>:(null)
+              {data.status === 3 ?
+                <h4>卖家已发货</h4>:(null)
               }
-              {details.status === 0 ?
-                <h6>卖家缺货</h6>:null
+              {data.status === 0 ?
+                <h4>卖家缺货</h4>:null
               }
             </div>
             <div className="address">
@@ -127,18 +138,18 @@ class OrderDetails extends React.Component{
              </div>
             </div>
             <div className="content">
-              <Avatar src={details.avatar[0]} />
+              <Avatar src={data.avatar[0]} />
               <div className="name">
-                <h6>{details.name}</h6>
-                <h6>{details.Specifications}</h6>
+                <h6>{data.name}</h6>
+                <h6>{data.Specifications}</h6>
               </div>
               <div className="price">
-                <h6>¥{details.unit}</h6>
-                <h6 className="num">×{details.number}</h6>
+                <h6>¥{data.unit}</h6>
+                <h6 className="num">×{data.number}</h6>
               </div>
             </div>
             <div className="information">
-              <h6>订单号: {details.ordernumber}</h6>
+              <h6>订单号: {data.ordernumber}</h6>
               <h6>创建时间: 2018年11月11日 14:30:25</h6>
               <h6>付款时间: 2018年11月11日 14:30:25</h6>
               <h6>支付方式: 支付宝</h6>
@@ -163,14 +174,10 @@ class OrderDetails extends React.Component{
                 <Button onClick={()=>this.onModal('查询物流')} type='primary'>查询物流</Button>
               </div>
               <div className="againPay mt20">
-                <Button onClick={()=>this.onModal('再次购买')} type='danger'>再次购买</Button>
+                <Button onClick={()=>this.againPay('再次购买')} type='danger'>再次购买</Button>
               </div>
             </div>
           </div>
-          :(
-            null
-          )
-        }
         <ShopModal
           visible={visible}
           title={modalType}

@@ -98,13 +98,8 @@ class OrderTable extends React.Component {
       },)
     }
     if(v==='详情'){
-      this.props.orDetails(record)
-      this.props.shopCart(record)
-      this.setState({
-        visible:true,
-        modalType:v,
-        footerNull:null
-      },)
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/order/${record.id}`
     }
   }
 
