@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carousel, Card, Icon,List,Avatar} from 'antd'
+import { Carousel, Card, Icon, List, Avatar, Input ,} from 'antd'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
@@ -110,6 +110,7 @@ class Home extends React.Component{
 
   }
   render(){
+    const {Search} = Input
     const menuName = this.props.menu.menuName
     const { footerNull } = this.state
     const gridStyle = {
@@ -135,6 +136,58 @@ class Home extends React.Component{
       },
       {
         id:4,
+        title: 'Ant Design Title 4',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+    ];
+    const dataS = [
+      {
+        id:1,
+        title: 'Ant Design Title 1',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:2,
+        title: 'Ant Design Title 2',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:3,
+        title: 'Ant Design Title 3',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:4,
+        title: 'Ant Design Title 4',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:5,
+        title: 'Ant Design Title 1',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:6,
+        title: 'Ant Design Title 2',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:7,
+        title: 'Ant Design Title 3',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:8,
+        title: 'Ant Design Title 4',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:9,
+        title: 'Ant Design Title 3',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      },
+      {
+        id:10,
         title: 'Ant Design Title 4',
         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       },
@@ -177,49 +230,81 @@ class Home extends React.Component{
             <Card.Grid style={gridStyle}>分类</Card.Grid>
             <Card.Grid style={gridStyle}>其他</Card.Grid>
           </Card>
-          <SelectProducts
-            visible={this.state.visible}
-            modal = {this.OnModal}
-            onCancel = {this.OnCancel}
-            title={this.state.modalType}
-            onOk={this.shopOk}
-            footerNull={footerNull}
-          />
-          <Shop
-            visible={this.state.visible}
-            modal = {this.OnModal}
-            onCancel = {this.OnCancel}
-            title={this.state.modalType}
-            onOk={this.shopOk}
-            footerNull={footerNull}
-          />
         </div>
-        <List
-          grid={{ gutter: 105, column:4}}
-          itemLayout="horizontal"
-          dataSource={data}
-          renderItem={item => (
-            <List.Item
-              onClick={()=>this.listClick(item)}
-            >
-              {/*<Card*/}
+        <div className="selected_bands">
+          <h2>精选品牌</h2>
+          <List
+            grid={{ gutter: 50, column:4}}
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={item => (
+              <List.Item
+                onClick={()=>this.listClick(item)}
+              >
+                {/*<Card*/}
                 {/*hoverable*/}
                 {/*cover={<img alt="example" src={item.avatar} />}*/}
-              {/*/>*/}
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
+                {/*/>*/}
+                <Card
+                  hoverable
+                  style={{ width: 240 }}
+                  cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
+                >
+                  <Meta
+                    className='shop_des'
+                    title={<span>¥188<s>¥352</s></span>}
+                    description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </div>
+        <div className="selected_bands all_bands">
+          <Search
+            placeholder="油漆"
+            enterButton="搜商品"
+            size="large"
+            onSearch={value => console.log(value)}
+          />
+          <div className="sort_shop">
+            <h3>综合<Icon type="caret-down"/></h3>
+            <h3>销量</h3>
+            <h3>价格</h3>
+          </div>
+          <List
+            grid={{ gutter: 50, column:4}}
+            itemLayout="horizontal"
+            dataSource={dataS}
+            pagination={{
+              onChange: (page) => {
+                console.log(page);
+              },
+              pageSize: 8,
+            }}
+            renderItem={item => (
+              <List.Item
+                onClick={()=>this.listClick(item)}
               >
-                <Meta
-                  className='shop_des'
-                  title={<span>¥188<s>¥352</s></span>}
-                  description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
-                />
-              </Card>
-            </List.Item>
-          )}
-        />
+                {/*<Card*/}
+                {/*hoverable*/}
+                {/*cover={<img alt="example" src={item.avatar} />}*/}
+                {/*/>*/}
+                <Card
+                  hoverable
+                  style={{ width: 240 }}
+                  cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
+                >
+                  <Meta
+                    className='shop_des'
+                    title={<span>¥188<s>¥352</s></span>}
+                    description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </div>
       </div>
     )
   }

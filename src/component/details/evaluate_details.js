@@ -3,7 +3,6 @@ import { List, Avatar,Button,Modal} from 'antd';
 import PictureBrowing from '../modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 
-import '../../style/details.less'
 
 @connect(
   state=>state,
@@ -67,7 +66,7 @@ class EvaluateDetails extends React.Component{
     const evaluates = this.props.shop.evaluates
     const {previewVisible,previewImage,contentEva} = this.state
     return(
-      <div className="container_details container_evaluate">
+      <div className=" container_evaluate">
         {/*//改home*/}
         {/*<div className="back">*/}
           {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
@@ -104,7 +103,6 @@ class EvaluateDetails extends React.Component{
             </List.Item>
           )}
         />
-
         <PictureBrowing
           previewVisible={previewVisible}
           previewImage ={previewImage}

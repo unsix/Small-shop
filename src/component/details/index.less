@@ -4,7 +4,9 @@
   h3{
     text-align: center;
   }
-  display: flex;
+  .content{
+    display: flex;
+  }
   .details_shop{
     width: 900px;
     //margin-right: 30px;
@@ -15,16 +17,7 @@
         z-index: 9999;
         width: 300px;
         height: 300px;
-        //.image_magnify{
-        //  width: 250px;
-        //  height: 250px;
-        //}
-        //img{
-        //  width: 250px;
-        //  height: 250px;
-        //}
         .image_magnify{
-
         }
       }
       .content_inf{
@@ -53,6 +46,7 @@
       }
     }
   }
+
   .about_shop{
     width: 170px;
   }
@@ -64,6 +58,51 @@
     color: #f31f00;
     margin-top: 5px;
     cursor: pointer;
+  }
+  //tab content 高度
+  .card-container > .ant-tabs-card > .ant-tabs-content{
+   height: auto !important;
+  }
+  .ant-tabs-bar{
+    background: #f6f6f6;
+    height: 50px;
+    line-height: 50px;
+  }
+  .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-nav-container{
+    height: 50px;
+  }
+  .card-container > .ant-tabs-card > .ant-tabs-content {
+    height: 120px;
+    margin-top: -16px;
+  }
+
+  .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+    background: #fff;
+    padding: 16px;
+  }
+
+  .card-container > .ant-tabs-card > .ant-tabs-bar {
+    border-color: #fff;
+  }
+
+  .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+    border-color: transparent;
+    background: transparent;
+    height: 50px;
+    padding: 5px 30px;
+  }
+
+  .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+    border-color: #fff;
+    background: #fff;
+  }
+  //上边框
+  .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active{
+    border-top: 2px solid #e77f48 !important;
+    height: 50px;
+  }
+  .ant-tabs{
+   min-height: 600px;
   }
 }
 //订单

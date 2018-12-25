@@ -396,7 +396,6 @@ class Shop extends React.Component {
           columns={columns}
           dataSource={this.state.data}
           onDelete={this.onDelete}
-
         />
        <ShopModal
          visible={visible}
