@@ -107,6 +107,11 @@ class Evaluate extends React.Component{
       },
     };
     return(
+      <div className="container_width  container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>评价</h2>
+        </div>
       <div className=" evaluate container_width">
             <div className="evaluate_content">
               <div className="order_content">
@@ -154,6 +159,7 @@ class Evaluate extends React.Component{
             destroyOnClose={true}
           />
           <Button type="primary" >提交</Button>
+      </div>
       </div>
     )
   }

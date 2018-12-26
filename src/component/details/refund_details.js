@@ -34,7 +34,12 @@ class ReundDetails extends React.Component{
     console.log(this.props)
     const { data } = this.state
     return(
-      <div className="container_details ">
+      <div className="container_width payment container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>退款详情</h2>
+        </div>
+        <div className="container_details ">
         <div className="order order_details">
           <div className="order_top">
             <h3 className="tg">退款详情</h3>
@@ -67,6 +72,7 @@ class ReundDetails extends React.Component{
           </div>
         </div>
 
+      </div>
       </div>
     )
   }

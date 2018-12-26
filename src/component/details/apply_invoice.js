@@ -76,7 +76,12 @@ class ApplyInvoice extends React.Component{
       }],
     }];
     return(
-      <div className=" apply_invoice container_details">
+      <div className="container_width payment container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>申请开票</h2>
+        </div>
+         <div className=" apply_invoice container_details">
         <div className="address">
           <div>
             <Icon type="environment" />
@@ -135,6 +140,7 @@ class ApplyInvoice extends React.Component{
           </Form>
           <Button type='primary' >提交</Button>
         </div>
+      </div>
       </div>
     )
   }

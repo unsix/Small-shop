@@ -92,10 +92,15 @@ class OrderDetails extends React.Component{
     const { modalType,visible,footerNull,data} = this.state
     console.log(this.props)
     return(
-      <div className="container_details container_order">
-        {/*<div className="back">*/}
+      <div className="container_width payment container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>订单详情</h2>
+        </div>
+        <div className="container_details container_order">
+          {/*<div className="back">*/}
           {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
-        {/*</div>*/}
+          {/*</div>*/}
           <div className="order order_details">
             <div className="order_top">
               <h3 className="tg">订单详情</h3>
@@ -119,10 +124,10 @@ class OrderDetails extends React.Component{
               <div>
                 <Icon type="environment" />
               </div>
-             <div className="address_content">
-               <h6>收件人: 小丸子 <span>13456801341</span></h6>
-               <h6>收货地址: 浙江省杭州市滨江区某某小区</h6>
-             </div>
+              <div className="address_content">
+                <h6>收件人: 小丸子 <span>13456801341</span></h6>
+                <h6>收货地址: 浙江省杭州市滨江区某某小区</h6>
+              </div>
             </div>
             <div className="content">
               <Avatar src={data.avatar[0]} />
@@ -165,13 +170,14 @@ class OrderDetails extends React.Component{
               </div>
             </div>
           </div>
-        <ShopModal
-          visible={visible}
-          title={modalType}
-          onOk={this.shopOk}
-          onCancel={this.onCancel}
-          footerNull={footerNull}
-        />
+          <ShopModal
+            visible={visible}
+            title={modalType}
+            onOk={this.shopOk}
+            onCancel={this.onCancel}
+            footerNull={footerNull}
+          />
+        </div>
       </div>
     )
   }

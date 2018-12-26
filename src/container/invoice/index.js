@@ -165,7 +165,11 @@ class ManagerAdress extends React.Component {
       {
         title: '开票金额',
         dataIndex: 'invoicePrice',
-        render:val=>`¥${val}`
+        render:(val)=>{
+          return(
+            <span style={{color:'red'}}>¥{val}</span>
+          )
+        }
       },
       {
         title: '操作',

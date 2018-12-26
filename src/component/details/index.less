@@ -147,6 +147,11 @@
     }
     .name,.price {
     }
+    .price {
+      h6:nth-child(1){
+        color: red;
+      }
+    }
     .name{
       margin:auto;
       flex: 1 1;
@@ -210,15 +215,19 @@
 .evaluate_star{
   .star{
     display: flex;
-    line-height: 30px;
+    line-height: 50px;
     h6{
       margin-right: 30px;
+      font-size: 15px;
+      letter-spacing: 1px;
+      margin-left: 50px;
     }
   }
 }
 
 //评价
 .evaluate{
+  padding: 20px;
   .evaluate_content{
     display: flex;
     align-items: center;
@@ -233,9 +242,36 @@
   }
   .name_spe{
     h6{
-      font-size: 20px;
+      font-size: 17px;
+      letter-spacing: 1px;
       text-align: center;
       margin-top: 10px;
     }
+  }
+}
+
+//购物车
+.cart_details{
+  .ant-list-item-meta{
+    align-items: center;
+    justify-content: center;
+  }
+  .unit {
+    h6 span:nth-child(1){
+      color: red;
+    }
+  }
+  h6{
+    font-size: 15px;
+    line-height: 2;
+  }
+  img{
+    width: 100px;
+    height: 100px;
+  }
+  .pce{
+   span{
+     color: red;
+   }
   }
 }

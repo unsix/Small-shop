@@ -36,7 +36,7 @@ class ChangeForm extends React.Component {
             {getFieldDecorator('feedTitle', {
               rules: [{ required: true, message: '请输入反馈标题！' }],
             })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="反馈标题" />
+              <Input  style={{width:'280px'}} type="password" placeholder="反馈标题" />
             )}
           </FormItem>
           <FormItem>

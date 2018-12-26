@@ -23,7 +23,8 @@ class ShopCart extends React.Component {
       previewVisible:false,
       previewImage:'',
       visible:false,
-      data:[{
+      data:[
+        {
         id:'1',
         key: '1',
         avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
@@ -69,7 +70,8 @@ class ShopCart extends React.Component {
         color:'黑色',
         Specifications: '中',
         star:0
-      }]
+      },
+      ]
     }
   }
   componentDidMount(){
@@ -137,24 +139,27 @@ class ShopCart extends React.Component {
   }
   //结算modal
   modal = () => {
-    let visible = this.state.visible;
-    let allprice = this.state.allprice
-    console.log(allprice)
-    let selectedRows = this.state.selectedRows;
-    console.log(selectedRows)
-    this.setState({
-      visible:!visible,
-    },()=>{
-      let obj = {
-        selectedRows:selectedRows,
-        allprice:allprice
-      }
-
-
-
-      this.props.dataCart(obj)
-
-    })
+    const id  = this.state.data.length
+    const url = window.open('http://localhost:3000/')
+    url.location.href=`/#/details/cart/${id}`
+    // let visible = this.state.visible;
+    // let allprice = this.state.allprice
+    // console.log(allprice)
+    // let selectedRows = this.state.selectedRows;
+    // console.log(selectedRows)
+    // this.setState({
+    //   visible:!visible,
+    // },()=>{
+    //   let obj = {
+    //     selectedRows:selectedRows,
+    //     allprice:allprice
+    //   }
+    //
+    //
+    //
+    //   this.props.dataCart(obj)
+    //
+    // })
   }
   //modal提交
   handleok = () => [

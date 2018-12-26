@@ -31,6 +31,7 @@ import ApplyInvoice from  './component/details/apply_invoice'
 import Refund from  './component/details/refund'
 import Evaluate from  './component/details/evaluate'
 import ReundDetails from  './component/details/refund_details'
+import CartDetails from  './component/details/cart_details'
 
 import { HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 
@@ -73,6 +74,7 @@ class ERouter extends React.Component{
                   <Route path="/details/refund/:id" component={Refund} />
                   <Route path="/details/evaluate/:id" component={Evaluate} />
                   <Route path="/details/reunddetails/:id" component={ReundDetails} />
+                  <Route path="/details/cart/:id" component={CartDetails} />
                   <Route path="/details/payment/:id" component={Payment} />
                   <Route component={NoMatch} />
                 </Switch>

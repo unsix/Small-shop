@@ -47,7 +47,12 @@ class Refund extends React.Component{
       },
     };
     return(
-      <div className="container_details container_logistics">
+      <div className="container_width payment container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>申请退款</h2>
+        </div>
+        <div className="container_details container_logistics">
         {/*<div className="back">*/}
         {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
         {/*</div>*/}
@@ -87,6 +92,7 @@ class Refund extends React.Component{
           </div>
         </div>
 
+      </div>
       </div>
     )
   }
