@@ -74,7 +74,7 @@ class ERouter extends React.Component{
                   <Route path="/details/refund/:id" component={Refund} />
                   <Route path="/details/evaluate/:id" component={Evaluate} />
                   <Route path="/details/reunddetails/:id" component={ReundDetails} />
-                  <Route path="/details/cart/:id" component={CartDetails} />
+                  <Route path="/details/placeorder/:id" component={CartDetails} />
                   <Route path="/details/payment/:id" component={Payment} />
                   <Route component={NoMatch} />
                 </Switch>

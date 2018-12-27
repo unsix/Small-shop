@@ -158,7 +158,7 @@ class Evaluate extends React.Component{
             onCancel={this.previewCancel}
             destroyOnClose={true}
           />
-          <Button type="primary" >提交</Button>
+          <Button type="primary" className="fr">提交</Button>
       </div>
       </div>
     )

@@ -11,12 +11,16 @@ class Logistics extends React.Component{
 
   render(){
     return(
-      <div className="container_details container_logistics">
+      <div className="container_width payment container_height">
+        {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
+        <div className="shop_top container_top contain">
+          <h2>物流信息</h2>
+        </div>
+       <div className="container_details container_logistics">
         {/*<div className="back">*/}
         {/*<Button type="primary" onClick={()=>this.props.history.goBack()}>返回</Button>*/}
         {/*</div>*/}
         <div className="evaluate_top">
-          <h3>包裹信息</h3>
           <div className='logistics'>
             <h6>快递公司: 货拉拉</h6>
             <h6>快递单号: 234982714823749</h6>
@@ -25,6 +29,7 @@ class Logistics extends React.Component{
           </div>
         </div>
 
+      </div>
       </div>
     )
   }

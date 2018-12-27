@@ -114,7 +114,7 @@ class CartDetails extends React.Component{
                 </span>
               </h3>
             </div>
-            <Button type="primary" onClick={this.placeOrder}>提交订单</Button>
+            <Button type="primary" className="fr" onClick={this.placeOrder}>提交订单</Button>
           </div>
       </div>
     )

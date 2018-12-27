@@ -141,7 +141,7 @@ class ShopCart extends React.Component {
   modal = () => {
     const id  = this.state.data.length
     const url = window.open('http://localhost:3000/')
-    url.location.href=`/#/details/cart/${id}`
+    url.location.href=`/#/details/placeorder/${id}`
     // let visible = this.state.visible;
     // let allprice = this.state.allprice
     // console.log(allprice)
@@ -260,7 +260,14 @@ class ShopCart extends React.Component {
         <div className="shop_top container_top">
           <h2>{menuName}</h2>
         </div>
-        <div className="type_button">
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={this.state.data}
+          onDelete={this.onDelete}
+          pagination={false}
+        />
+        <div className="type_button mt30">
           <Button
             type="primary"
             disabled={!hasSelected}
@@ -273,13 +280,6 @@ class ShopCart extends React.Component {
             {hasSelected ? `共${selectedRowKeys.length}件商品` : ''}
           </span>
         </div>
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={this.state.data}
-          onDelete={this.onDelete}
-          pagination={false}
-        />
         <Pagination
           current={1} total={1} pageSize={1}
         />

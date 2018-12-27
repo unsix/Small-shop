@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carousel, Card, Icon, List, Avatar, Input ,} from 'antd'
+import { Carousel, Card, Icon, List, Avatar, Input , Menu} from 'antd'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
@@ -12,13 +12,18 @@ import { dataAdress } from '../../redux/address_redux'
   {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
 )
 class Home extends React.Component{
-
   constructor(props){
     super(props)
     this.state = {
+      current: 'mail',
     }
   }
-
+  handleClick = (e) => {
+    console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
+  }
   listClick = (item) => {
     console.log(item)
     this.props.evaluateDetails(item)
@@ -26,6 +31,8 @@ class Home extends React.Component{
     url.location.href=`/#/details/shop/${item.id}`
   }
   render(){
+    const SubMenu = Menu.SubMenu;
+    const MenuItemGroup = Menu.ItemGroup;
     const {Search} = Input
     const menuName = this.props.menu.menuName
     const gridStyle = {
@@ -149,7 +156,7 @@ class Home extends React.Component{
         <div className="selected_bands">
           <h2>精选品牌</h2>
           <List
-            grid={{ gutter: 50, column:4}}
+
             itemLayout="horizontal"
             dataSource={data}
             renderItem={item => (
@@ -183,12 +190,21 @@ class Home extends React.Component{
             onSearch={value => console.log(value)}
           />
           <div className="sort_shop">
-            <h3>综合<Icon type="caret-down"/></h3>
-            <h3>销量</h3>
-            <h3>价格</h3>
+            <Menu
+              onClick={this.handleClick}
+              selectedKeys={[this.state.current]}
+              mode="horizontal"
+            >
+              <SubMenu title={<span className="submenu-title-wrapper">综合<Icon type="caret-down" /></span>}>
+                <Menu.Item key="setting:1">销量</Menu.Item>
+                <Menu.Item key="setting:2">信誉</Menu.Item>
+              </SubMenu>
+              <Menu.Item key="setting:3">销量</Menu.Item>
+              <Menu.Item key="setting:4">价格</Menu.Item>
+            </Menu>
           </div>
           <List
-            grid={{ gutter: 50, column:4}}
+            grid={{ gutter: 0, column:4}}
             itemLayout="horizontal"
             dataSource={dataS}
             pagination={{

@@ -138,7 +138,7 @@ class ApplyInvoice extends React.Component{
               )}
             </FormItem>
           </Form>
-          <Button type='primary' >提交</Button>
+          <Button type='primary' className="fr">提交</Button>
         </div>
       </div>
       </div>
