@@ -2,10 +2,17 @@ import  React from 'react';
 import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 import LogReg from '../../component/background/log_reg';
+import {connect} from 'react-redux'
+import { regisgerUser,smsCode} from '../../redux/user_redux'
 import './index.less'
 import { withRouter } from 'react-router-dom'
 
+
 @withRouter
+@connect(
+  state=>state,
+  {regisgerUser,smsCode}
+)
 class RegisterForm extends React.Component {
 
   state = {
@@ -22,7 +29,15 @@ class RegisterForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.history.push('/')
+        // this.props.history.push('/')
+       let obj = {
+          id:647036,
+          username:values.phone,
+          smsCode:values.captcha,
+          password:values.password
+
+        }
+        this.props.regisgerUser(obj)
 
       }
     });
@@ -36,13 +51,19 @@ class RegisterForm extends React.Component {
   }
   //验证码读秒
   onGetCapcha = () => {
+
     new Promise ((resolve,reject)=>{
       this.props.form.validateFields(['phone'],{},(err,value) => {
         if (err){
           reject(err)
         }
         else{
-          //写请求
+          let obj = {
+            username:value.phone,
+            smsType:"memberRegister"
+          }
+
+          this.props.smsCode(obj)
           let count = 59
           this.setState({
             count
@@ -58,21 +79,21 @@ class RegisterForm extends React.Component {
       })
     })
   }
-  componentDidMount(){
-
-    axios.get("/api/test/profile")
-      .then(res=>{
-        // if (res.status==200&&res.data.code===0) {
-        // 	dispatch(authSuccess(res.data.data))
-        // }else{
-        // 	dispatch(errorMsg(res.data.msg))
-        // }
-        console.log(res);
-
-      })
-
-
-  }
+  // componentDidMount(){
+  //
+  //   axios.get("/api/test/profile")
+  //     .then(res=>{
+  //       // if (res.status==200&&res.data.code===0) {
+  //       // 	dispatch(authSuccess(res.data.data))
+  //       // }else{
+  //       // 	dispatch(errorMsg(res.data.msg))
+  //       // }
+  //       console.log(res);
+  //
+  //     })
+  //
+  //
+  // }
   render() {
     const { getFieldDecorator } = this.props.form;
     const {count,type} = this.state

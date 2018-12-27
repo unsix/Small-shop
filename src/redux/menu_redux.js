@@ -20,6 +20,6 @@ export function menu(state=initState, action){
   }
 }
 
-export function authSuccess(name) {
+export function menuName(name) {
   return {type: SWITCH_MENU,payload:name}
 }

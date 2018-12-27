@@ -4,7 +4,7 @@ import React from 'react'
 import { Menu, Icon, Row, Col, Avatar, Dropdown } from 'antd'
 import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux'
-import {authSuccess} from '../../redux/menu_redux'
+import {menuName} from '../../redux/menu_redux'
 import Menulist from './../../config/menuConfig'
 import './index.less'
 import { withRouter } from "react-router-dom"
@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom"
 @withRouter
 @connect(
   state=>state,
-  {authSuccess}
+  {menuName}
 )
 
 class NavLeft extends React.Component {
@@ -32,7 +32,7 @@ class NavLeft extends React.Component {
   }
   handleClick = ({item}) => {
     console.log((item))
-    this.props.authSuccess(item.props.title)
+    this.props.menuName(item.props.title)
     this.setState({
       currentKey:item.key
     })

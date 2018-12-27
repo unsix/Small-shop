@@ -2,11 +2,17 @@ import  React from 'react';
 import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from "react-router-dom"
+import {connect} from 'react-redux'
+import { loginUser } from '../../redux/user_redux'
 import LogReg from '../../component/background/log_reg';
 import './login.less'
 
 
 @withRouter
+@connect(
+  state=>state,
+  {loginUser}
+)
 class LoginForm extends React.Component {
 
   state = {
@@ -26,7 +32,14 @@ class LoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.history.push('/')
+        // this.props.history.push('/')
+        let obj = {
+          id:647037,
+          username:values.phone,
+          password:values.password
+
+        }
+        this.props.loginUser(obj)
       }
     });
   }
@@ -74,7 +87,7 @@ class LoginForm extends React.Component {
               <TabPane tab="登录" key="account" >
                 <Form onSubmit={this.handleSubmit} className="login-form">
                   <FormItem>
-                    {getFieldDecorator('userName', {
+                    {getFieldDecorator('phone', {
                       rules: [{ required: true, message: '请输入账号!' }],
                     })(
                       <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入手机号" />
