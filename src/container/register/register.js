@@ -31,14 +31,12 @@ class RegisterForm extends React.Component {
         console.log('Received values of form: ', values);
         // this.props.history.push('/')
        let obj = {
-          id:647036,
+          // id:647036,
           username:values.phone,
           smsCode:values.captcha,
           password:values.password
-
         }
         this.props.regisgerUser(obj)
-
       }
     });
   }
@@ -59,7 +57,7 @@ class RegisterForm extends React.Component {
         }
         else{
           let obj = {
-            username:value.phone,
+            username:`${value.phone}`,
             smsType:"memberRegister"
           }
 

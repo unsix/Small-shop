@@ -162,5 +162,5 @@
     "http-proxy-middleware": "^0.19.1",
     "mockjs": "^1.0.1-beta3"
   },
-  "proxy": "http://39.105.25.92"
+  "proxy": "http://39.105.25.92/"
 }

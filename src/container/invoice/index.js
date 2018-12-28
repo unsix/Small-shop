@@ -3,14 +3,14 @@ import { Table, Button, Popconfirm, Icon, Switch, Form, Badge, Pagination } from
 import Invoice from  '../../component/modal/invoice_modal'
 import './index.less'
 import {connect} from 'react-redux'
-import { dataAdress } from '../../redux/address_redux'
+import { getAddressList } from '../../redux/address_redux'
 
 
 const orderStatus = ['待发货','交易成功']
 const invoiceStatus = ['待开票','已开票']
 @connect(
   state=>state,
-  {dataAdress}
+  {getAddressList}
 )
 class ManagerAdress extends React.Component {
   constructor (props) {

@@ -3,11 +3,11 @@ import { Table, Button, Popconfirm, Icon, Switch, Form } from 'antd'
 import Address from  '../../component/modal/address_modal'
 import './index.less'
 import {connect} from 'react-redux'
-import { dataAdress } from '../../redux/address_redux'
+import { getAddressList } from '../../redux/address_redux'
 
 @connect(
-  state=>state,
-  {dataAdress}
+  state=>state.address,
+  {getAddressList}
 )
 class ManagerAdress extends React.Component {
   constructor (props) {
@@ -44,7 +44,7 @@ class ManagerAdress extends React.Component {
     }
   }
   componentDidMount(){
-
+    this.props.getAddressList()
   }
   //提交
   handleok = (val,value) => {
@@ -130,6 +130,7 @@ class ManagerAdress extends React.Component {
   render() {
     // console.log(this.props)
     const { addressVisible, modalType}  = this.state
+    const { addressList } = this.props
     const columns = [{
       title: '名字',
       dataIndex: 'name',
@@ -140,7 +141,7 @@ class ManagerAdress extends React.Component {
       },
       {
         title: '详细地址',
-        dataIndex: 'address',
+        dataIndex: 'areaName',
       },
       {
         title: '操作',
@@ -188,7 +189,7 @@ class ManagerAdress extends React.Component {
         </div>
         <Table
           columns={columns}
-          dataSource={this.state.data}
+          dataSource={addressList}
           onDelete={this.onDelete}
           rowKey={record => record.key}
         />

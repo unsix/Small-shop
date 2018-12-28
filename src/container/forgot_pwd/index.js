@@ -3,9 +3,15 @@ import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 import LogReg from '../../component/background/log_reg';
 import './index.less'
+import {connect} from 'react-redux'
+import { smsCode,forgetPwdUser} from '../../redux/user_redux'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
+@connect(
+  state=>state,
+  {forgetPwdUser,smsCode}
+)
 class ForgotPwdForm extends React.Component {
 
   state = {
@@ -16,8 +22,14 @@ class ForgotPwdForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.history.push('/')
-
+        // this.props.history.push('/')
+        let obj = {
+          // id:647036,
+          username:values.phone,
+          smsCode:values.captcha,
+          password:values.password
+        }
+        this.props.forgetPwdUser(obj)
       }
     });
   }
@@ -42,6 +54,12 @@ class ForgotPwdForm extends React.Component {
         }
         else{
           //写请求
+          let obj = {
+            username:`${value.phone}`,
+            smsType:"findPassword"
+          }
+
+          this.props.smsCode(obj)
           let count = 59
           this.setState({
             count
@@ -73,7 +91,7 @@ class ForgotPwdForm extends React.Component {
             <Tabs
               defaultActiveKey={'phone'}
             >
-              <TabPane tab="注册" key="phone">
+              <TabPane tab="忘记密码" key="phone">
                 <Form onSubmit={this.handleSubmit} className="login-form">
                   <FormItem>
                     {getFieldDecorator('phone', {

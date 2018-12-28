@@ -1,13 +1,15 @@
 import React from 'react'
 import { Menu, Dropdown, Icon,Row,Col,Avatar,Breadcrumb} from 'antd';
 import {connect} from 'react-redux'
+import {logoutSubmit} from '../../redux/user_redux'
 // import {authSuccess} from '../../redux/menu_redux'
 import './index.less'
 import { withRouter } from "react-router-dom"
 
 @withRouter
 @connect(
-  state=>state,
+  state=>state.user,
+  {logoutSubmit}
 )
 class Header extends React.Component{
   constructor (props) {

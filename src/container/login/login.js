@@ -1,7 +1,7 @@
 import  React from 'react';
 import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
-import { withRouter } from "react-router-dom"
+import { withRouter ,Redirect} from "react-router-dom"
 import {connect} from 'react-redux'
 import { loginUser } from '../../redux/user_redux'
 import LogReg from '../../component/background/log_reg';
@@ -10,7 +10,7 @@ import './login.less'
 
 @withRouter
 @connect(
-  state=>state,
+  state=>state.user,
   {loginUser}
 )
 class LoginForm extends React.Component {
@@ -34,7 +34,6 @@ class LoginForm extends React.Component {
         console.log('Received values of form: ', values);
         // this.props.history.push('/')
         let obj = {
-          id:647037,
           username:values.phone,
           password:values.password
 
@@ -75,6 +74,7 @@ class LoginForm extends React.Component {
     const FormItem = Form.Item;
     return (
       <LogReg>
+        {this.props.redirectTo? <Redirect to={this.props.redirectTo} />:null}
         <div className="container_login">
           <div className="content">
             <div className="logo-top">
