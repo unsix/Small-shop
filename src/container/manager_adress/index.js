@@ -19,27 +19,7 @@ class ManagerAdress extends React.Component {
       editRow: {},
       modalType: "新建地址",
       record:[],
-      data:[
-        {
-          id:1,
-          key: '1',
-          name: '小丸子',
-          phone: '13456801341',
-          address: '浙江省杭州市滨江区悦湾小区123',
-          addressSelect:['浙江省','杭州市','西湖区'],
-          specificAddress:'123',
-          default:true
-        },
-        {
-          id:2,
-          key: '2',
-          name: '小篮子',
-          phone: '13456801341',
-          address: '浙江省杭州市滨江区悦湾小区123',
-          addressSelect:['浙江省','杭州市','西湖区'],
-          specificAddress:'123',
-          default:false
-        },
+      addressList:[
       ]
     }
   }
@@ -49,22 +29,21 @@ class ManagerAdress extends React.Component {
   //提交
   handleok = (val,value) => {
     // console.log(value)
-      const _address = value.addressSelect+value.specificAddress
-      const address = _address.replace(/,/g, "")
-      let addAdress = {
-        key:value.name+value.address+value.specificAddress,
-        name: value.name,
+      const _areaName = value.areaName+value.address
+      const areaName = _areaName.replace(/,/g, "")
+      let addAddress = {
+        // key:value.name+value.address+value.specificAddress,
+        consignee: value.consignee,
         phone: value.phone,
-        addressSelect:value.addressSelect,
-        specificAddress:value.specificAddress,
-        address: address,
+        address:value.address,
+        areaName: areaName,
         default:value.default
       };
 
       // console.log(addAdress)
       let data = this.state.data
       if(this.state.modalType === '新建地址'){
-        data.push(addAdress)
+        data.push(addAddress)
         this.setState({
           data,
           addressVisible:val
@@ -133,15 +112,23 @@ class ManagerAdress extends React.Component {
     const { addressList } = this.props
     const columns = [{
       title: '名字',
-      dataIndex: 'name',
+      dataIndex: 'consignee',
+      key :'consignee'
     },
       {
         title: '联系号码',
         dataIndex: 'phone',
+        key :'phone'
       },
       {
         title: '详细地址',
-        dataIndex: 'areaName',
+        dataIndex:'area_name',
+        key:'area_name',
+        render:(val,record)=>{
+          return(
+           <div> {val}{record.address}</div>
+          )
+        }
       },
       {
         title: '操作',
@@ -188,6 +175,7 @@ class ManagerAdress extends React.Component {
           </Button>
         </div>
         <Table
+          //还没有key 值
           columns={columns}
           dataSource={addressList}
           onDelete={this.onDelete}
