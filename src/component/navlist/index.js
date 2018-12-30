@@ -44,7 +44,10 @@ class NavLeft extends React.Component {
     this.props.logoutSubmit()
     this.props.history.push(type)
     console.log(type,this.props)
-
+    if (type === '/login'){
+      //退出登录清除localStorage
+      localStorage.clear()
+    }
   }
   //菜单渲染
   renderMenu =(data)=>{

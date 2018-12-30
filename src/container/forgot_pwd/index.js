@@ -4,13 +4,13 @@ import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 import LogReg from '../../component/background/log_reg';
 import './index.less'
 import {connect} from 'react-redux'
-import { smsCode,forgetPwdUser} from '../../redux/user_redux'
+import { smsCode,forgetPwdUser,logoutSubmit} from '../../redux/user_redux'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
 @connect(
   state=>state,
-  {forgetPwdUser,smsCode}
+  {forgetPwdUser,smsCode,logoutSubmit},
 )
 class ForgotPwdForm extends React.Component {
 
@@ -35,6 +35,7 @@ class ForgotPwdForm extends React.Component {
   }
   //跳转登录
   Login = () => {
+    this.props.logoutSubmit()
     this.props.history.push('/login')
   }
 

@@ -2,22 +2,22 @@ import React from 'react'
 import { Cascader, Form, Input, Modal, Switch, } from 'antd'
 import {connect} from 'react-redux'
 
+import { getOptionsList} from '../../redux/address_redux'
+
 import "./index.less"
 @connect(
-  state=>state
+  state=>state.address,
+  {getOptionsList}
 )
 class Address extends React.Component{
-  constructor (props){
+  constructor (props) {
     super(props)
     this.state = {
       addressVisible: false,
-      // name:'111',
-      data:[
-
-        ]
-       }
+      options: [],
+      optionsTwo:[]
     }
-
+  }
   handleok = (e) => {
     this.props.form.validateFieldsAndScroll((err, value) => {
       if(err) return
@@ -26,16 +26,50 @@ class Address extends React.Component{
 
     })
   }
+  componentDidMount(){
+    let  parentId = ""
+    this.props.getOptionsList(parentId)
+    // this.handleDataTree()
+  }
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      options:this.props.options
+    })
 
+  }
   handleCancel = (e) => {
     this.props.onCancel();
   }
+  onChange = (value, selectedOptions) => {
+    // console.log(value, selectedOptions);
+    // let parentId = value
+    // this.props.getOptionsList()
+  }
+  //
+  loadData = (selectedOptions) => {
+    const targetOption = selectedOptions[selectedOptions.length - 1];
+    targetOption.loading = true;
+    console.log(selectedOptions)
+    console.log(targetOption)
+    // load options lazily
+    let parentId = `${targetOption.value}`
+    console.log(parentId)
+    this.props.getOptionsList(parentId)
+    setTimeout(() => {
+      targetOption.loading = false;
+      targetOption.children = this.props.optionsTwo
+      this.setState({
+        optionsTwo: [...this.state.optionsTwo],
+      });
+    },500);
+  }
   render(){
     // console.log(this.props)
+    // console.log(this.state.mapOptions)
     const FormItem = Form.Item;
     const { TextArea } = Input;
     const { getFieldDecorator } = this.props.form;
-    const { addressVisible,title,record} = this.props
+    const { addressVisible,title,options} = this.props
     const formItemLayout = {
       labelCol: {
         xs: {span: 24},
@@ -46,29 +80,29 @@ class Address extends React.Component{
         sm: {span: 16},
       },
     };
-    const options = [{
-      value: '浙江省',
-      label: '浙江省',
-      children: [{
-        value: '杭州市',
-        label: '杭州市',
-        children: [{
-          value: '西湖区',
-          label: '西湖区',
-        }],
-      }],
-    }, {
-      value: '江苏省',
-      label: '江苏省',
-      children: [{
-        value: '南京市',
-        label: '南京市',
-        children: [{
-          value: '宗华门',
-          label: '宗华门',
-        }],
-      }],
-    }];
+    // const options = [{
+    //   value: '浙江省',
+    //   label: '浙江省',
+    //   children: [{
+    //     value: '杭州市',
+    //     label: '杭州市',
+    //     children: [{
+    //       value: '西湖区',
+    //       label: '西湖区',
+    //     }],
+    //   }],
+    // }, {
+    //   value: '江苏省',
+    //   label: '江苏省',
+    //   children: [{
+    //     value: '南京市',
+    //     label: '南京市',
+    //     children: [{
+    //       value: '宗华门',
+    //       label: '宗华门',
+    //     }],
+    //   }],
+    // }];
     return(
       <div className="preview_browsing">
         <Modal
@@ -97,11 +131,17 @@ class Address extends React.Component{
               {getFieldDecorator('areaName',{
                 rules: [{ required: true, message: '请选择省市区!' }],
               })(
-                <Cascader options={options}  placeholder="请选择省市区" />
+                <Cascader
+                  options={this.state.options}
+                  onChange={this.onChange}
+                  loadData={this.loadData}
+                  placeholder="请选择省市区"
+                  changeOnSelect
+                />
 
               )}
             </FormItem>
-            <FormItem label="门街号"  {...formItemLayout}>
+            <FormItem label="详细地址"  {...formItemLayout}>
               {getFieldDecorator('address', {
                 rules: [{ required: true, message: '请输入门街号!' }],
               })(
@@ -148,8 +188,8 @@ export default  Form.create(
     onFieldsChange(props, fields) {
       fields.name = props.consignee;
       fields.phone = props.phone;
-      fields.specificAddress = props.areaName;
-      fields.default = props.isDefault;
+      fields.areaName = props.areaName;
+      fields.isDefault = props.isDefault;
       fields.address = props.address;
     }
   },

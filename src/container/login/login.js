@@ -1,9 +1,9 @@
 import  React from 'react';
 import  axios from 'axios'
-import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
+import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox,message } from 'antd';
 import { withRouter ,Redirect} from "react-router-dom"
 import {connect} from 'react-redux'
-import { loginUser } from '../../redux/user_redux'
+import { loginUser,registerSubmit,forgotpwdSubmit } from '../../redux/user_redux'
 import LogReg from '../../component/background/log_reg';
 import './login.less'
 
@@ -11,20 +11,23 @@ import './login.less'
 @withRouter
 @connect(
   state=>state.user,
-  {loginUser}
+  {loginUser,registerSubmit,forgotpwdSubmit}
 )
 class LoginForm extends React.Component {
 
   state = {
       count:0,
       autoLogin:true,
+      loading:false
   }
   //忘记密码
   ForgotPwd = () => {
+    this.props.forgotpwdSubmit()
     this.props.history.push('/forgotpwd')
   }
   //注册跳转
   register = () => {
+    this.props.registerSubmit()
     this.props.history.push('/register')
   }
   handleSubmit = (e) => {
@@ -38,7 +41,7 @@ class LoginForm extends React.Component {
           password:values.password
 
         }
-        this.props.loginUser(obj)
+        this.props.loginUser(obj,'login')
       }
     });
   }
@@ -72,6 +75,7 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const TabPane = Tabs.TabPane;
     const FormItem = Form.Item;
+    console.log(this.props)
     return (
       <LogReg>
         {this.props.redirectTo? <Redirect to={this.props.redirectTo} />:null}
@@ -115,7 +119,7 @@ class LoginForm extends React.Component {
                   </span>
                   </FormItem>
                   <FormItem >
-                    <Button type="primary" htmlType="submit" className="login-form-button btn_280">登录</Button>
+                    <Button type="primary" loading={this.props.loading} htmlType="submit" className="login-form-button btn_280">登录</Button>
                   </FormItem>
                 </Form>
               </TabPane>

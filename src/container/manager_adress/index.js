@@ -3,11 +3,11 @@ import { Table, Button, Popconfirm, Icon, Switch, Form } from 'antd'
 import Address from  '../../component/modal/address_modal'
 import './index.less'
 import {connect} from 'react-redux'
-import { getAddressList } from '../../redux/address_redux'
+import { getAddressList ,addAddress,deleteAddress,getOptionsList} from '../../redux/address_redux'
 
 @connect(
   state=>state.address,
-  {getAddressList}
+  {getAddressList,addAddress,deleteAddress,getOptionsList}
 )
 class ManagerAdress extends React.Component {
   constructor (props) {
@@ -19,17 +19,19 @@ class ManagerAdress extends React.Component {
       editRow: {},
       modalType: "新建地址",
       record:[],
-      addressList:[
-      ]
+      addressList:[],
+      mapOptions:{}
     }
   }
   componentDidMount(){
     this.props.getAddressList()
   }
+
   //提交
   handleok = (val,value) => {
     // console.log(value)
-      const _areaName = value.areaName+value.address
+    //   const _areaName = value.areaName+value.address
+      const _areaName = value.areaName
       const areaName = _areaName.replace(/,/g, "")
       let addAddress = {
         // key:value.name+value.address+value.specificAddress,
@@ -37,23 +39,21 @@ class ManagerAdress extends React.Component {
         phone: value.phone,
         address:value.address,
         areaName: areaName,
-        default:value.default
+        isDefault:value.isDefault===true?1:0,
+        area:'11',
+        zipCode:''
       };
 
       // console.log(addAdress)
-      let data = this.state.data
       if(this.state.modalType === '新建地址'){
-        data.push(addAddress)
         this.setState({
-          data,
           addressVisible:val
         })
-        this.props.dataAdress(data)
+        this.props.addAddress(addAddress)
       }
       else {
         // data.splice(adddata)
         this.setState({
-          data,
           addressVisible:val
         })
         // console.log(data)
@@ -62,9 +62,24 @@ class ManagerAdress extends React.Component {
 
   //编辑用户弹窗
   modal = (type, record) => {
+    // 获取data.js里面的数据
+
+    // const {options} = this.props
+    // console.log(options)
+    // let dataMap = {};
+    // options.forEach((item)=>{
+    //   // dataMap[item.value]={key:item.value,value:item.value,label:item.name,parentId:item.value}
+    //   dataMap[item.value]={value:item.value,label:item.name}
+    // })
+    // console.log(dataMap)
+    // // this.setState({
+    // //   options:""
+    // // })
+    // this.setState({
+    //   mapOptions:dataMap
+    // })
+    // console.log(this.state.mapOptions)
     if(type === '编辑地址') {
-      this.props.dataAdress(record)
-      console.log(record)
       this.setState({
         addressVisible: true,
         modalType: type,
@@ -98,16 +113,14 @@ class ManagerAdress extends React.Component {
     })
   }
   //删除行
-  onDelete = (record,index) => {
-    // console.log(index)
-    const dataChange = this.state.data
-    dataChange.splice(index, 1);
-    this.setState({
-      data:dataChange
-    })
+  onDelete = (record) => {
+    //后端强制传字符串
+    let obj = {
+      id: `${record.id}`
+    }
+    this.props.deleteAddress(obj)
   }
   render() {
-    // console.log(this.props)
     const { addressVisible, modalType}  = this.state
     const { addressList } = this.props
     const columns = [{

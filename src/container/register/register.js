@@ -3,15 +3,15 @@ import  axios from 'axios'
 import {Tabs, Form,Row,Col ,Icon, Input, Button, Checkbox } from 'antd';
 import LogReg from '../../component/background/log_reg';
 import {connect} from 'react-redux'
-import { regisgerUser,smsCode} from '../../redux/user_redux'
+import { regisgerUser,smsCode,logoutSubmit} from '../../redux/user_redux'
 import './index.less'
-import { withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 
 @withRouter
 @connect(
-  state=>state,
-  {regisgerUser,smsCode}
+  state=>state.user,
+  {regisgerUser,smsCode,logoutSubmit}
 )
 class RegisterForm extends React.Component {
 
@@ -21,6 +21,7 @@ class RegisterForm extends React.Component {
 
   //跳转登录
   Login = () => {
+    this.props.logoutSubmit()
     this.props.history.push('/login')
   }
 
@@ -36,7 +37,7 @@ class RegisterForm extends React.Component {
           smsCode:values.captcha,
           password:values.password
         }
-        this.props.regisgerUser(obj)
+        this.props.regisgerUser(obj,'register')
       }
     });
   }
@@ -99,6 +100,7 @@ class RegisterForm extends React.Component {
     const FormItem = Form.Item;
     return (
       <LogReg>
+        {this.props.redirectTo? <Redirect to={this.props.redirectTo} />:null}
         <div className="container_login">
           <div className="content">
             <div className="logo-top">
@@ -156,7 +158,7 @@ class RegisterForm extends React.Component {
                     )}
                   </FormItem>
                   <FormItem >
-                    <Button type="primary" htmlType="submit" className="login-form-button btn_280">注册</Button>
+                    <Button type="primary" htmlType="submit" loading={this.props.loading} className="login-form-button btn_280">注册</Button>
                   </FormItem>
                 </Form>
               </TabPane>
