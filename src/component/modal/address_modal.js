@@ -69,7 +69,7 @@ class Address extends React.Component{
     const FormItem = Form.Item;
     const { TextArea } = Input;
     const { getFieldDecorator } = this.props.form;
-    const { addressVisible,title,options} = this.props
+    const { addressVisible,title} = this.props
     const formItemLayout = {
       labelCol: {
         xs: {span: 24},
@@ -80,29 +80,6 @@ class Address extends React.Component{
         sm: {span: 16},
       },
     };
-    // const options = [{
-    //   value: '浙江省',
-    //   label: '浙江省',
-    //   children: [{
-    //     value: '杭州市',
-    //     label: '杭州市',
-    //     children: [{
-    //       value: '西湖区',
-    //       label: '西湖区',
-    //     }],
-    //   }],
-    // }, {
-    //   value: '江苏省',
-    //   label: '江苏省',
-    //   children: [{
-    //     value: '南京市',
-    //     label: '南京市',
-    //     children: [{
-    //       value: '宗华门',
-    //       label: '宗华门',
-    //     }],
-    //   }],
-    // }];
     return(
       <div className="preview_browsing">
         <Modal

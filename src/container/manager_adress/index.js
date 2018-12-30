@@ -29,7 +29,8 @@ class ManagerAdress extends React.Component {
 
   //提交
   handleok = (val,value) => {
-    // console.log(value)
+    console.log(val)
+    console.log(this.state.modalType)
     //   const _areaName = value.areaName+value.address
       const _areaName = value.areaName
       const areaName = _areaName.replace(/,/g, "")
@@ -45,6 +46,7 @@ class ManagerAdress extends React.Component {
       };
 
       // console.log(addAdress)
+
       if(this.state.modalType === '新建地址'){
         this.setState({
           addressVisible:val
@@ -52,33 +54,15 @@ class ManagerAdress extends React.Component {
         this.props.addAddress(addAddress)
       }
       else {
-        // data.splice(adddata)
         this.setState({
           addressVisible:val
         })
-        // console.log(data)
       }
   }
 
   //编辑用户弹窗
   modal = (type, record) => {
-    // 获取data.js里面的数据
-
-    // const {options} = this.props
-    // console.log(options)
-    // let dataMap = {};
-    // options.forEach((item)=>{
-    //   // dataMap[item.value]={key:item.value,value:item.value,label:item.name,parentId:item.value}
-    //   dataMap[item.value]={value:item.value,label:item.name}
-    // })
-    // console.log(dataMap)
-    // // this.setState({
-    // //   options:""
-    // // })
-    // this.setState({
-    //   mapOptions:dataMap
-    // })
-    // console.log(this.state.mapOptions)
+    console.log(type)
     if(type === '编辑地址') {
       this.setState({
         addressVisible: true,
@@ -86,15 +70,7 @@ class ManagerAdress extends React.Component {
         record:record
       }, () => {
 
-        // this.props.form.setFieldsValue({
-        //   name: record.name,
-        //   phone: record.phone,
-        //   address_select: record.address_select,
-        //   specific_address:record.specific_address,
-        //   default:record.default
-        // })
         this.setState({editRow: record})
-        // console.log(this.state.editRow,record)
       })
     }
     else {
@@ -103,7 +79,6 @@ class ManagerAdress extends React.Component {
         addressVisible: true,
         modalType: type,
       })
-      // if (type === '新建地址') return;
     }
   }
   //close modal
