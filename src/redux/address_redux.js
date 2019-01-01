@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { message } from 'antd';
 
 const  SWITCH_ADDRESS = 'SWICH_ADDRESS'
 const  SWITCH_OPTIONS = 'SWITCH_OPTIONS'
@@ -128,7 +128,7 @@ export function getOptionsList(parentId){
             let dataMap = [];
             for (let i = 0 ; i<res.data.content.length;i++){
               res.data.content.forEach((item,i)=>{
-                dataMap[i]={value:item.value,label:item.name, isLeaf:false}
+                dataMap[i]={key:item.value,value:item.name,label:item.name, isLeaf:false}
               })
             }
             dispatch(optionsList(dataMap))
@@ -137,7 +137,7 @@ export function getOptionsList(parentId){
             let dataMap = [];
             for (let i = 0 ; i<res.data.content.length;i++){
               res.data.content.forEach((item,i)=>{
-                dataMap[i]={value:item.value,label:item.name}
+                dataMap[i]={key:item.value,value:item.name,label:item.name}
               })
             }
             dispatch(optionsListTwo(dataMap))

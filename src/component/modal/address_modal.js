@@ -18,7 +18,7 @@ class Address extends React.Component{
       optionsTwo:[]
     }
   }
-  handleok = (e) => {
+  handleOk = (e) => {
     this.props.form.validateFieldsAndScroll((err, value) => {
       if(err) return
       // this.props.cartData(value)
@@ -40,19 +40,19 @@ class Address extends React.Component{
   handleCancel = (e) => {
     this.props.onCancel();
   }
-  onChange = (value, selectedOptions) => {
-    // console.log(value, selectedOptions);
-    // let parentId = value
-    // this.props.getOptionsList()
-  }
-  //
+  // onChange = (value, selectedOptions) => {
+  //   // console.log(value, selectedOptions);
+  //   // let parentId = value
+  //   // this.props.getOptionsList()
+  // }
+  // //
   loadData = (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
     console.log(selectedOptions)
     console.log(targetOption)
     // load options lazily
-    let parentId = `${targetOption.value}`
+    let parentId = `${targetOption.key}`
     console.log(parentId)
     this.props.getOptionsList(parentId)
     setTimeout(() => {
@@ -61,10 +61,10 @@ class Address extends React.Component{
       this.setState({
         optionsTwo: [...this.state.optionsTwo],
       });
-    },500);
+    },1000);
   }
   render(){
-    // console.log(this.props)
+    console.log(this.props)
     // console.log(this.state.mapOptions)
     const FormItem = Form.Item;
     const { TextArea } = Input;
@@ -86,7 +86,7 @@ class Address extends React.Component{
           title={title}
           className="address"
           visible={addressVisible}
-          onOk={this.handleok}
+          onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <Form >

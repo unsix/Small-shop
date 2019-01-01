@@ -28,18 +28,22 @@ class ManagerAdress extends React.Component {
   }
 
   //提交
-  handleok = (val,value) => {
+  handleOk = (val,value) => {
     console.log(val)
-    console.log(this.state.modalType)
+    console.log(value)
     //   const _areaName = value.areaName+value.address
-      const _areaName = value.areaName
-      const areaName = _areaName.replace(/,/g, "")
+     const {modalType} = this.state
+      console.log(modalType)
+      const areaName = value.areaName
+     // console.log(_areaName.join(""))
+
+      // const areaName = _areaName.replace(/,/g, "")
       let addAddress = {
         // key:value.name+value.address+value.specificAddress,
         consignee: value.consignee,
         phone: value.phone,
         address:value.address,
-        areaName: areaName,
+        areaName: [...areaName],
         isDefault:value.isDefault===true?1:0,
         area:'11',
         zipCode:''
@@ -47,7 +51,7 @@ class ManagerAdress extends React.Component {
 
       // console.log(addAdress)
 
-      if(this.state.modalType === '新建地址'){
+      if(modalType === '新建地址'){
         this.setState({
           addressVisible:val
         })
@@ -87,7 +91,7 @@ class ManagerAdress extends React.Component {
       addressVisible:false
     })
   }
-  //删除行
+  //删除地址
   onDelete = (record) => {
     //后端强制传字符串
     let obj = {
@@ -173,7 +177,7 @@ class ManagerAdress extends React.Component {
           addressVisible={addressVisible}
           title={modalType}
           record={this.state.record}
-          onOk={this.handleok}
+          onOk={this.handleOk}
           onCancel={this.onCancel}
         />
       </div>
