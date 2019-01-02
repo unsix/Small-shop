@@ -3,7 +3,10 @@
 // 详情
 import axios from 'axios'
 
+//商品
 const  SWITCH_SHOP = 'SWITCH_SHOP'
+//精选
+const  SWITCH_SELECTSHOP = 'SWITCH_SELECTSHOP'
 //评价
 const  SWITCH_EVALUATE = 'SWITCH_EVALUATE'
 //售后
@@ -15,6 +18,7 @@ const SWITCH_DATA = 'SWITCH_DATA'
 
 const initState = {
   shopList:[],
+  selectList:[],
   details:[],
   evaluates:[],
   afters:[],
@@ -28,6 +32,11 @@ export function shop(state=initState, action){
       return {
         ...state,
         shopList:action.payload
+      }
+    case SWITCH_SELECTSHOP:
+      return {
+        ...state,
+        selectList:action.payload
       }
     case SWITCH_EVALUATE:
       return{
@@ -54,8 +63,13 @@ export function shop(state=initState, action){
   }
 }
 
+//商品
 export function shopList(data) {
   return {type:SWITCH_SHOP,payload:data}
+}
+//精选
+export function selectList(data) {
+  return {type:SWITCH_SELECTSHOP,payload:data}
 }
 export function shopDetails(details) {
   return {type:SWITCH_SHOP,payload:details}
@@ -97,6 +111,7 @@ export function getShopList({pageIndex,pageSize}){
     // console.log(token)
     axios.post('/app/shop/product/v1/search',
       JSON.stringify({
+        //空着传 不影响
         pageIndex,pageSize
       })
     )
@@ -111,18 +126,18 @@ export function getShopList({pageIndex,pageSize}){
 
 //获取精选产品列表
 
-export function getAddressList({pageIndex,pageSize}){
+export function getSelectedList({pageIndex,pageSize}){
   return dispatch=>{
     // const token = JSON.parse(localStorage.getItem("token"));
     // console.log(token)
-    axios.post('/app/shop/product/v1/search',
+    axios.post('/app/shop/product/v1/category',
       JSON.stringify({
         pageIndex,pageSize
       })
     )
       .then(res=>{
         if(res.data.status===1){
-          dispatch(shopList(res.data.content))
+          dispatch(selectList(res.data.content))
           console.log(res.data.content)
         }
       })

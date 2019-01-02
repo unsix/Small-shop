@@ -2,13 +2,13 @@ import React from 'react'
 import { Carousel, Card, Icon, List, Avatar, Input , Menu} from 'antd'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList,getSelectedList} from '../../redux/shop_redux'
 import Shop from  '../../component/shop'
 import SelectProducts from  '../../component/select_products/select_products'
 import './index.less'
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList}
+  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList,getSelectedList}
 )
 class Home extends React.Component{
   constructor(props){
@@ -20,11 +20,16 @@ class Home extends React.Component{
 
   //
   componentDidMount(){
+
     let obj ={
       // pageIndex: "1",
-      // pageSize: "10"
+      // pageSize: "8"
+    }
+    let objSelect={
+
     }
     this.props.getShopList(obj)
+    this.props.getSelectedList(objSelect)
   }
   handleClick = (e) => {
     console.log('click ', e);
@@ -40,10 +45,9 @@ class Home extends React.Component{
   }
   render(){
     const SubMenu = Menu.SubMenu;
-    const MenuItemGroup = Menu.ItemGroup;
     const {Search} = Input
     const menuName = this.props.menu.menuName
-    const {shopList} = this.props.shop
+    const {shopList,selectList} = this.props.shop
     const gridStyle = {
       width: '20%',
       textAlign: 'center',
@@ -80,25 +84,18 @@ class Home extends React.Component{
               <img src="http://cdn.image.mrcai.com/images/storage.jpg" alt=""/>
             </div>
           </Carousel>
-          <Card >
-            <Card.Grid style={gridStyle}>防水材料</Card.Grid>
-            <Card.Grid style={gridStyle}>水电材料</Card.Grid>
-            <Card.Grid style={gridStyle}>泥水材料</Card.Grid>
-            <Card.Grid style={gridStyle}>分类</Card.Grid>
-            <Card.Grid style={gridStyle}>油漆材料</Card.Grid>
-            <Card.Grid style={gridStyle}>工具</Card.Grid>
-            <Card.Grid style={gridStyle}>水电材料</Card.Grid>
-            <Card.Grid style={gridStyle}>泥水材料</Card.Grid>
-            <Card.Grid style={gridStyle}>分类</Card.Grid>
-            <Card.Grid style={gridStyle}>其他</Card.Grid>
-          </Card>
         </div>
-        <div className="selected_bands">
-          <h2>精选品牌</h2>
+        <div className="selectBrand">
           <List
-
+            grid={{ gutter: 0, column:4}}
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={selectList}
+            // pagination={{
+            //   onChange: (page) => {
+            //     console.log(page);
+            //   },
+            //   pageSize: 8,
+            // }}
             renderItem={item => (
               <List.Item
                 onClick={()=>this.listClick(item)}
@@ -110,12 +107,11 @@ class Home extends React.Component{
                 <Card
                   hoverable
                   style={{ width: 240 }}
-                  cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
                 >
                   <Meta
                     className='shop_des'
-                    title={<span>¥188<s>¥352</s></span>}
-                    description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
+                    title={<span>{item.name}</span>}
+                    // description={item.categoryName}
                   />
                 </Card>
               </List.Item>
@@ -151,7 +147,7 @@ class Home extends React.Component{
               onChange: (page) => {
                 console.log(page);
               },
-              pageSize: 8,
+              pageSize: 16,
             }}
             renderItem={item => (
               <List.Item
