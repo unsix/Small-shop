@@ -2,14 +2,13 @@ import React from 'react'
 import { Carousel, Card, Icon, List, Avatar, Input , Menu} from 'antd'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList} from '../../redux/shop_redux'
 import Shop from  '../../component/shop'
 import SelectProducts from  '../../component/select_products/select_products'
 import './index.less'
-import { dataAdress } from '../../redux/address_redux'
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
+  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList}
 )
 class Home extends React.Component{
   constructor(props){
@@ -17,6 +16,15 @@ class Home extends React.Component{
     this.state = {
       current: 'mail',
     }
+  }
+
+  //
+  componentDidMount(){
+    let obj ={
+      // pageIndex: "1",
+      // pageSize: "10"
+    }
+    this.props.getShopList(obj)
   }
   handleClick = (e) => {
     console.log('click ', e);
@@ -35,84 +43,16 @@ class Home extends React.Component{
     const MenuItemGroup = Menu.ItemGroup;
     const {Search} = Input
     const menuName = this.props.menu.menuName
+    const {shopList} = this.props.shop
     const gridStyle = {
       width: '20%',
       textAlign: 'center',
     };
     const { Meta } = Card;
     const data = [
-      {
-        id:1,
-        title: 'Ant Design Title 1',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:2,
-        title: 'Ant Design Title 2',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:3,
-        title: 'Ant Design Title 3',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:4,
-        title: 'Ant Design Title 4',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
+
     ];
     const dataS = [
-      {
-        id:1,
-        title: 'Ant Design Title 1',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:2,
-        title: 'Ant Design Title 2',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:3,
-        title: 'Ant Design Title 3',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:4,
-        title: 'Ant Design Title 4',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:5,
-        title: 'Ant Design Title 1',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:6,
-        title: 'Ant Design Title 2',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:7,
-        title: 'Ant Design Title 3',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:8,
-        title: 'Ant Design Title 4',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:9,
-        title: 'Ant Design Title 3',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
-      {
-        id:10,
-        title: 'Ant Design Title 4',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      },
     ];
 
     // const path = this.props.location.pathname
@@ -206,7 +146,7 @@ class Home extends React.Component{
           <List
             grid={{ gutter: 0, column:4}}
             itemLayout="horizontal"
-            dataSource={dataS}
+            dataSource={shopList}
             pagination={{
               onChange: (page) => {
                 console.log(page);
@@ -224,12 +164,12 @@ class Home extends React.Component{
                 <Card
                   hoverable
                   style={{ width: 240 }}
-                  cover={<img alt="example" src={require('../../component/img/select_2.png')} />}
+                  cover={<img alt="example" src={"http://39.105.25.92"+`${item.thumbImage}`} />}
                 >
                   <Meta
                     className='shop_des'
-                    title={<span>¥188<s>¥352</s></span>}
-                    description="三棵树康家净味二合一乳胶漆白色哑光环保漆涂料墙漆"
+                    title={<span>¥{item.price}</span>}
+                    description={item.categoryName}
                   />
                 </Card>
               </List.Item>
