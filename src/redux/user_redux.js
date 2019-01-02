@@ -66,7 +66,7 @@ export function registerSubmit(){
 }
 //忘记密码
 export function forgotpwdSubmit(){
-  return { type:CHANGEPWD }
+  return { type:LOGOUT }
 }
 //注册
 export function regisgerUser({username,smsCode,password},type){

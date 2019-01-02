@@ -3,11 +3,11 @@ import { Table, Button, Popconfirm, Icon, Switch, Form } from 'antd'
 import Address from  '../../component/modal/address_modal'
 import './index.less'
 import {connect} from 'react-redux'
-import { getAddressList ,addAddress,deleteAddress,getOptionsList} from '../../redux/address_redux'
+import { getAddressList ,addAddress,deleteAddress,getOptionsList,updateAddress} from '../../redux/address_redux'
 
 @connect(
   state=>state.address,
-  {getAddressList,addAddress,deleteAddress,getOptionsList}
+  {getAddressList,addAddress,deleteAddress,getOptionsList,updateAddress}
 )
 class ManagerAdress extends React.Component {
   constructor (props) {
@@ -31,22 +31,27 @@ class ManagerAdress extends React.Component {
   handleOk = (val,value) => {
     console.log(val)
     console.log(value)
-    //   const _areaName = value.areaName+value.address
+      // const _areaName = value.areaName+value.address
      const {modalType} = this.state
       console.log(modalType)
       const areaName = value.areaName
+      const address = value.areaName.join(" ")
+      console.log(areaName)
      // console.log(_areaName.join(""))
 
       // const areaName = _areaName.replace(/,/g, "")
+     const {id} = this.state.editRow
       let addAddress = {
         // key:value.name+value.address+value.specificAddress,
         consignee: value.consignee,
         phone: value.phone,
         address:value.address,
-        areaName: [...areaName],
-        isDefault:value.isDefault===true?1:0,
-        area:'11',
-        zipCode:''
+        isDefault:`${value.isDefault===true?1:0}`,
+        area:`${areaName[1]}`,
+        zipCode:'',
+        id:`${id}`
+        // areaCity: 5,
+        // areaProvince: 1
       };
 
       // console.log(addAdress)
@@ -58,22 +63,23 @@ class ManagerAdress extends React.Component {
         this.props.addAddress(addAddress)
       }
       else {
-        this.setState({
-          addressVisible:val
-        })
+
+        this.props.updateAddress(addAddress)
+        // this.setState({
+        //   addressVisible:val
+        // })
       }
   }
 
   //编辑用户弹窗
   modal = (type, record) => {
-    console.log(type)
+    // console.log(record)
     if(type === '编辑地址') {
       this.setState({
         addressVisible: true,
         modalType: type,
         record:record
       }, () => {
-
         this.setState({editRow: record})
       })
     }

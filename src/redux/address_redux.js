@@ -74,6 +74,7 @@ export function addAddress({consignee,phone,address,areaName,isDefault,area,zipC
     )
       .then(res=>{
         if(res.data.status===1){
+          message.success('地址添加成功')
           dispatch(getAddressList())
         }
       })
@@ -91,22 +92,28 @@ export function deleteAddress({id}){
     )
       .then(res=>{
         if(res.data.status===1){
+          message.success(res.data.message)
           dispatch(getAddressList())
+        }
+        else if(res.data.status===2){
+          message.success(res.data.message)
+          dispatch(getAddressList(res.data.message))
         }
       })
   }
 }
 //编辑地址
-export function updateAddress({id}){
+export function updateAddress({consignee,phone,address,areaName,isDefault,area,zipCode,id}){
   return dispatch=>{
     const token = JSON.parse(localStorage.getItem("token"));
     axios.post('/app/shop/receiver/v1/update',
       JSON.stringify({
-        id,token
+        consignee,phone,address,areaName,isDefault,area,zipCode,id,token
       })
     )
       .then(res=>{
         if(res.data.status===1){
+          message.success('')
           dispatch(getAddressList())
         }
       })
@@ -128,7 +135,7 @@ export function getOptionsList(parentId){
             let dataMap = [];
             for (let i = 0 ; i<res.data.content.length;i++){
               res.data.content.forEach((item,i)=>{
-                dataMap[i]={key:item.value,value:item.name,label:item.name, isLeaf:false}
+                dataMap[i]={key:item.value,value:item.value,label:item.name, isLeaf:false}
               })
             }
             dispatch(optionsList(dataMap))
@@ -137,7 +144,7 @@ export function getOptionsList(parentId){
             let dataMap = [];
             for (let i = 0 ; i<res.data.content.length;i++){
               res.data.content.forEach((item,i)=>{
-                dataMap[i]={key:item.value,value:item.name,label:item.name}
+                dataMap[i]={key:item.value,value:item.value,label:item.name}
               })
             }
             dispatch(optionsListTwo(dataMap))
