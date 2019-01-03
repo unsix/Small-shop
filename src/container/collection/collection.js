@@ -3,13 +3,13 @@ import { Table, Button, Popconfirm, Avatar, Pagination,Icon} from 'antd'
 import CartModal from '../../component/modal/cart_modal'
 import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
-import {dataCart} from '../../redux/cart_redux'
+import {addCollectionList,cancelCollection} from '../../redux/collection_redux'
 
 
 
 @connect(
-  state=>state,
-  {dataCart}
+  state=>state.collection,
+  {addCollectionList,cancelCollection}
 )
 class Collection extends React.Component {
   constructor (props){
@@ -73,18 +73,8 @@ class Collection extends React.Component {
     }
   }
   componentDidMount(){
-
+    this.props.addCollectionList()
   }
-  // start = () => {
-  //   this.setState({ loading: true });
-  //   setTimeout(() => {
-  //     this.setState({
-  //       selectedRowKeys: [],
-  //       loading: false,
-  //     });
-  //   }, 1000);
-  // }
-
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys,'selectedRows',selectedRows);
     let allprice = this.state.allprice
@@ -96,44 +86,13 @@ class Collection extends React.Component {
     });
     // console.log(selectedRows)
   }
-  //购物车+
-  addSum = (value,record) => {
-    record.number = value + 1
-    record.price = record.number*record.unit
-    let data = this.state.data
-    let allprice = this.state.allprice
-    allprice= data.reduce((total, item) => total + item.price, 0)
-    this.setState({
-      value:record.number,
-      data,
-      allprice
-    })
-
-    // console.log(data)
-  }
-  //购物车-
-  reduceSum = (value,record) => {
-    if(record.number>1){
-      record.number = value - 1
-      record.price = record.number*record.unit
-    }
-    let allprice = this.state.allprice
-    let data = this.state.data
-    allprice= data.reduce((total, item) => total + item.price, 0)
-    this.setState({
-      value:record.number,
-      allprice,
-      data
-    })
-    // console.log(record.number,record)
-  }
   //删除
   onDelete = (record,index) => {
-    const dataChange = this.state.data
-    dataChange.splice(index,1)
-    this.setState({
-      data:dataChange
-    })
+
+    let obj = {
+      productIds:`${record.id}`
+    }
+    this.props.cancelCollection(obj)
   }
   //结算modal
   modal = () => {
@@ -180,14 +139,15 @@ class Collection extends React.Component {
   previewonCancel = () => this.setState({ previewVisible: false })
   render() {
     const {previewVisible,previewImage,} = this.state
+    const {collectionList} = this.props
     const columns = [
       {
         title: '图片',
         dataIndex: 'avatar',
-        render:(value,record,index)=>{
+        render:(value,record)=>{
           return(
             <div>
-              <Avatar onClick={()=>this.toSee(record.avatar[0])} src={record.avatar[0]}></Avatar>
+              <Avatar onClick={()=>this.toSee(record.thumbImage)} src={`http://39.105.25.92${record.thumbImage}`}></Avatar>
             </div>
           )
         }
@@ -206,13 +166,7 @@ class Collection extends React.Component {
       },
       {
         title: '单价',
-        dataIndex: 'unit',
-        render:val=>`¥${val}`
-      },
-      {
-        title: '数量',
-        dataIndex: 'number',
-        render:(val) => val
+        dataIndex: 'price',
       },
       {
         title: '操作',
@@ -223,7 +177,7 @@ class Collection extends React.Component {
               title="确认要删除这行码"
               onConfirm = {()=>this.onDelete(record,index)}
             >
-              <Button type="danger"><Icon type="delete"/>删除</Button>
+              <Button><Icon type="star"/>取消收藏</Button>
             </Popconfirm>
           )
         }
@@ -231,7 +185,7 @@ class Collection extends React.Component {
       ,
     ];
     const { loading, selectedRowKeys,visible} = this.state;
-    const menuName = this.props.menu.menuName
+    // const menuName = this.props.menu.menuName
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -240,7 +194,8 @@ class Collection extends React.Component {
     return (
       <div className="container_shop_cart container_width">
         <div className="shop_top container_top">
-          <h2>{menuName}</h2>
+          {/*<h2>{menuName}</h2>*/}
+          <h2>管理收藏</h2>
         </div>
         <div className="type_button">
           <Button
@@ -248,13 +203,13 @@ class Collection extends React.Component {
             disabled={!hasSelected}
             onClick={this.onDelete}
           >
-            批量删除
+            批量取消
           </Button>
         </div>
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={this.state.data}
+          dataSource={collectionList}
           onDelete={this.onDelete}
           pagination={false}
         />

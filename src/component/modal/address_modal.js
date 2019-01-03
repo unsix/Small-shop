@@ -61,6 +61,7 @@ class Address extends React.Component{
       this.setState({
         optionsTwo: [...this.state.optionsTwo],
       });
+      console.log(targetOption.children)
     },1000);
   }
   render(){

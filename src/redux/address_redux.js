@@ -121,7 +121,6 @@ export function updateAddress({consignee,phone,address,areaName,isDefault,area,z
 }
 
 //获取省直辖市
-
 export function getOptionsList(parentId){
   return dispatch=>{
     axios.post('/app/shop/area',
@@ -142,9 +141,17 @@ export function getOptionsList(parentId){
           }
           else {
             let dataMap = [];
+            let content = res.data.content.length
+            const isLeaf = content>1?1:0
+            console.log(isLeaf)
             for (let i = 0 ; i<res.data.content.length;i++){
               res.data.content.forEach((item,i)=>{
-                dataMap[i]={key:item.value,value:item.value,label:item.name}
+                if(item){
+                  dataMap[i]={key:item.value,value:item.value,label:item.name,isLeaf:false}
+                }
+                else {
+                  dataMap[i]={key:item.value,value:item.value,label:item.name,isLeaf:true}
+                }
               })
             }
             dispatch(optionsListTwo(dataMap))
