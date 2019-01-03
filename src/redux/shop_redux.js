@@ -17,11 +17,13 @@ const  SWITCH_AFTER = 'SWITCH_AFTER'
 const  SWITCH_CART = 'SWITCH_CART'
 //加入购物车的数据
 const SWITCH_DATA = 'SWITCH_DATA'
-
+//收藏
+const SWITCH_COLLECTION = 'SWITCH_COLLECTION'
 const initState = {
   shopList:[],
   selectList:[],
   details:[],
+  collection:[],
   evaluates:[],
   afters:[],
   cart:[],
@@ -44,6 +46,11 @@ export function shop(state=initState, action){
       return {
         ...state,
         details:action.payload
+      }
+    case SWITCH_COLLECTION:
+      return {
+        ...state,
+        collection:action.payload
       }
     case SWITCH_EVALUATE:
       return{
@@ -78,10 +85,14 @@ export function shopList(data) {
 export function selectList(data) {
   return {type:SWITCH_SELECTSHOP,payload:data}
 }
+//商品详情
 export function shopDetails(details) {
   return {type:SWITCH_DETAILS,payload:details}
 }
-
+//收藏
+export function addCollection(data) {
+  return {type:SWITCH_COLLECTION,payload:data}
+}
 export function evaluateDetails(obj){
   return{
     type: SWITCH_EVALUATE,
@@ -170,7 +181,6 @@ export function getShopDetails(id){
   }
 }
 
-//
 //加入购物车
 export function addCartList({quantity,productId,goodsId}){
   return dispatch=>{
@@ -185,6 +195,28 @@ export function addCartList({quantity,productId,goodsId}){
         if(res.data.status===1){
           message.success(res.data.content)
           dispatch(addCart(res.data.content))
+        }
+        else {
+          message.error(res.data.message)
+        }
+      })
+  }
+}
+
+//收藏
+export function addCollectionList({productIds}){
+  return dispatch=>{
+    const token = JSON.parse(localStorage.getItem("token"));
+    // console.log(token)
+    axios.post('/app/shop/favorite/v1/add',
+      JSON.stringify({
+       productIds,token
+      })
+    )
+      .then(res=>{
+        if(res.data.status===1){
+          message.success(res.data.content.content)
+          dispatch(addCollection(res.data.content))
         }
         else {
           message.error(res.data.message)

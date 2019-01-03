@@ -3,13 +3,13 @@ import ReactImageMagnify from 'react-image-magnify';
 import {connect} from 'react-redux'
 import { List} from 'antd/lib/list'
 import {  Form, InputNumber, Radio,Card,Button,Icon,Tabs} from 'antd'
-import {getShopDetails,addCartList} from '../../redux/shop_redux'
+import {getShopDetails,addCartList,addCollectionList} from '../../redux/shop_redux'
 import EvaluateDetails from  './evaluate_details'
 import './index.less'
 import '../../style/details.less'
 @connect(
   state=>state.shop,
-  {getShopDetails,addCartList}
+  {getShopDetails,addCartList,addCollectionList}
 )
 class ShopDetails extends React.Component{
   constructor (props){
@@ -54,7 +54,14 @@ class ShopDetails extends React.Component{
       this.props.addCartList(obj)
       console.log(value)
     })
-
+  }
+  //收藏
+  addCollection = () => {
+    const {goods} = this.props.details
+    let obj = {
+      productIds:`${goods[0].productId}`,
+    }
+    this.props.addCollectionList(obj)
   }
   render(){
     // const details= this.props.shop.details
@@ -150,7 +157,7 @@ class ShopDetails extends React.Component{
                     <div className="shop_btn">
                       <Button type="default" className="btn-buy" onClick={this.toBuy}>立即购买</Button>
                       <Button type="danger" className="btn-add" onClick={this.addCart} ><Icon type="shopping-cart" />加入购物车</Button>
-                      <Button  className="btn-collection"><Icon type="star" />收藏商品</Button>
+                      <Button  className="btn-collection" onClick={this.addCollection}><Icon type="star" />收藏商品</Button>
                     </div>
                   </div>
                 </div>
