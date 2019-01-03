@@ -4,14 +4,13 @@ import OrderCart from './modal/order_modal'
 import connect from 'react-redux/es/connect/connect'
 import {orDetails} from '../../redux/order_redux'
 import '../../style/table.less'
-import { shopCart } from '../../redux/shop_redux'
 
 const {confirm} = Modal;
 const statusMap = ['default','error','processing','success']
 const status = ['交易关闭','等待买家付款','买家已付款','卖家已发货']
 @connect(
   state=>state,
-  {orDetails,shopCart}
+  {orDetails}
 )
 class ShoppedTable extends React.Component {
   constructor (props){

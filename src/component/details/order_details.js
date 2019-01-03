@@ -5,13 +5,12 @@ import { List} from 'antd/lib/list'
 import { Avatar,Button,Icon} from 'antd'
 import ShopModal from  '../modal/shop_modal'
 import { orDetails } from '../../redux/order_redux'
-import { shopCart } from '../../redux/shop_redux'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
 @connect(
   state=>state,
-  {orDetails,shopCart}
+  {orDetails}
 )
 class OrderDetails extends React.Component{
   constructor(props){
@@ -60,7 +59,7 @@ class OrderDetails extends React.Component{
       allprice:allprice,
       'id':id,
     }
-    this.props.shopCart(obj)
+    // this.props.shopCart(obj)
     this.props.history.push(`/payment/${obj.id}`)
     console.log(val,obj)
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd';
 import './index.less'
 import { orDetails } from '../../redux/order_redux'
-import { shopCart } from  '../../redux/shop_redux'
+
 import connect from 'react-redux/es/connect/connect'
 import OrderTable from '../../component/table/order'
 import WaitPayTable from '../../component/table/wait_pay'
@@ -15,12 +15,12 @@ const TabPane = Tabs.TabPane;
 
 @connect(
   state=>state,
-  {orDetails,shopCart}
+  {orDetails}
 )
 class Order extends React.Component{
 
   payCount = (obj) => {
-    this.props.shopCart(obj)
+    // this.props.shopCart(obj)
     this.props.history.push(`/payment/${obj.id}`)
   }
   render(){

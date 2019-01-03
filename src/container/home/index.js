@@ -2,13 +2,13 @@ import React from 'react'
 import { Carousel, Card, Icon, List, Avatar, Input , Menu} from 'antd'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList,getSelectedList} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,cartData,getShopList,getSelectedList} from '../../redux/shop_redux'
 import Shop from  '../../component/shop'
 import SelectProducts from  '../../component/select_products/select_products'
 import './index.less'
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData,getShopList,getSelectedList}
+  {shopDetails,evaluateDetails,afterDetails,cartData,getShopList,getSelectedList}
 )
 class Home extends React.Component{
   constructor(props){

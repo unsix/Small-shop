@@ -1,12 +1,14 @@
-
-
-// 详情
 import axios from 'axios'
+import { message } from 'antd';
+// 详情
+
 
 //商品
 const  SWITCH_SHOP = 'SWITCH_SHOP'
 //精选
 const  SWITCH_SELECTSHOP = 'SWITCH_SELECTSHOP'
+//详情
+const SWITCH_DETAILS = 'SWITCH_DETAILS'
 //评价
 const  SWITCH_EVALUATE = 'SWITCH_EVALUATE'
 //售后
@@ -37,6 +39,11 @@ export function shop(state=initState, action){
       return {
         ...state,
         selectList:action.payload
+      }
+    case SWITCH_DETAILS:
+      return {
+        ...state,
+        details:action.payload
       }
     case SWITCH_EVALUATE:
       return{
@@ -72,7 +79,7 @@ export function selectList(data) {
   return {type:SWITCH_SELECTSHOP,payload:data}
 }
 export function shopDetails(details) {
-  return {type:SWITCH_SHOP,payload:details}
+  return {type:SWITCH_DETAILS,payload:details}
 }
 
 export function evaluateDetails(obj){
@@ -89,7 +96,7 @@ export function afterDetails(obj){
   }
 }
 
-export function shopCart(obj){
+export function addCart(obj){
   return{
     type: SWITCH_CART,
     payload: obj
@@ -139,6 +146,48 @@ export function getSelectedList({pageIndex,pageSize}){
         if(res.data.status===1){
           dispatch(selectList(res.data.content))
           console.log(res.data.content)
+        }
+      })
+  }
+}
+
+//商品详情
+export function getShopDetails(id){
+  return dispatch=>{
+    // const token = JSON.parse(localStorage.getItem("token"));
+    // console.log(token)
+    axios.post('/app/shop/product/v1/detail',
+      JSON.stringify({
+       id
+      })
+    )
+      .then(res=>{
+        if(res.data.status===1){
+          dispatch(shopDetails(res.data.content))
+
+        }
+      })
+  }
+}
+
+//
+//加入购物车
+export function addCartList({quantity,productId,goodsId}){
+  return dispatch=>{
+    const token = JSON.parse(localStorage.getItem("token"));
+    // console.log(token)
+    axios.post('/app/shop/cart/v1/add',
+      JSON.stringify({
+        quantity,productId,goodsId,token
+      })
+    )
+      .then(res=>{
+        if(res.data.status===1){
+          message.success(res.data.content)
+          dispatch(addCart(res.data.content))
+        }
+        else {
+          message.error(res.data.message)
         }
       })
   }

@@ -3,11 +3,13 @@ import ReactImageMagnify from 'react-image-magnify';
 import {connect} from 'react-redux'
 import { List} from 'antd/lib/list'
 import {  Form, InputNumber, Radio,Card,Button,Icon,Tabs} from 'antd'
+import {getShopDetails,addCartList} from '../../redux/shop_redux'
 import EvaluateDetails from  './evaluate_details'
 import './index.less'
 import '../../style/details.less'
 @connect(
-  state=>state,
+  state=>state.shop,
+  {getShopDetails,addCartList}
 )
 class ShopDetails extends React.Component{
   constructor (props){
@@ -27,10 +29,32 @@ class ShopDetails extends React.Component{
       }
     }
   }
+  componentDidMount(){
+    const {id} = this.props.match.params
+    this.props.getShopDetails(id)
+  }
+  //立即购买
   toBuy = () => {
     const {id} = this.state.data
     const url = window.open('http://localhost:3000/')
     url.location.href=`/#/details/placeorder/${id}`
+  }
+  //加入购物车
+  addCart = () => {
+    const {goods} = this.props.details
+    this.props.form.validateFieldsAndScroll((err, value) => {
+      if(err) return
+      let obj = {
+        quantity:`${value.number}`,
+        productId:`${goods[0].productId}`,
+        goodsId:`${goods[0].id}`
+      }
+      console.log(goods)
+      console.log(obj)
+      this.props.addCartList(obj)
+      console.log(value)
+    })
+
   }
   render(){
     // const details= this.props.shop.details
@@ -40,9 +64,7 @@ class ShopDetails extends React.Component{
     const RadioGroup = Radio.Group;
     const TabPane = Tabs.TabPane;
     const { data } = this.state
-    const {id} = this.props.match.params
-
-    console.log(id)
+    const {details} = this.props
     return(
       <div className="container_width payment container_height">
         {/*{!this.props.shop.cart?<Redirect to='/order' />:null}*/}
@@ -64,10 +86,10 @@ class ShopDetails extends React.Component{
                         smallImage: {
                           alt: 'Wristwatch by Ted Baker London',
                           isFluidWidth: true,
-                          src: data.avatar,
+                          src: `http://39.105.25.92${details.thumbImage}`,
                         },
                         largeImage: {
-                          src: 'http://qidye.oss-cn-hangzhou.aliyuncs.com/2013/11/Andrew-Smith-qidye-1.jpg',
+                          src: `http://39.105.25.92${details.thumbImage}`,
                           width: 1300,
                           height: 1300
                         },
@@ -82,7 +104,9 @@ class ShopDetails extends React.Component{
                   </div>
                   <div className="content_inf">
                     <div className="inf_title">
-                      <h6>{data.name} <span>月销量：3560笔</span></h6>
+                      <h6>{details.name} </h6>
+                      <h6>价格：{details.price}</h6>
+                      <h6><span>月销量：{details.monthSales}笔</span></h6>
                       {/*<div className="info">*/}
                       {/*<h6>快递：0</h6>*/}
                       {/*<h6>月销：3234笔</h6>*/}
@@ -125,7 +149,8 @@ class ShopDetails extends React.Component{
                     </Form>
                     <div className="shop_btn">
                       <Button type="default" className="btn-buy" onClick={this.toBuy}>立即购买</Button>
-                      <Button type="danger" className="btn-add"><Icon type="shopping-cart" />加入购物车</Button>
+                      <Button type="danger" className="btn-add" onClick={this.addCart} ><Icon type="shopping-cart" />加入购物车</Button>
+                      <Button  className="btn-collection"><Icon type="star" />收藏商品</Button>
                     </div>
                   </div>
                 </div>

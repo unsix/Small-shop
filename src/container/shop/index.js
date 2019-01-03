@@ -1,14 +1,14 @@
 import React from 'react'
 import { Table, Button, Avatar, Popconfirm, Form, Modal, Input,Icon,Rate,Pagination,InputNumber } from 'antd'
 import {connect} from 'react-redux'
-import {shopDetails,evaluateDetails,afterDetails,shopCart,cartData} from '../../redux/shop_redux'
+import {shopDetails,evaluateDetails,afterDetails,cartData} from '../../redux/shop_redux'
 import ShopModal from '../../component/modal/shop_modal'
 import './index.less'
 
 const {Search} = Input
 @connect(
   state=>state,
-  {shopDetails,evaluateDetails,afterDetails,shopCart,cartData}
+  {shopDetails,evaluateDetails,afterDetails,cartData}
 )
 class Shop extends React.Component {
   constructor (props){
@@ -90,7 +90,7 @@ class Shop extends React.Component {
   }
   //购物车//立即购买
   modal = (type,record) => {
-    this.props.shopCart(record)
+    // this.props.shopCart(record)
     let visible = this.state.visible;
     this.setState({
       visible:!visible,
