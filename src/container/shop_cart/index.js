@@ -75,10 +75,19 @@ class ShopCart extends React.Component {
   }
   //删除
   onDelete = (record,index) => {
-    let obj = {
-      ids:`${record.id}`
-    }
-    this.props.deteleCart(obj)
+    // console.log(this.state.selectedRows)
+    const {selectedRows} = this.state
+    // selectedRows.forEach((i,item)=>{
+    //
+    // })
+    const idList = []
+    selectedRows.map(item=>idList.push(item.id))
+    // console.log(ids)
+    // // let obj = {
+    // //   ids:`${record.id}`
+    // // }
+    const ids =  idList.join(",")
+    this.props.deteleCart(ids)
   }
   //结算modal
   modal = () => {
@@ -151,21 +160,20 @@ class ShopCart extends React.Component {
       dataIndex: 'price',
       render:val=>`¥${val}`
     },
-      {
-        title: '操作',
-        dataIndex: 'delete',
-        render:(value,record,index) => {
-          return (
-            <Popconfirm
-              title="确认要删除这行码"
-              onConfirm = {()=>this.onDelete(record,index)}
-            >
-             <Button type="danger"><Icon type="delete"/>删除</Button>
-            </Popconfirm>
-          )
-        }
-      }
-      ,
+    // {
+    //   title: '操作',
+    //   dataIndex: 'delete',
+    //   render:(value,record,index) => {
+    //     return (
+    //       <Popconfirm
+    //         title="确认要删除这行码"
+    //         onConfirm = {()=>this.onDelete(record,index)}
+    //       >
+    //        <Button type="danger"><Icon type="delete"/>删除</Button>
+    //       </Popconfirm>
+    //     )
+    //   }
+    // },
     ];
     const { loading, selectedRowKeys,visible} = this.state;
     const menuName = this.props.menu.menuName
@@ -193,6 +201,14 @@ class ShopCart extends React.Component {
             onClick={this.modal}
           >
             结算
+          </Button>
+          <Button
+            type="danger"
+            style={{marginLeft:10}}
+            disabled={!hasSelected}
+            onClick={this.onDelete}
+          >
+            删除
           </Button>
           <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
           <span style={{ marginLeft: 8 }}>

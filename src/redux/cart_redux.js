@@ -36,17 +36,19 @@ export function dataCartList(){
       .then(res=>{
         if(res.data.status===1){
           let list=[]
+          if(res.data.content.cartItems){
             res.data.content.cartItems.forEach((item,i)=>{
               list[i]=
                 {
-                id:item.id,
-                thumbImage:item.product.thumbImage,
-                name:item.product.name,
-                quantity:item.quantity,
-                price:item.product.price,
-                Specifications:item.product.goods[0].specName
+                  id:item.id,
+                  thumbImage:item.product.thumbImage,
+                  name:item.product.name,
+                  quantity:item.quantity,
+                  price:item.product.price,
+                  Specifications:item.product.goods[0].specName
                 }
             })
+          }
           dispatch(dataCart(list))
         }
         else {
@@ -57,7 +59,7 @@ export function dataCartList(){
 }
 
 //删除购物车
-export function deteleCart({ids}){
+export function deteleCart(ids){
   return dispatch=>{
     const token = JSON.parse(localStorage.getItem("token"));
     axios.post('/app/shop/cart/v1/del',
