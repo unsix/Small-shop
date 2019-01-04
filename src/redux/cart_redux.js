@@ -40,6 +40,7 @@ export function dataCartList(){
                 name:item.product.name,
                 quantity:item.quantity,
                 price:item.product.price,
+                Specifications:item.product.goods[0].specName
                 }
             })
           dispatch(dataCart(list))
