@@ -3,13 +3,13 @@ import { Table, Button, Popconfirm, Avatar, Pagination,Icon} from 'antd'
 import CartModal from '../../component/modal/cart_modal'
 import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
-import {dataCartList} from '../../redux/cart_redux'
+import {dataCartList,deteleCart} from '../../redux/cart_redux'
 import './index.less'
 
 
 @connect(
   state=>state,
-  {dataCartList}
+  {dataCartList,deteleCart}
 )
 class ShopCart extends React.Component {
   constructor (props){
@@ -75,7 +75,10 @@ class ShopCart extends React.Component {
   }
   //删除
   onDelete = (record,index) => {
-
+    let obj = {
+      ids:`${record.id}`
+    }
+    this.props.deteleCart(obj)
   }
   //结算modal
   modal = () => {

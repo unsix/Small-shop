@@ -2,6 +2,7 @@
 // 获取
 import axios from 'axios'
 import { message } from 'antd'
+import { getAddressList } from './address_redux'
 
 const  DATA_CART = 'DATA_CART'
 
@@ -36,7 +37,10 @@ export function dataCartList(){
         if(res.data.status===1){
           let list=[]
             res.data.content.cartItems.forEach((item,i)=>{
-              list[i]={thumbImage:item.product.thumbImage,
+              list[i]=
+                {
+                id:item.id,
+                thumbImage:item.product.thumbImage,
                 name:item.product.name,
                 quantity:item.quantity,
                 price:item.product.price,
@@ -47,6 +51,24 @@ export function dataCartList(){
         }
         else {
           message.error(res.data.message)
+        }
+      })
+  }
+}
+
+//删除购物车
+export function deteleCart({ids}){
+  return dispatch=>{
+    const token = JSON.parse(localStorage.getItem("token"));
+    axios.post('/app/shop/cart/v1/del',
+      JSON.stringify({
+       ids,token
+      })
+    )
+      .then(res=>{
+        if(res.data.status===1){
+          message.success(res.data.message)
+          dispatch(dataCartList())
         }
       })
   }
