@@ -3,13 +3,13 @@ import { Table, Button, Popconfirm, Avatar, Pagination,Icon} from 'antd'
 import CartModal from '../../component/modal/cart_modal'
 import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
-import {dataCart} from '../../redux/cart_redux'
+import {dataCartList} from '../../redux/cart_redux'
 import './index.less'
 
 
 @connect(
   state=>state,
-  {dataCart}
+  {dataCartList}
 )
 class ShopCart extends React.Component {
   constructor (props){
@@ -23,74 +23,20 @@ class ShopCart extends React.Component {
       previewVisible:false,
       previewImage:'',
       visible:false,
-      data:[
-        {
-        id:'1',
-        key: '1',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-        ],
-        name: '中财PPR热水管',
-        unit:10,
-        number:1,
-        price:10,
-        color:'黑色',
-        Specifications: '大',
-        star:0,
-      }, {
-        id:'2',
-        key: '2',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '霍尼韦尔PPR热水管',
-        unit:20,
-        number:1,
-        price:20,
-        color:'黑色',
-        Specifications: '中',
-        star:1
-      }, {
-        id:'3',
-        key: '3',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '宜家不锈钢液压铰链',
-        unit:30,
-        number:1,
-        price:30,
-        color:'黑色',
-        Specifications: '小',
-        star:0
-      }, {
-        id:'4',
-        key: '4',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '高渗透基膜',
-        unit:40,
-        number:1,
-        price:40,
-        color:'黑色',
-        Specifications: '中',
-        star:0
-      },
-      ]
+      cartList:[]
     }
   }
   componentDidMount(){
+   this.props.dataCartList()
+  }
+  componentWillReceiveProps(){
 
   }
-  // start = () => {
-  //   this.setState({ loading: true });
-  //   setTimeout(() => {
-  //     this.setState({
-  //       selectedRowKeys: [],
-  //       loading: false,
-  //     });
-  //   }, 1000);
-  // }
 
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys,'selectedRows',selectedRows);
     let allprice = this.state.allprice
-    allprice= selectedRows.reduce((total, item) => total + item.price, 0)
+    allprice= selectedRows.reduce((total, item) => total + item.price*item.quantity, 0)
     this.setState({
       selectedRowKeys,
       selectedRows,
@@ -100,66 +46,42 @@ class ShopCart extends React.Component {
   }
   //购物车+
   addSum = (value,record) => {
-    record.number = value + 1
-    record.price = record.number*record.unit
-    let data = this.state.data
+    record.quantity = value + 1
     let allprice = this.state.allprice
-    allprice= data.reduce((total, item) => total + item.price, 0)
+    const cartList = this.props.cart.dataCart
+    allprice= cartList.reduce((total, item) =>total + item.price*item.quantity, 0)
     this.setState({
-      value:record.number,
-      data,
+      value:record.quantity,
+      cartList,
       allprice
     })
-
-    // console.log(data)
+    console.log(allprice)
   }
   //购物车-
   reduceSum = (value,record) => {
-    if(record.number>1){
-      record.number = value - 1
-      record.price = record.number*record.unit
+    if(record.quantity>1){
+      record.quantity = value - 1
     }
     let allprice = this.state.allprice
     let data = this.state.data
-    allprice= data.reduce((total, item) => total + item.price, 0)
+    const cartList = this.props.cart.dataCart
+    allprice= cartList.reduce((total, item) => total + item.price*item.quantity, 0)
       this.setState({
-        value:record.number,
+        value:record.quantity,
         allprice,
-        data
+        cartList,
       })
       // console.log(record.number,record)
   }
   //删除
   onDelete = (record,index) => {
-   const dataChange = this.state.data
-         dataChange.splice(index,1)
-         this.setState({
-           data:dataChange
-         })
+
   }
   //结算modal
   modal = () => {
     const id  = this.state.data.length
     const url = window.open('http://localhost:3000/')
     url.location.href=`/#/details/placeorder/${id}`
-    // let visible = this.state.visible;
-    // let allprice = this.state.allprice
-    // console.log(allprice)
-    // let selectedRows = this.state.selectedRows;
-    // console.log(selectedRows)
-    // this.setState({
-    //   visible:!visible,
-    // },()=>{
-    //   let obj = {
-    //     selectedRows:selectedRows,
-    //     allprice:allprice
-    //   }
-    //
-    //
-    //
-    //   this.props.dataCart(obj)
-    //
-    // })
   }
   //modal提交
   handleok = () => [
@@ -185,14 +107,17 @@ class ShopCart extends React.Component {
   previewonCancel = () => this.setState({ previewVisible: false })
   render() {
     const {previewVisible,previewImage,} = this.state
+    const cartList = this.props.cart.dataCart
+
+    // const product = this.props.cart.dataCart.cartItems.product
     const columns = [
       {
         title: '图片',
         dataIndex: 'avatar',
         render:(value,record,index)=>{
           return(
-            <div>
-              <Avatar onClick={()=>this.toSee(record.avatar[0])} src={record.avatar[0]}></Avatar>
+            <div >
+              <img style={{width:'100px',height:'100px'}} onClick={()=>this.toSee(record.thumbImage)} src={`http://39.105.25.92${record.thumbImage}`} />
             </div>
           )
         }
@@ -201,37 +126,28 @@ class ShopCart extends React.Component {
       title: '名称',
       dataIndex: 'name',
     },
-      {
-        title: '规格',
-        dataIndex: 'Specifications',
-      },
-      {
-        title: '颜色',
-        dataIndex: 'color',
-      },
-      {
-        title: '单价',
-        dataIndex: 'unit',
-        render:val=>`¥${val}`
-      },
-      {
-        title: '数量',
-        dataIndex: 'number',
-        render:(value,record) => {
-         return(
-           <div>
-             <Button onClick={()=>this.addSum(value,record)}>+</Button>
-             <Button>{value}</Button>
-             <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
-           </div>
-         )
-        }
-      },
-      {
-        title: '价格',
-        dataIndex: 'price',
-        render:val=>`¥${val}`
-      },
+    {
+      title: '规格',
+      dataIndex: 'Specifications',
+    },
+    {
+      title: '数量',
+      dataIndex: 'quantity',
+      render:(value,record) => {
+       return(
+         <div>
+           <Button onClick={()=>this.addSum(value,record)}>+</Button>
+           <Button>{value}</Button>
+           <Button onClick={()=>this.reduceSum(value,record)}>-</Button>
+         </div>
+       )
+      }
+    },
+    {
+      title: '单价',
+      dataIndex: 'price',
+      render:val=>`¥${val}`
+    },
       {
         title: '操作',
         dataIndex: 'delete',
@@ -263,7 +179,7 @@ class ShopCart extends React.Component {
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={this.state.data}
+          dataSource={cartList}
           onDelete={this.onDelete}
           pagination={false}
         />
