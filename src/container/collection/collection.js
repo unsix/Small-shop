@@ -4,7 +4,7 @@ import CartModal from '../../component/modal/cart_modal'
 import PictureBrowsing from '../../component/modal/picture_browsing_modal'
 import {connect} from 'react-redux'
 import {addCollectionList,cancelCollection} from '../../redux/collection_redux'
-
+import './index.less'
 
 
 @connect(
@@ -23,53 +23,6 @@ class Collection extends React.Component {
       previewVisible:false,
       previewImage:'',
       visible:false,
-      data:[{
-        id:'1',
-        key: '1',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-        ],
-        name: '中财PPR热水管',
-        unit:10,
-        number:1,
-        price:10,
-        color:'黑色',
-        Specifications: '大',
-        star:0,
-      }, {
-        id:'2',
-        key: '2',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '霍尼韦尔PPR热水管',
-        unit:20,
-        number:1,
-        price:20,
-        color:'黑色',
-        Specifications: '中',
-        star:1
-      }, {
-        id:'3',
-        key: '3',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '宜家不锈钢液压铰链',
-        unit:30,
-        number:1,
-        price:30,
-        color:'黑色',
-        Specifications: '小',
-        star:0
-      }, {
-        id:'4',
-        key: '4',
-        avatar:['https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'],
-        name: '高渗透基膜',
-        unit:40,
-        number:1,
-        price:40,
-        color:'黑色',
-        Specifications: '中',
-        star:0
-      }]
     }
   }
   componentDidMount(){
@@ -86,7 +39,7 @@ class Collection extends React.Component {
     });
     // console.log(selectedRows)
   }
-  //删除
+  //取消
   onDelete = (record,index) => {
 
     let obj = {
@@ -139,7 +92,14 @@ class Collection extends React.Component {
   previewonCancel = () => this.setState({ previewVisible: false })
   render() {
     const {previewVisible,previewImage,} = this.state
-    const {collectionList} = this.props
+    const {collectionList,loading} = this.props
+    const {  selectedRowKeys,visible} = this.state;
+    // const menuName = this.props.menu.menuName
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
     const columns = [
       {
         title: '图片',
@@ -157,16 +117,9 @@ class Collection extends React.Component {
         dataIndex: 'name',
       },
       {
-        title: '规格',
-        dataIndex: 'Specifications',
-      },
-      {
-        title: '颜色',
-        dataIndex: 'color',
-      },
-      {
         title: '单价',
         dataIndex: 'price',
+        render:val=>`¥${val}`
       },
       {
         title: '操作',
@@ -174,7 +127,7 @@ class Collection extends React.Component {
         render:(value,record,index) => {
           return (
             <Popconfirm
-              title="确认要删除这行码"
+              title="确认要取消本商品嘛"
               onConfirm = {()=>this.onDelete(record,index)}
             >
               <Button><Icon type="star"/>取消收藏</Button>
@@ -184,27 +137,20 @@ class Collection extends React.Component {
       }
       ,
     ];
-    const { loading, selectedRowKeys,visible} = this.state;
-    // const menuName = this.props.menu.menuName
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
-    const hasSelected = selectedRowKeys.length > 0;
     return (
-      <div className="container_shop_cart container_width">
+      <div className="container_collection container_width">
         <div className="shop_top container_top">
           {/*<h2>{menuName}</h2>*/}
           <h2>管理收藏</h2>
         </div>
         <div className="type_button">
-          <Button
-            type="danger"
-            disabled={!hasSelected}
-            onClick={this.onDelete}
-          >
-            批量取消
-          </Button>
+          {/*<Button*/}
+            {/*type="danger"*/}
+            {/*disabled={!hasSelected}*/}
+            {/*onClick={this.onDelete}*/}
+          {/*>*/}
+            {/*批量取消*/}
+          {/*</Button>*/}
         </div>
         <Table
           rowSelection={rowSelection}
@@ -212,6 +158,7 @@ class Collection extends React.Component {
           dataSource={collectionList}
           onDelete={this.onDelete}
           pagination={false}
+          loading={loading}
         />
         <Pagination
           current={1} total={1} pageSize={1}

@@ -48,7 +48,7 @@ class ShopCart extends React.Component {
   addSum = (value,record) => {
     record.quantity = value + 1
     let allprice = this.state.allprice
-    const cartList = this.props.cart.dataCart
+    const cartList = this.props.dataCart
     allprice= cartList.reduce((total, item) =>total + item.price*item.quantity, 0)
     this.setState({
       value:record.quantity,
@@ -64,7 +64,7 @@ class ShopCart extends React.Component {
     }
     let allprice = this.state.allprice
     let data = this.state.data
-    const cartList = this.props.cart.dataCart
+    const cartList = this.props.dataCart
     allprice= cartList.reduce((total, item) => total + item.price*item.quantity, 0)
       this.setState({
         value:record.quantity,

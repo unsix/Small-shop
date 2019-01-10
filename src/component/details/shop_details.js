@@ -125,29 +125,34 @@ class ShopDetails extends React.Component{
                       <h6>配送至: 浙江省杭州市滨江区某某小区 <span>快递费：免运费</span></h6>
 
                     </div>
+
                     <Form className="inf_form">
-                      <FormItem label="选择规格" >
-                        {getFieldDecorator('Specifications', {
-                          rules: [{ required: true, message: '请选择规格' }],
-                        })(
-                          <RadioGroup>
-                            <RadioButton value="大">大</RadioButton>
-                            <RadioButton value="中">中</RadioButton>
-                            <RadioButton value="小">小</RadioButton>
-                          </RadioGroup>
-                        )}
-                      </FormItem>
-                      <FormItem label="选择颜色分类" >
-                        {getFieldDecorator('color', {
-                          rules: [{ required: true, message: '颜色分类' }],
-                        })(
-                          <RadioGroup>
-                            <RadioButton value="黑色">黑色</RadioButton>
-                            <RadioButton value="白色">白色</RadioButton>
-                            <RadioButton value="蓝色">蓝色</RadioButton>
-                          </RadioGroup>
-                        )}
-                      </FormItem>
+                      {details.goods&&details.goods[0].specName?
+                        (
+                          <FormItem label="选择规格" >
+                            {getFieldDecorator('Specifications', {
+                              rules: [{ required: true, message: '请选择规格' }],
+                            })(
+                              <RadioGroup>
+                                {details.goods&&details.goods.map(v=>(
+                                  <RadioButton value={v.specName}>{v.specName}</RadioButton>
+                                ))}
+                              </RadioGroup>
+                            )}
+                          </FormItem>
+                        ):null
+                      }
+                      {/*<FormItem label="选择颜色分类" >*/}
+                        {/*{getFieldDecorator('color', {*/}
+                          {/*rules: [{ required: true, message: '颜色分类' }],*/}
+                        {/*})(*/}
+                          {/*<RadioGroup>*/}
+                            {/*<RadioButton value="黑色">黑色</RadioButton>*/}
+                            {/*<RadioButton value="白色">白色</RadioButton>*/}
+                            {/*<RadioButton value="蓝色">蓝色</RadioButton>*/}
+                          {/*</RadioGroup>*/}
+                        {/*)}*/}
+                      {/*</FormItem>*/}
                       <FormItem label="购买数量" >
                         {getFieldDecorator('number',{ initialValue: 1}
                         )(

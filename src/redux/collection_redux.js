@@ -1,21 +1,30 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { addCollection } from './shop_redux'
 
+
+//动态请求loading
+const AUTH_AXIOS = 'AUTH_AXIOS'
+const AUTH_FAILED = 'AUTH_FAILED'
 //收藏列表
 const  COLLECTION_LIST = 'COLLECTION_LIST'
 const  CANCEL_COLLECT  = 'CANCEL_COLLECT '
 // const ADD_EVALUATE = 'ADD_EVALUATE'
 const initState = {
-  collectionList:[]
+  collectionList:[],
+  loading:false
 }
 
 export function collection(state=initState, action){
   switch(action.type){
+    case AUTH_AXIOS:
+      return {...state,loading:true,}
+    case AUTH_FAILED:
+      return {...state,msg:action.msg,loading:false}
     case COLLECTION_LIST:
       return {
         ...state,
-        collectionList:action.payload
+        collectionList:action.payload,
+        loading:false
       }
     // case  CANCEL_COLLECT:
     //   return {
@@ -25,6 +34,14 @@ export function collection(state=initState, action){
     default:
       return state
   }
+}
+
+//请求load Type
+function authAxios(){
+  return {type:AUTH_AXIOS}
+}
+function authFailed(msg){
+  return {type:AUTH_FAILED, msg}
 }
 
 //获取收藏列表
@@ -38,6 +55,7 @@ export function collectionList(data) {
 //获取收藏列表
 export function addCollectionList(){
   return dispatch=>{
+    dispatch(authAxios())
     const token = JSON.parse(localStorage.getItem("token"));
     axios.post('/app/shop/favorite/v1/myFavorite',
       JSON.stringify({

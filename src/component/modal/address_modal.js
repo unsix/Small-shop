@@ -144,7 +144,7 @@ class Address extends React.Component{
 export default  Form.create(
   {
     mapPropsToFields(props){
-      // console.log(props.record.default);
+      // console.log(props.record.address);
      return{
        consignee:Form.createFormField({
          value:props.record.consignee
