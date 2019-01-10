@@ -8,7 +8,7 @@ import './index.less'
 
 
 @connect(
-  state=>state,
+  state=>state.cart,
   {dataCartList,deteleCart}
 )
 class ShopCart extends React.Component {
@@ -118,10 +118,14 @@ class ShopCart extends React.Component {
   //预览弹窗关闭
   previewonCancel = () => this.setState({ previewVisible: false })
   render() {
-    const {previewVisible,previewImage,} = this.state
-    const cartList = this.props.cart.dataCart
-
-    // const product = this.props.cart.dataCart.cartItems.product
+    const {loading} = this.props
+    const {previewVisible,previewImage,selectedRowKeys,visible} = this.state
+    const cartList = this.props.dataCart
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
     const columns = [
       {
         title: '图片',
@@ -175,13 +179,6 @@ class ShopCart extends React.Component {
     //   }
     // },
     ];
-    const { loading, selectedRowKeys,visible} = this.state;
-    const menuName = this.props.menu.menuName
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
-    const hasSelected = selectedRowKeys.length > 0;
     return (
       <div className="container_shop_cart container_width">
         <div className="shop_top container_top">
@@ -194,6 +191,7 @@ class ShopCart extends React.Component {
           dataSource={cartList}
           onDelete={this.onDelete}
           pagination={false}
+          loading={loading}
         />
         <div className="type_button mt30">
           <Button
