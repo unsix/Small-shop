@@ -1,5 +1,11 @@
 import axios from 'axios'
 import { message } from 'antd';
+import { getRedirectPath } from '../util'
+
+
+//动态请求loading
+const AUTH_AXIOS = 'AUTH_AXIOS'
+const AUTH_FAILED = 'AUTH_FAILED'
 // 详情
 
 
@@ -27,15 +33,20 @@ const initState = {
   evaluates:[],
   afters:[],
   cart:[],
-  cartData:[]
+  cartData:[],
+  loading:false
 }
 
 export function shop(state=initState, action){
   switch(action.type){
+    case AUTH_AXIOS:
+      return {...state,loading:true,}
+    case AUTH_FAILED:
+      return {...state,msg:action.msg,loading:false}
     case SWITCH_SHOP:
       return {
         ...state,
-        shopList:action.payload
+        shopList:action.payload,loading:false
       }
     case SWITCH_SELECTSHOP:
       return {
@@ -75,6 +86,14 @@ export function shop(state=initState, action){
     default:
       return state
   }
+}
+
+//请求load Type
+function authAxios(){
+  return {type:AUTH_AXIOS}
+}
+function authFailed(msg){
+  return {type:AUTH_FAILED, msg}
 }
 
 //商品
@@ -125,6 +144,7 @@ export function cartData(obj){
 //获取商品列表
 export function getShopList({pageIndex,pageSize}){
   return dispatch=>{
+    dispatch(authAxios())
     // const token = JSON.parse(localStorage.getItem("token"));
     // console.log(token)
     axios.post('/app/shop/product/v1/search',

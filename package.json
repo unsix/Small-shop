@@ -79,7 +79,8 @@
       "jsx-a11y/anchor-is-valid": "off",
       "eslint-disable-next-line": "off",
       "no-unused-vars": "off",
-      "eqeqeq": "off"
+      "eqeqeq": "off",
+      "no-useless-concat":"off"
     }
   },
   "browserslist": [

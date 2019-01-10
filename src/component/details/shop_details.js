@@ -35,9 +35,12 @@ class ShopDetails extends React.Component{
   }
   //立即购买
   toBuy = () => {
-    const {id} = this.state.data
-    const url = window.open('http://localhost:3000/')
-    url.location.href=`/#/details/placeorder/${id}`
+    this.props.form.validateFieldsAndScroll((err, value) => {
+      if(err) return
+      const {id} = this.state.data
+      const url = window.open('http://localhost:3000/')
+      url.location.href=`/#/details/placeorder/${id}`
+    })
   }
   //加入购物车
   addCart = () => {

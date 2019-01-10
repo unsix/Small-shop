@@ -5,9 +5,8 @@ import {getRedirectPath} from '../util'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const AUTH_AXIOS = 'AUTH_AXIOS'
 const AUTH_FAILED = 'AUTH_FAILED'
+
 const SMSCODE = 'SMSCODE'
-
-
 const LOGOUT = 'LOGOUT'
 const REGISTER  = 'REGISTER'
 const CHANGEPWD = 'CHANGEPWD'

@@ -47,7 +47,7 @@ class Home extends React.Component{
     const SubMenu = Menu.SubMenu;
     const {Search} = Input
     const menuName = this.props.menu.menuName
-    const {shopList,selectList} = this.props.shop
+    const {shopList,selectList, loading} = this.props.shop
     const gridStyle = {
       width: '20%',
       textAlign: 'center',
@@ -143,6 +143,7 @@ class Home extends React.Component{
             grid={{ gutter: 0, column:4}}
             itemLayout="horizontal"
             dataSource={shopList}
+            loading={loading}
             pagination={{
               onChange: (page) => {
                 console.log(page);
@@ -158,9 +159,9 @@ class Home extends React.Component{
                 {/*cover={<img alt="example" src={item.avatar} />}*/}
                 {/*/>*/}
                 <Card
-                  hoverable
-                  style={{ width: 240 }}
+                  style={{ width:240}}
                   cover={<img alt="example" src={"http://39.105.25.92"+`${item.thumbImage}`} />}
+                  hoverable
                 >
                   <Meta
                     className='shop_des'

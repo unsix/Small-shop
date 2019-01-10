@@ -129,7 +129,7 @@ class ShopCart extends React.Component {
         render:(value,record,index)=>{
           return(
             <div >
-              <img style={{width:'100px',height:'100px'}} onClick={()=>this.toSee(record.thumbImage)} src={`http://39.105.25.92${record.thumbImage}`} />
+              <img alt="name" style={{width:'100px',height:'100px'}} onClick={()=>this.toSee(record.thumbImage)} src={`http://39.105.25.92${record.thumbImage}`} />
             </div>
           )
         }
@@ -185,7 +185,8 @@ class ShopCart extends React.Component {
     return (
       <div className="container_shop_cart container_width">
         <div className="shop_top container_top">
-          <h2>{menuName}</h2>
+          {/*<h2>{menuName}</h2>*/}
+          <h2>购物车</h2>
         </div>
         <Table
           rowSelection={rowSelection}
@@ -202,6 +203,7 @@ class ShopCart extends React.Component {
           >
             结算
           </Button>
+          <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
           <Button
             type="danger"
             style={{marginLeft:10}}
@@ -210,7 +212,6 @@ class ShopCart extends React.Component {
           >
             删除
           </Button>
-          <span className="allprice">合计金额 :<span>¥{this.state.allprice}</span> </span>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `共${selectedRowKeys.length}件商品` : ''}
           </span>
