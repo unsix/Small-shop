@@ -40,7 +40,7 @@ class Header extends React.Component{
           <a ><span>收获管理</span></a>
         </Menu.Item>
         <Menu.Item>
-          <a onClick={()=>this.LinkPush('/seting/reset')}><span>重置密码</span></a>
+          <a onClick={()=>this.LinkPush('/setting/reset')}><span>重置密码</span></a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
